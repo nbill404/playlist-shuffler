@@ -17,8 +17,7 @@ export default function Home() {
               </div>
               <div className="divider divider-primary">OR</div>
               <div className="">
-                <a>Column 2</a>
-                <Link href="/login">Click me!</Link>
+                <a>Column 2<br/></a>
               </div>
             </div>
           </div>
