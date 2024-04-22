@@ -14,14 +14,11 @@ export default function Navbar() {
     const userInfo = async () => {
       const session = await getServerSession(authOptions);
 
-      console.log("Session")
-      console.log(session);
-
       return (
         <>
           {session ? 
           <>
-            <p className="text text-xl">Welcome {session?.user.email}!</p>
+            <p className="text text-xl">Welcome {session?.user.username}!</p>
             <Avatar/>
             <LogoutButton/>
               

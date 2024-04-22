@@ -1,30 +1,38 @@
 'use client'
 import { signIn } from "next-auth/react";
-import { FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
 
 
 export default function LoginPage() {
+    const router = useRouter();
+    const [detailsIncorrect, setDetailsIncorrect] = useState(false)
+
     const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
         try {
+            // Prevent page from reloading
             event.preventDefault()
             const formData = new FormData(event.currentTarget);
-
+            
+            // Compare form to database
             const signInData = await signIn('credentials', {
                 username: formData.get("username"),
                 password: formData.get("password"),
-                redirect: true,
-                callbackUrl: '/'
+                redirect: false,
             })
 
             if (signInData?.error) {
-                console.log("test")
+                // Will display incorrect input message
+                setDetailsIncorrect(true);
+            } else {
+                // Redirect to home on successful login (router is used for client component)
+                router.push('/');
             }
-
 
         } catch (error) {
             console.log(error);
-            console.log("signin failed");
+            console.log("Signin failed");
         }
     }
 
@@ -40,6 +48,7 @@ export default function LoginPage() {
                         <input className="input input-bordered" name="username" type="text" placeholder="Username"/>
                         <input className="input input-bordered" name="password" type="password" placeholder="********"/>
                         <button className="btn btn-primary" type="submit">Enter</button>
+                        {detailsIncorrect && <p className="text text-s text-red-600">*Username or password is incorrect</p>}
                     </form>
                     
                     <div className="divider"></div>

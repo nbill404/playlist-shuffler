@@ -1,8 +1,4 @@
 
-
-
-
-
 export function Avatar() {
     return (
         <div className="avatar placeholder">

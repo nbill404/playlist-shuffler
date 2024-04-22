@@ -41,19 +41,23 @@ export const authOptions: NextAuthOptions = {
             if (!passwordMatch) {
                 return null;
             }
-
-
+            
             // id needs to be a string instead of number
-            return {
+            const user = {
                 id: `${existingUser.id}`,
                 username: existingUser.username,
                 email: existingUser.email
-            }
+            };
+
+            
+            return user;
           }
         })
       ],
       callbacks: {
+        // Session is created
         async jwt({token, user}) {
+            console.log("JWT")
             console.log("Token")
             console.log(token)
             console.log("User")
@@ -62,12 +66,19 @@ export const authOptions: NextAuthOptions = {
             if (user) {
                 return {
                     ...token,
-                    user: user.username
+                    username: user.username
                 }
             }
             return token;
         },
-        async session({session, user, token}) {
+        // Check session
+        async session({session, token}) {
+            console.log("Session")
+            console.log(session)
+            console.log("Token")
+            console.log(token)
+
+
             return {
                 ...session,
                 user: {

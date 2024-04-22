@@ -1,22 +1,8 @@
 import { NextResponse } from "next/server";
 import { db } from "../../lib/db";
 import { hash } from "bcrypt";
-import z from "zod";
-
-const schema = z.object({
-    username: z.string().min(8),
-    email: z.string().min(1),
-    password: z.string().min(12)
-})
 
 export async function POST(req: Request) {
-    const data = schema.safeParse(req.body);
-    console.log(data.success)
-
-    if (!data.success) {
-        return NextResponse.json({user: '', message: "Input is invalid"}, {status: 409})
-    }
-    
     try {
         const {email, username, password} = await req.json();
 
