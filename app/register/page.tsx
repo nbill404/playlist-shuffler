@@ -36,7 +36,7 @@ export default function RegisterPage() {
         }
 
         if (success) {
-            redirect('/')
+            redirect('/login')
         }
     }
 
