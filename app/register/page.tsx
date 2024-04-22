@@ -1,25 +1,35 @@
-import { redirect } from "next/navigation";
+'use client'
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 import z from "zod";
 
 
 export default function RegisterPage() {
+    const router = useRouter();
     const showError = false;
+    const schema = z.object({
+        username: z.string().min(6, {message: "Username must be at least 6 characters"}),
+        email: z.string().email().min(1, {message: "Email is not valid"}),
+        password: z.string().min(10, {message: "Password must be at least 10 characters"}),
+        cfmPassword: z.string().min(10, {message: "Passwords do not match"})
+    }).refine(schema => {
+        return schema.password == schema.cfmPassword;
+    },
+        "Passwords do not match"
+    );
+
+    const [errorMessages, setErrorMessages] = useState<string[]>([])
 
 
 
-    const handleRegister = async (formData: FormData) => {
-        'use server'
-        let success = false;
+    const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
         
-        const schema = z.object({
-            username: z.string().min(6),
-            email: z.string().min(1),
-            password: z.string().min(10),
-            cfmPassword: z.string().min(10)
-        })
-
+        let success = false;
 
         try {
+            event.preventDefault();
+            const formData = new FormData(event.currentTarget)
+            
             const user = {
                 username: formData.get("username"),
                 email: formData.get("email"),
@@ -27,12 +37,10 @@ export default function RegisterPage() {
                 cfmPassword: formData.get("cfmPassword")
             }
 
-            const data = schema.safeParse(user);
+            const result = schema.safeParse(user);
 
-            console.log(data?.error);
-
-            if (data.success) {
-                const response = await fetch(process.env.URL + '/api/register', {
+            if (result.success) {
+                const response = await fetch('/api/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -43,31 +51,60 @@ export default function RegisterPage() {
                 if (response.ok) {
                     success = true;
                 } else {
-                    console.log(await response.json())
+                    // Should not happen
+                    console.log(await response.json());
                 }
+            } else {
+                let messages = []
+                
+                // Add error messages to array
+                for (const [key, value] of Object.entries(result.error.flatten().fieldErrors)) {
+                    if (value) {
+                        messages.push(value[0]);
+                    } 
+                }
+
+                if (messages.length === 0) {
+                    for (const [key, value] of Object.entries(result.error.flatten().formErrors)) {
+                        messages.push(value);
+                    }
+                }
+
+                setErrorMessages(messages);
             }
             
         } catch (error) {
-            console.log(error)
+            console.log(error);
             console.log("Registration failed");
         }
 
         if (success) {
-            redirect('/login')
+            router.push('/login')
         }
+    }
+
+    const displayErrorMessages = () => {
+        console.log("Display")
+        console.log(errorMessages);
+
+            
+
+        return <></>
     }
 
     return (
         <main className="grid bg-slate-800 min-h-screen place-items-center">
             <div className="flex flex-col gap-3">
                 <h1 className="text-4xl">Register</h1>
-                <form className="flex flex-col gap-3" action={handleRegister}>
+                <form className="flex flex-col gap-3" onSubmit={handleRegister}>
                     <input className="input" type="text" name="username" placeholder="Username"></input>
-                    <input className="input" type="email" name="email" placeholder="Email"></input>
+                    <input className="input" type="text" name="email" placeholder="Email"></input>
                     <input className="input" type="password" name="password" placeholder="Password"></input>
                     <input className="input" type="password" name="cfmPassword" placeholder="Confirm password"></input>
                     <button className="btn btn-primary">Submit</button>
                 </form>
+                {errorMessages.map((m: string, i: number) => (<p className="text-sm text-red-600" key={"error" + 'i'}>{m}</p>))}
+
                 <div className="divider"></div>
                 <a className="no-underline hover:underline text-sky-400" href="/login">Login</a>
                 <a className="no-underline hover:underline text-sky-400" href="/">Return home</a>
