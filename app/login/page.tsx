@@ -1,13 +1,32 @@
+'use client'
+import { signIn } from "next-auth/react";
+import { FormEvent } from "react";
 
 
-async function login(formData: FormData) {
-    const user = {email: formData.get("email"), password: formData.get("password")};
-    
 
-}
+export default function LoginPage() {
+    const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
+        try {
+            event.preventDefault()
+            const formData = new FormData(event.currentTarget);
+
+            const signInData = await signIn('credentials', {
+                username: formData.get("username"),
+                password: formData.get("password"),
+                redirect: true,
+                callbackUrl: '/'
+            })
+
+            if (signInData?.error) {
+                console.log("test")
+            }
 
 
-export default async function LoginPage() {
+        } catch (error) {
+            console.log(error);
+            console.log("signin failed");
+        }
+    }
 
     return (
         <main className="grid bg-slate-800 min-h-screen place-items-center">
@@ -17,11 +36,8 @@ export default async function LoginPage() {
                     <div className="w-16 h-16 rounded-full border"></div>
                     <h1>Login page</h1>
 
-                    <form className="flex flex-col gap-3" action={async (e) => {
-                        'use server'
-                        await login(e)
-                    }}>
-                        <input className="input input-bordered" name="email" type="email" placeholder="example@gmail.com" value="Hello@gmail.com"/>
+                    <form className="flex flex-col gap-3" onSubmit={handleLogin} name="Credentials">
+                        <input className="input input-bordered" name="username" type="text" placeholder="Username"/>
                         <input className="input input-bordered" name="password" type="password" placeholder="********"/>
                         <button className="btn btn-primary" type="submit">Enter</button>
                     </form>
