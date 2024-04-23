@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth"
-import { authOptions } from "../lib/auth"
+import { authOptions } from "../../lib/auth"
 import { Avatar } from "./Avatar";
 import LogoutButton from "./LogoutButton";
 

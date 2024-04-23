@@ -4,7 +4,6 @@
 import SearchBar from "./SearchBar";
 import AccountNav from "./AccountNav";
 
-
 export default function Navbar() {
 
     return (
