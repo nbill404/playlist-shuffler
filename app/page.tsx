@@ -2,6 +2,7 @@ import Link from "next/link";
 import Navbar from "./components/navbar/Navbar";
 import Sidebar from "./components/Sidebar";
 import SearchResults from "./components/SearchResults";
+import MainPage from "./components/MainPage";
 
 export default function Home() {
   return (
@@ -10,19 +11,7 @@ export default function Home() {
       
       <div className="flex">
         <Sidebar/>
-
-        <div className="p-5 flex flex-1 bg-gray-700 border items-center ">
-          <div className="m-5 bg-sky-950 rounded flex-1">
-              <div className="">
-                <p>This is a website for advanced shuffling options for your playlists</p>
-              </div>
-              <div className="divider divider-primary">OR</div>
-              <div className="">
-                <a>Column 2<br/></a>
-              </div>
-              <SearchResults/>
-            </div>
-          </div>
+        <MainPage/>
       </div>
 
     </main>

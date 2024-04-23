@@ -2,12 +2,11 @@
 import { useState } from "react";
 import data from "./test.json";
 import { Song } from "../types/song";
-import Image from "next/image";
+import MusicListElement from "./MusicListElement";
 
 
 export default function SearchResults() {
     const [songs, setSongs] = useState<Song[]>([]);
-
 
     const convertToList = () => {
         const songList: Song[] = [];
@@ -25,25 +24,12 @@ export default function SearchResults() {
         }
 
         setSongs(songList);
-
-        console.log("test");
-    }
-
-    const display = (s: Song , i : number) => {
-        return (
-            <div key={`song${i}`}>
-                <Image src={s.details.thumbnail} width={200} height={200} alt=""/>
-                <a className={`title${i}`}>{s.details.title}</a>
-            </div>
-        )
-
-
     }
     
     return (
-        <div className="flex flex-col">
-            <button onClick={convertToList}>click</button>
-            {songs.map((s, i) => display(s, i))}
+        <div className="flex flex-col flex-nowrap gap-3 m-3 p-5 overflow-auto">
+            <button className="btn btn-primary w-24" onClick={convertToList}>Load</button>
+            {songs.map((s, i) => <MusicListElement key={`Song${i}`} video={s}/>)}
         </div>
     );
 }

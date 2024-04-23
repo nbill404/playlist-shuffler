@@ -47,7 +47,7 @@ export default function SearchBar() {
         <label className="input flex max-w-96">
             <form action={handleSearch}>
                 <input name="query" type="text" placeholder="Search"></input>
-                <button className="btn" type="submit">Search</button>
+                <button className="btn btn-sm" type="submit">Search</button>
             </form>
         </label>
     )

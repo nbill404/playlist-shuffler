@@ -17,7 +17,7 @@ export default function PlaylistsPage() {
                         <div className="grid border">
                             <h1 className="text-xl">Your Playlists</h1>
                         </div>
-                        <div className="p-5 grid grid-cols-5 grid-rows-4">
+                        <div className="p-5 grid grid-cols-5 grid-rows-5">
                             {playlists.map((item, i) => 
                             <div key={"div" + i}>
                                 <div key={"image" + i} className="w-32 h-32 border bg-slate-800"/>
