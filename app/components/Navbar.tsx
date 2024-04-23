@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "../lib/auth"
 import { Avatar } from "./Avatar";
 import LogoutButton from "./LogoutButton";
+import SearchBar from "./SearchBar";
 
 interface Props {
   pageName: string
@@ -37,9 +38,7 @@ export default function Navbar() {
     return (
       <div className="bg-green-700 ps-4 p-2 navbar max-h-16">
         <div className="navbar-start gap-2">
-            <label className="input flex max-w-96">
-                <input type="text" placeholder="Search"></input>
-            </label>
+            <SearchBar/>
             <a className="btn text-xl bg-green-700 border-none" href="/playlists">Organize Lists</a>
         </div>
         

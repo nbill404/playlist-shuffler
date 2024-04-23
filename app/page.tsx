@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import SearchResults from "./components/SearchResults";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
               <div className="">
                 <a>Column 2<br/></a>
               </div>
+              <SearchResults/>
             </div>
           </div>
       </div>
