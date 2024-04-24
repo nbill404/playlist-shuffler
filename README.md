@@ -1,9 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Playlist Shuffler
+This website is a allows you to create playlists and use advanced shuffling options.
 
-## Getting Started
+The site is a NextJs project using TailwindCSS and DaisyUI. For the backend the PostgreSql was used along with Prisma.
 
 
-## Attributions
+#### Features
+
+Playlists within playlists. Shuffling will shuffle all songs and all songs within playlists
+Lock playlists. Deactivate shuffling songs for specific playlists. Useful for albums or songs with multiple parts
+Start on song/playlist. Song/Playlist will play first when shuffling
+Priority songs. Songs can be favourited so that they will always appear first when shuffling. Unranked songs will be shuffled as normal after the ranked ones
+Mix and match tracks from supported websites
+
+
+#### Attributions
 https://www.svgrepo.com/svg/532510/forward-step
 https://www.svgrepo.com/svg/425665/previous-back-direction
 https://www.svgrepo.com/svg/312860/play-button
