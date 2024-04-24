@@ -1,6 +1,7 @@
+import MainView from "./components/MainPage";
 import Navbar from "./components/navbar/Navbar";
-import Sidebar from "./components/Sidebar";
-import MainPage from "./components/MainPage";
+import Sidebar from "./components/sidebar/Sidebar";
+
 
 export default function Home() {
   return (
@@ -9,7 +10,7 @@ export default function Home() {
       
       <div className="flex">
         <Sidebar/>
-        <MainPage/>
+        <MainView/>
       </div>
 
     </main>

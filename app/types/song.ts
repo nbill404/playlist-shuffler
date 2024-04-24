@@ -1,4 +1,3 @@
-
 export class Song {
     id: string;
     platform: string;
@@ -11,8 +10,6 @@ export class Song {
     // thumbnail: string
     
     details: Object;
-    
-
 
     constructor(id: string, platform: string, details: Object) {
         this.id = id;
@@ -20,6 +17,4 @@ export class Song {
         this.details = details;
 
     }
-
-
 }

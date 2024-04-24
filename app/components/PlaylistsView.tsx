@@ -1,5 +1,3 @@
-
-
 export default function PlaylistsView() {
     const playlists = ["Playlist #1" , "Playlist #2", "Playlist #3", "Playlist #4", "Playlist #5", "1", "2", "3", "4", "5", "6"];
 

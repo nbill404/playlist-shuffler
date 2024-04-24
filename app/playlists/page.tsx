@@ -1,5 +1,6 @@
 import Navbar from "../components/navbar/Navbar";
-import Sidebar from "../components/Sidebar";
+import PlaylistsView from "../components/PlaylistsView";
+import Sidebar from "../components/sidebar/Sidebar";
 
 export default function PlaylistsPage() {
 
@@ -13,9 +14,7 @@ export default function PlaylistsPage() {
                 <Sidebar/>
         
                 <div className="p-5 flex flex-1 bg-gray-700 border">
-                    <div className="m-5 bg-sky-950 flex-1">
-
-                    </div>
+                    <PlaylistsView/>
                 </div>
             </div>
         </main>
