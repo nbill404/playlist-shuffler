@@ -57,12 +57,6 @@ export const authOptions: NextAuthOptions = {
       callbacks: {
         // Session is created
         async jwt({token, user}) {
-            console.log("JWT")
-            console.log("Token")
-            console.log(token)
-            console.log("User")
-            console.log(user)
-
             if (user) {
                 return {
                     ...token,
@@ -73,12 +67,6 @@ export const authOptions: NextAuthOptions = {
         },
         // Check session
         async session({session, token}) {
-            console.log("Session")
-            console.log(session)
-            console.log("Token")
-            console.log(token)
-
-
             return {
                 ...session,
                 user: {
@@ -87,9 +75,5 @@ export const authOptions: NextAuthOptions = {
                 }
             }
         }
-
-
-
       }
-
 }
