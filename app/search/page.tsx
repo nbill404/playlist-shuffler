@@ -9,7 +9,9 @@ export default function SearchPage() {
       
       <div className="flex">
         <Sidebar/>
-        <SearchView/>
+        <div className="p-5 flex flex-1 bg-gray-700">
+          <SearchView/>
+        </div>
       </div>
 
     </main>

@@ -13,7 +13,7 @@ export default function PlaylistsPage() {
             <div className="flex">
                 <Sidebar/>
         
-                <div className="p-5 flex flex-1 bg-gray-700 border">
+                <div className="p-5 flex flex-1 bg-gray-700">
                     <PlaylistsView/>
                 </div>
             </div>
