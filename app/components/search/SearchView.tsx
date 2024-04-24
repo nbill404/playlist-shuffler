@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react";
 import SearchResults from "./SearchResults"
-import SearchBar from "../navbar/SearchBar";
+import SearchBar from "./SearchBar";
 import { Song } from "../../types/song";
 
 export default function SearchView() {
