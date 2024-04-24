@@ -1,55 +1,43 @@
-import { authenticate, loadClient, execute } from "../types/apigetter"
+import convert from "@/app/lib/convertSongsJson";
+import { Song } from "@/app/types/song";
+import { FormEvent } from "react";
 
-const YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
-
-export default function SearchBar() {
-
-    const handleSearch = async (formData: FormData) => {
-        'use server'
-
+export default function SearchBar({onQuery}) {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         try {
-            const parameters = `part=snippet&maxResults=10&q=${formData.get("query")}`
-            
-            // Youtube API call
-            const response = await fetch(`${YOUTUBE_SEARCH_API}?${parameters}&key=${process.env.YOUTUBE_API_KEY}`);
+            e.preventDefault();
+            const formData = new FormData(e.currentTarget);
+            const query = {query: formData.get("query")};
+
+            console.log("test");
+
+            const response = await fetch("/api/search",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(query)
+            })
 
             if (response.ok) {
-                // const data = await response.json();
-                // const items = data.items;
-                const songs: Song[] = []; 
+                const data = await response.json();
+                const songList = data.results;
 
-                // Write testing data to file
-                // var fs = require('fs');
-                // fs.writeFile("test.json", JSON.stringify(items), function(err) {
-                //     if (err) {
-                //         console.log(err)
-                //     }
-                // });
-
-                // for (const item of items) {
-                //     // Filter shorts and channels
-                //     if (item.id === 'youtube#video') {
-
-                //     }
-                // }
+                onQuery(songList);
             }
-
-
-
         } catch (error) {
             console.log(error);
         }
+
+
     }
 
-
-
     return (
-        <label className="input flex max-w-96">
-            <form action={handleSearch}>
-                <input name="query" type="text" placeholder="Search"></input>
-                <button className="btn btn-sm" type="submit">Search</button>
-            </form>
-        </label>
+        <form className="flex flex-row gap-3" onSubmit={handleSubmit}>
+            <input className="input" name="query" type="text" placeholder="Search"></input>
+            <button className="btn btn-primary" type="submit">Search</button>
+        </form>
     )
 
 }
