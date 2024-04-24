@@ -1,7 +1,7 @@
 
 
 
-export default function MainView() {
+export default function HomeView() {
     return (
         <div className="p-5 flex flex-1 bg-gray-700">
             <div className="m-3 p-5 bg-sky-950 rounded-md flex-1">

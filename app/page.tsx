@@ -1,4 +1,4 @@
-import MainView from "./components/MainPage";
+import MainView from "./components/HomeView";
 import Navbar from "./components/navbar/Navbar";
 import Sidebar from "./components/sidebar/Sidebar";
 
@@ -10,7 +10,9 @@ export default function Home() {
       
       <div className="flex">
         <Sidebar/>
-        <MainView/>
+        <div className="p-5 flex flex-1 bg-gray-700">
+          <MainView/>
+        </div>
       </div>
 
     </main>
