@@ -1,20 +1,10 @@
-import MainView from "./components/HomeView";
-import Navbar from "./components/navbar/Navbar";
-import Sidebar from "./components/sidebar/Sidebar";
-
+import HomeView from "./components/HomeView";
+import MainLayout from "./components/MainLayout";
+import SearchView from "./components/search/SearchView";
 
 export default function Home() {
-  return (
-    <main className="min-h-full">
-      <Navbar/>
-      
-      <div className="flex">
-        <Sidebar/>
-        <div className="p-5 flex flex-1 bg-gray-700">
-          <MainView/>
-        </div>
-      </div>
 
-    </main>
+  return (
+    <MainLayout>{HomeView}</MainLayout>
   );
 }
