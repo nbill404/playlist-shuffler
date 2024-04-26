@@ -1,5 +1,3 @@
-import convert from "@/app/lib/convertSongsJson";
-import { Song } from "@/app/types/song";
 import { FormEvent } from "react";
 
 export default function SearchBar({onQuery}) {

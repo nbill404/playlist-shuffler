@@ -14,8 +14,34 @@ datasource db {
 }
 
 model User {
-  id  Int @id @default(autoincrement())
+  id  Int @id @unique @default(autoincrement())
   email String  @unique
   username  String @unique
   password  String
+  playlist Playlist[]
+  song Song[]
+}
+
+model Playlist {
+  id Int @id @default(autoincrement())
+  name String 
+  rank Int
+  position Int
+  user User @relation(fields: [userId], references: [id])
+  userId Int 
+  songs Song[]
+}
+
+model Song {
+  id String @id
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  playlist Playlist @relation(fields: [playlistId], references: [id])
+  playlistId Int
+
+  platform String
+  title String
+  artist String
+  length Int
+  thumbnailUrl String
 }

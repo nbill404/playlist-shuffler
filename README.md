@@ -18,3 +18,5 @@ https://www.svgrepo.com/svg/532510/forward-step
 https://www.svgrepo.com/svg/425665/previous-back-direction
 https://www.svgrepo.com/svg/312860/play-button
 https://www.svgrepo.com/svg/532552/search-alt-2
+https://www.svgrepo.com/svg/513089/youtube-168
+https://www.svgrepo.com/svg/522237/plus

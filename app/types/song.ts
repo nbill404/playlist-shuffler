@@ -1,8 +1,8 @@
 class Details {
-    title: string
-    artist: string
-    length: number
-    thumbnail: string
+    title: string = "";
+    artist: string = "";
+    length: number = 0;
+    thumbnail: string = "";
 
     constructor(title: string, artist: string, length: number, thumbnail: string) {
         this.title = title;
@@ -15,9 +15,9 @@ class Details {
 export class Song {
     id: string;
     platform: string;
-    details: Details;
+    details: Details | null;
 
-    constructor(id: string, platform: string, details: Details) {
+    constructor(id: string, platform: string, details: Details | null) {
         this.id = id;
         this.platform = platform;
         this.details = details;
