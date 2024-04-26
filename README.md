@@ -20,3 +20,4 @@ https://www.svgrepo.com/svg/312860/play-button
 https://www.svgrepo.com/svg/532552/search-alt-2
 https://www.svgrepo.com/svg/513089/youtube-168
 https://www.svgrepo.com/svg/522237/plus
+https://www.svgrepo.com/svg/374767/picklist-type

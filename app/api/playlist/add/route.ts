@@ -6,10 +6,10 @@ export async function POST(req: Request) {
         const {user, playlist} = await req.json();
         const {id, ...newPlaylist} = playlist; // Destructure id as creating new playlist needs unique id
 
-        const newData = await db.playlist.create({
+        await db.playlist.create({
             data: {
                 ...newPlaylist,
-                userId: user.id,
+                userId: Number(user.id),
                 position: 0
             }
         });
