@@ -3,8 +3,12 @@ import { authOptions } from "@/app/lib/auth";
 import PlaylistGrid from "./PlaylistGrid";
 
 export default async function PlaylistsView() {
-    const getPlaylists = async (id: number) => {
+    const getPlaylists = async (id: number | undefined) => {
         try {
+            if (typeof id === typeof undefined) {
+                throw Error("User is not logged in")
+            }
+
             const response = await fetch(process.env.URL + '/api/playlist/get', 
             {
                 method: 'POST',
@@ -16,11 +20,8 @@ export default async function PlaylistsView() {
     
                 let playlists = []
     
-                for (const item of data.data) {
-                    playlists.push({
-                        id: item.id,
-                        name: item.name}
-                    );
+                for (const playlist of data.data) {
+                    playlists.push(playlist)
                 }
 
                 return playlists;

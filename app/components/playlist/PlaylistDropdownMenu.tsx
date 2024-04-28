@@ -2,12 +2,10 @@
 import Image from "next/image";
 import { GridContext } from "./PlaylistGrid";
 import { useContext } from "react";
+import { Playlist } from "@/app/types/playlist";
 
 interface Props {
-    playlist: {
-        name: string
-        id: number
-    }
+    playlist: Playlist
 }
 
 export default function PlaylistDropdownMenu({playlist}: Props) {
@@ -26,7 +24,7 @@ export default function PlaylistDropdownMenu({playlist}: Props) {
             })
 
             if (response.ok) {
-                const newLists = lists.filter((e, i) => e !== playlist)
+                const newLists = lists.filter((e: Playlist, i: number) => e !== playlist)
                 setPlaylists(newLists);
             }
 

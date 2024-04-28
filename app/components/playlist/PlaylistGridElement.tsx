@@ -1,10 +1,9 @@
 'use client'
 
+import { Playlist } from "@/app/types/playlist"
+
 interface Props {
-    playlist: {
-        name: string
-        id: number
-    },
+    playlist: Playlist
 }
 
 export default function PlaylistGridElement({playlist} : Props) {
