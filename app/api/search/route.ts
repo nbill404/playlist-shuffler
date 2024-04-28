@@ -1,4 +1,4 @@
-import { Song } from "@/app/types/song"
+import { Details, Song } from "@/app/types/song"
 import { NextResponse } from "next/server";
 
 const YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
@@ -20,10 +20,10 @@ export async function POST(req: Request) {
                 // Filter shorts and channels
 
                 if (item.id.kind === 'youtube#video') {
-                    const details = {
-                        title: item.snippet.title,
-                        thumbnail: item.snippet.thumbnails.medium.url
-                    }
+                    const details = new Details()
+                    details.title = item.snippet.title,
+                    details.thumbnailUrl = item.snippet.thumbnails.medium.url
+                    
                     const song: Song = new Song(item.id.videoId, "Youtube", details);
                     songs.push(song);
                 }

@@ -3,16 +3,19 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     try {
-        const {user, playlist, song} = await req.json();
-        const {id, ...newPlaylist} = playlist; // Destructure id as creating new playlist needs unique id
+        const {userId, playlist, song} = await req.json();
+        const {details, id, platform} = song
 
-        const newData = await db.playlist.create({
+        await db.song.create({
             data: {
-                ...newPlaylist,
-                userId: user.id,
-                position: 0
+                id: id,
+                platform: platform,
+                userId: Number(userId),
+                playlistId: playlist.id,
+                ...details
             }
         });
+
 
         return NextResponse.json({message: "Adding Success"}, {status: 201});
     } catch (error) {

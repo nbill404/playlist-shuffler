@@ -1,14 +1,10 @@
-class Details {
+export class Details {
     title: string = "";
     artist: string = "";
     length: number = 0;
-    thumbnail: string = "";
+    thumbnailUrl: string = "";
 
-    constructor(title: string, artist: string, length: number, thumbnail: string) {
-        this.title = title;
-        this.artist = artist;
-        this.length = length;
-        this.thumbnail = thumbnail;
+    constructor() {
     }
 }
 

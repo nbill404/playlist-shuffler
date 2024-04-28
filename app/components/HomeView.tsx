@@ -1,3 +1,5 @@
+import TestButton from "./TestButton";
+
 export default function HomeView() {
     return (
         <div className="m-3 p-5 bg-sky-950 rounded-md flex-1">
@@ -41,6 +43,7 @@ export default function HomeView() {
             <br/>
             <a className="btn btn-primary" href="/search">Get Started</a>
             <div className="divider divider-primary"></div>
+            <TestButton/>
         </div>
     )
 }
