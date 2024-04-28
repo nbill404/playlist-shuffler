@@ -1,15 +1,20 @@
 'use client'
 import Image from "next/image";
+import { GridContext } from "./PlaylistGrid";
+import { useContext } from "react";
 
 interface Props {
-    userId: number
     playlist: {
         name: string
         id: number
-    },
+    }
 }
 
-export default function PlaylistDropdownMenu({userId, playlist}: Props) {
+export default function PlaylistDropdownMenu({playlist}: Props) {
+    const {userId} = useContext(GridContext)
+    const {lists} = useContext(GridContext);
+    const {setPlaylists} = useContext(GridContext)
+
     const handleRemove = async () => {
         try {
             const response = await fetch("/api/playlist/remove", {
@@ -21,13 +26,13 @@ export default function PlaylistDropdownMenu({userId, playlist}: Props) {
             })
 
             if (response.ok) {
-                //
+                const newLists = lists.filter((e, i) => e !== playlist)
+                setPlaylists(newLists);
             }
 
         } catch (error) {
             console.log(error);
         }
-
     }
 
     return (

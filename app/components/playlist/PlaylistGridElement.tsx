@@ -1,14 +1,13 @@
 'use client'
 
 interface Props {
-    userId: number
     playlist: {
         name: string
         id: number
     },
 }
 
-export default function PlaylistGridElement({userId, playlist} : Props) {
+export default function PlaylistGridElement({playlist} : Props) {
 
 
     return (

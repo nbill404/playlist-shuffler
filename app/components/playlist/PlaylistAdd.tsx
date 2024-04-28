@@ -1,20 +1,25 @@
+'use client'
 import { Playlist } from "@/app/types/playlist";
-import { redirect } from "next/navigation";
 import Image from "next/image";
+import { useContext } from "react";
+import { GridContext } from "./PlaylistGrid";
 
-export default function PlaylistAdd({id}) {
+
+export default function PlaylistAdd() {
+    const {userId} = useContext(GridContext)
+    const {lists} = useContext(GridContext);
+    const {setPlaylists} = useContext(GridContext)
+
     const handleClick = async (formData: FormData) => {
-        'use server'
-        
         try {
-            if (typeof id === typeof undefined) {
+            if (typeof userId === typeof undefined) {
                 throw Error("User is not logged in");
             }
-            
 
             const name = formData.get("name");
-            const user = {id: id}
-            const {elements, ...playlist} = new Playlist(0, "Playlist #2") // Extract elements
+
+            const user = {id: userId}
+            const {elements, ...playlist} = new Playlist(0, name); // Extract elements
 
             if (name == "") {
                 throw Error("Please enter a name");
@@ -22,14 +27,12 @@ export default function PlaylistAdd({id}) {
                 playlist.name = name;
             }
 
-            
-
             const data = {
                 user: user,
                 playlist: playlist,
             }
 
-            const response = await fetch(process.env.URL + '/api/playlist/add', {
+            const response = await fetch('/api/playlist/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -38,14 +41,21 @@ export default function PlaylistAdd({id}) {
             });
 
             if (response.ok) {
+                const data = await response.json();
+
+                const newPlaylist = {
+                    id: data.data.id,
+                    name: name
+                }
+
+                const newPlaylists = [...lists, newPlaylist]
+                setPlaylists(newPlaylists);
+                
                 console.log("Success")
             }
 
         } catch (error) {
             console.log(error)
-        } finally {
-            // Calling redirect inside try-catch block will throw error
-            redirect(process.env.URL + "/playlists");
         }
     }
 

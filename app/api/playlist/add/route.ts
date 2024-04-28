@@ -6,7 +6,7 @@ export async function POST(req: Request) {
         const {user, playlist} = await req.json();
         const {id, ...newPlaylist} = playlist; // Destructure id as creating new playlist needs unique id
 
-        await db.playlist.create({
+        const response = await db.playlist.create({
             data: {
                 ...newPlaylist,
                 userId: Number(user.id),
@@ -14,9 +14,11 @@ export async function POST(req: Request) {
             }
         });
 
-        return NextResponse.json({message: "Adding Success"}, {status: 201});
+
+
+        return NextResponse.json({data: {id: response.id}, message: "Adding Success"}, {status: 201});
     } catch (error) {
         console.log(error);
-        return NextResponse.json({message: "Adding Failed"}, {status: 500});
+        return NextResponse.json({data: {}, message: "Adding Failed"}, {status: 500});
     }
 }
