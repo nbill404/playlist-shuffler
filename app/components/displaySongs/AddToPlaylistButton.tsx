@@ -15,9 +15,6 @@ export default function AddToPlaylistButton({playlist, song} : Props) {
 
     const handleAdd = async () => {
         try {
-            console.log(userId)
-            console.log(song)
-
             const data = {
                 userId: userId,
                 playlist: playlist,

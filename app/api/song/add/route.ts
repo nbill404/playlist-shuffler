@@ -4,15 +4,13 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
     try {
         const {userId, playlist, song} = await req.json();
-        const {details, id, platform} = song
 
         await db.song.create({
             data: {
-                id: id,
-                platform: platform,
+                ...song,
                 userId: Number(userId),
                 playlistId: playlist.id,
-                ...details
+
             }
         });
 

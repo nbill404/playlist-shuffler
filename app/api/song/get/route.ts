@@ -14,8 +14,6 @@ export async function POST(req: Request) {
         });
         
         return NextResponse.json({data: songsList, message: "Playlist fetch success"}, {status: 201});
-
-
     } catch (error) {
         console.log(error);
         return NextResponse.json({data: {}, message: "Playlist get failed"}, {status: 500});

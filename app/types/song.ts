@@ -1,22 +1,14 @@
-export class Details {
+export class Song {
+    id: string;
+    platform: string;
     title: string = "";
     artist: string = "";
     length: number = 0;
     thumbnailUrl: string = "";
 
-    constructor() {
-    }
-}
-
-export class Song {
-    id: string;
-    platform: string;
-    details: Details | null;
-
-    constructor(id: string, platform: string, details: Details | null) {
+    constructor(id: string, platform: string) {
         this.id = id;
         this.platform = platform;
-        this.details = details;
     }
 }
 

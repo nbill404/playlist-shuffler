@@ -3,7 +3,7 @@ import Image from "next/image"
 import { Song } from "../../types/song"
 
 interface Props {
-    song: Object
+    song: Song
     num: number
 }
 
