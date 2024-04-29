@@ -1,7 +1,7 @@
 'use client'
 import { Playlist } from "@/app/types/playlist"
 import { useContext } from "react";
-import { SearchContext } from "./SearchContainer";
+import { SearchContext } from "../search/SearchContainer";
 import { Song } from "@/app/types/song";
 
 interface Props {

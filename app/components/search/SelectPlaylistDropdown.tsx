@@ -2,7 +2,7 @@
 import { Playlist } from "@/app/types/playlist"
 import { useContext } from "react"
 import { SearchContext } from "./SearchContainer"
-import AddToPlaylistButton from "./AddToPlaylistButton";
+import AddToPlaylistButton from "../displaySongs/AddToPlaylistButton";
 import { Song } from "@/app/types/song";
 
 interface Props {

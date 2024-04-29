@@ -1,9 +1,7 @@
 'use client'
-import { createContext, useContext } from "react";
 import { Song } from "../../types/song";
-import MusicListElement from "./MusicListElement";
+import MusicListElement from "../displaySongs/MusicListElement";
 import SelectPlaylistDropdown from "./SelectPlaylistDropdown";
-import { SearchContext } from "./SearchContainer";
 
 interface Props {
     results?: Song[]
