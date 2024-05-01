@@ -1,5 +1,5 @@
 import MainLayout from "@/app/components/MainLayout";
-import DisplayPlaylistsView from "@/app/components/displayPlaylists/DisplayPlaylistsView";
+import DisplayPlaylistsView from "@/app/components/displaySongs/DisplaySongsView";
 
 
 export default function DisplayPlaylistsPage() {

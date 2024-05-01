@@ -34,9 +34,6 @@ export default function SongsDisplayList({userId}: Props) {
 
                 setSongs(songs)
             })
-
-
-
     }, [userId, playlistId]);
 
     return (

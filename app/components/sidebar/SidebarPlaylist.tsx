@@ -1,5 +1,3 @@
-
-
 export default function SidebarPlaylist() {
     return (
         <ul className="menu p-4 bg-base-200 text-base-content">
