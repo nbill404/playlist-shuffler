@@ -1,23 +1,14 @@
 import YouTubeEmbed from "../../components/embedPlayers/YoutubeEmbed";
 
-function TestView() {
-
+export default function Test () {
     const youtubeID = "Va1Pv7JvE2g";
 
+
     return (
-        <>
-            <p>test page don't worry about it</p>
+        <div>
+            <p>test page don&#39;t worry about it</p>
             <YouTubeEmbed videoId={youtubeID}/>
-
-        </>
-    );
-}
-
-
-
-export default function Test () {
-    return (
-        <TestView/>
+        </div>
     )
 
 
