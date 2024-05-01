@@ -4,7 +4,7 @@ import DisplayPlaylistsView from "@/app/components/displaySongs/DisplaySongsView
 
 export default function DisplayPlaylistsPage() {
 
-    return <MainLayout>{DisplayPlaylistsView}</MainLayout>
+    return <DisplayPlaylistsView/>
 
 
 }

@@ -1,5 +1,5 @@
-import MainLayout from "../components/MainLayout";
-import YouTubeEmbed from "../components/embedPlayers/YoutubeEmbed";
+import MainLayout from "../../components/MainLayout";
+import YouTubeEmbed from "../../components/embedPlayers/YoutubeEmbed";
 
 function TestView() {
 

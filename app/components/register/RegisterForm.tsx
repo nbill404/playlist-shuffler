@@ -1,10 +1,11 @@
 'use client'
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import z from "zod";
+import { z } from "zod";
 
 
-export default function RegisterPage() {
+
+export default function RegisterForm() {
     const router = useRouter();
     const showError = false;
     const schema = z.object({
@@ -19,8 +20,6 @@ export default function RegisterPage() {
     );
 
     const [errorMessages, setErrorMessages] = useState<string[]>([])
-
-
 
     const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
         
@@ -83,34 +82,22 @@ export default function RegisterPage() {
         }
     }
 
-    const displayErrorMessages = () => {
-        console.log("Display")
-        console.log(errorMessages);
-
-            
-
-        return <></>
-    }
-
     return (
-        <main className="grid bg-slate-800 min-h-screen place-items-center">
-            <div className="flex flex-col gap-3">
-                <h1 className="text-4xl">Register</h1>
-                <form className="flex flex-col gap-3" onSubmit={handleRegister}>
-                    <input className="input" type="text" name="username" placeholder="Username"></input>
-                    <input className="input" type="text" name="email" placeholder="Email"></input>
-                    <input className="input" type="password" name="password" placeholder="Password"></input>
-                    <input className="input" type="password" name="cfmPassword" placeholder="Confirm password"></input>
-                    <button className="btn btn-primary">Submit</button>
-                </form>
-                {errorMessages.map((m: string, i: number) => (<p className="text-sm text-red-600" key={"error" + 'i'}>{m}</p>))}
+        <>
+            <h1 className="text-4xl">Register</h1>
+            <form className="flex flex-col gap-3" onSubmit={handleRegister}>
+                <input className="input" type="text" name="username" placeholder="Username"></input>
+                <input className="input" type="text" name="email" placeholder="Email"></input>
+                <input className="input" type="password" name="password" placeholder="Password"></input>
+                <input className="input" type="password" name="cfmPassword" placeholder="Confirm password"></input>
+                <button className="btn btn-primary">Submit</button>
+            </form>
+            {errorMessages.map((m: string, i: number) => (<p className="text-sm text-red-600" key={"error" + 'i'}>{m}</p>))}
+        </>
 
-                <div className="divider"></div>
-                <a className="no-underline hover:underline text-sky-400" href="/login">Login</a>
-                <a className="no-underline hover:underline text-sky-400" href="/">Return home</a>
-            </div>
-        </main>
 
     )
+
+
 
 }
