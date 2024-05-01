@@ -3,8 +3,6 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { z } from "zod";
 
-
-
 export default function RegisterForm() {
     const router = useRouter();
     const showError = false;

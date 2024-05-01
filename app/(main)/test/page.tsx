@@ -1,4 +1,3 @@
-import MainLayout from "../../components/MainLayout";
 import YouTubeEmbed from "../../components/embedPlayers/YoutubeEmbed";
 
 function TestView() {
@@ -18,7 +17,7 @@ function TestView() {
 
 export default function Test () {
     return (
-        <MainLayout>{TestView}</MainLayout>
+        <TestView/>
     )
 
 

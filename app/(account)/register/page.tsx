@@ -1,9 +1,5 @@
 'use client'
 import RegisterForm from "@/app/components/register/RegisterForm";
-import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
-import z from "zod";
-
 
 export default function RegisterPage() {
 
