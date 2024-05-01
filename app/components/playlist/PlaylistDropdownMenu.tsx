@@ -9,9 +9,11 @@ interface Props {
 }
 
 export default function PlaylistDropdownMenu({playlist}: Props) {
-    const {userId} = useContext(GridContext)
-    const {lists} = useContext(GridContext);
-    const {setPlaylists} = useContext(GridContext)
+    const context = useContext(GridContext);
+
+    const {userId} = context;
+    const {lists} = context;
+    const {setPlaylists} = context;
 
     const handleRemove = async () => {
         try {
@@ -49,11 +51,6 @@ export default function PlaylistDropdownMenu({playlist}: Props) {
                 <li><button>Rename</button></li>
             </ul>
         </div>
-
-
-
-
-
     )
 
 

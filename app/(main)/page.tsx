@@ -1,4 +1,3 @@
-import HomeView from "../components/HomeView";
 import TestButton from "../components/TestButton";
 
 export default function Home() {

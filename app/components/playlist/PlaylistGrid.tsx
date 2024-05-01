@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useState } from "react";
+import { Dispatch, SetStateAction, createContext, useState } from "react";
 import PlaylistAdd from "./PlaylistAdd";
 import PlaylistDropdownMenu from "./PlaylistDropdownMenu";
 import PlaylistGridElement from "./PlaylistGridElement";
@@ -10,7 +10,13 @@ interface Props {
     playlists: Playlist[]
 }
 
-export const GridContext = createContext();
+interface GridContextType {
+    lists: Playlist[]
+    userId: number | undefined
+    setPlaylists: Dispatch<SetStateAction<Playlist[]>>
+}
+
+export const GridContext = createContext<GridContextType | null>(null);
 
 export default function PlaylistGrid({userId, playlists}: Props) {
     const [lists, setPlaylists] = useState(playlists);
