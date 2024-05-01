@@ -1,5 +1,7 @@
+'use client'
 import Image from "next/image"
 import { Song } from "../../types/song"
+
 
 interface Props {
     song: Song

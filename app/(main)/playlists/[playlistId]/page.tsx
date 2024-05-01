@@ -15,7 +15,6 @@ export default async function DisplayPlaylistsPage({params}:
         const data = {
             userId: userId,
             playlistId: playlistId
-
         }
 
         return fetch(process.env.URL + "/api/song/get", {
@@ -41,7 +40,7 @@ export default async function DisplayPlaylistsPage({params}:
     return (
         <div className="m-3 p-5 bg-sky-950 rounded-md flex-1">
             <Link className="btn btn-primary" href={process.env.URL + "/playlists"}>Back</Link>
-            <SongsDisplayList userId={userId} songs={songs}/>
+            <SongsDisplayList playlistId={params.playlistId} songs={songs}/>
         </div>
     )
 }

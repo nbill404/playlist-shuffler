@@ -10,5 +10,15 @@ export class Song {
         this.id = id;
         this.platform = platform;
     }
+
+    // For use with spread operator from database 
+    addDetails(id: string, platform: string, title: string, artist: string, length: number, thumbnailUrl: string) {
+        this.id = id;
+        this.platform = platform;
+        this.title = title;
+        this.artist = artist;
+        this.length = length;
+        this.thumbnailUrl = thumbnailUrl;
+    }
 }
 

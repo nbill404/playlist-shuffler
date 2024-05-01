@@ -1,5 +1,4 @@
 'use client'
-
 import YouTube, { YouTubeEvent } from "react-youtube"
 
 interface Props {
@@ -11,11 +10,16 @@ export default function YouTubeEmbed({videoId} : Props) {
         event.target.playVideo();
     }
 
+    const opts = {
+        width: "320",
+        height: "180"
+    }
 
     return (
         <YouTube
             videoId={videoId}
             onReady={handleReady}
+            opts={opts}
         >
         </YouTube>
 
