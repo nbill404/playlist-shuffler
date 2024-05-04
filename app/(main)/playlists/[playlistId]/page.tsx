@@ -39,7 +39,10 @@ export default async function DisplayPlaylistsPage({params}:
 
     return (
         <div className="m-3 p-5 bg-sky-950 rounded-md flex-1">
-            <Link className="btn btn-primary" href={process.env.URL + "/playlists"}>Back</Link>
+            <div className="flex flex-1">
+                <Link className="btn btn-primary" href={process.env.URL + "/playlists"}>Back</Link>
+            </div>    
+            <div className="divider"></div>
             <SongsDisplayList playlistId={params.playlistId} songs={songs}/>
         </div>
     )
