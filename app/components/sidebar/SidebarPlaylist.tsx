@@ -12,13 +12,19 @@ export default function SidebarPlaylist({playlist} : {}) {
 
 
     return (
-        <ul className="menu p-4 bg-slate-700 text-base-content">
-            {playlist && playlist.map((song, index : number) => 
-                <button key={`button-${index}`} onClick={() => setSongNum(index)}>
-                    <li key={`${index}`} className="hover:bg-slate-600">{song.title}</li>
-                </button>
-            )}
-            <li className="rounded hover:bg-base-100">Sidebar Item 3</li>
-        </ul>
+        <>
+            {playlist.length > 0 ? 
+                <ul className="menu p-4 bg-slate-700 text-base-content border">
+                    {playlist.map((song, index : number) => 
+                        <button key={`button-${index}`} onClick={() => setSongNum(index)}>
+                            <li key={`${index}`} className="text-left hover:bg-slate-600">{song.title}</li>
+                        </button>
+                )} 
+                </ul> 
+            
+            :
+            <p className="p-5">No playlist selected</p>
+            }
+        </>
     )
 }

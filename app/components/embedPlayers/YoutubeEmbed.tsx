@@ -22,8 +22,5 @@ export default function YouTubeEmbed({videoId} : Props) {
             opts={opts}
         >
         </YouTube>
-
-
-
     ) 
 }

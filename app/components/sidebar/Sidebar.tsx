@@ -5,6 +5,7 @@ import SidebarPlaylist from "./SidebarPlaylist";
 import SongImage from "./SongImage";
 import { useSearchParams } from "next/navigation";
 import { Song } from "@/app/types/song";
+import { shuffle } from "@/app/lib/shuffle";
 
 export const SidebarContext = createContext();
 
@@ -37,7 +38,9 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
                 for (const item of data.data) {   
                     songs.push(item)
                 }
-                
+
+                songs = shuffle(songs)
+
                 setPlaylist(songs);
             }).catch((error) => {
                 console.log(error);
@@ -69,12 +72,16 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
 
     return (
         <div className="flex flex-col bg-slate-800 w-96 h-[93vh]">
+            {typeof userId === typeof undefined ?
+                <p className="p-5">User is not logged in</p>
+            :
             <SidebarContext.Provider value={{playlistId, selectedSong: selectedSongId, setSongNum}}>
                 <SongImage songId={selectedSongId}/>
                 <div className="divider"/>
                 <PlayerControls/>
                 <SidebarPlaylist playlist={playlist}/>
             </SidebarContext.Provider>
+            }
         </div>
     )
 }

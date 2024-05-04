@@ -3,6 +3,8 @@ import { authOptions } from "@/app/lib/auth";
 import Link from "next/link";
 import SongsDisplayList from "@/app/components/displaySongs/SongsDisplayList";
 import { Song } from "@/app/types/song";
+import Image from "next/image";
+import ShuffleButton from "@/app/components/displaySongs/ShuffleButton";
 
 
 export default async function DisplayPlaylistsPage({params}:
@@ -43,6 +45,7 @@ export default async function DisplayPlaylistsPage({params}:
                 <Link className="btn btn-primary" href={process.env.URL + "/playlists"}>Back</Link>
             </div>    
             <div className="divider"></div>
+            <ShuffleButton playlistId={params.playlistId}/>
             <SongsDisplayList playlistId={params.playlistId} songs={songs}/>
         </div>
     )
