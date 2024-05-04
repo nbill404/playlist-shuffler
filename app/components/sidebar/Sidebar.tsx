@@ -48,7 +48,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
     // Waits for fetch playlist effect to complete before setting the playlist
     useEffect(() => {
         // Ensure that playlist exists
-        if (playlist.length > 0 && typeof songNum !== typeof null) {
+        if (playlist.length > 0 && typeof songNum !== typeof undefined && typeof songNum !== null) {
             setSelectedSong(playlist[songNum].id);
         }
     }, [songNum, playlist])
