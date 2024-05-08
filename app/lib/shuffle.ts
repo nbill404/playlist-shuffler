@@ -1,16 +1,18 @@
-import { array } from "zod";
 import { Song } from "../types/song";
 
 // https://stackoverflow.com/a/48083382
-export function shuffle(songs: Song[]) {
-    let currentIndex = songs.length, randomIndex;
+export function shuffle(array: Song[]) {
+    let newArray = [...array];
+    let currentIndex = array.length, randomIndex;
 
     while (currentIndex != 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
 
-        [songs[currentIndex], songs[randomIndex]] = [songs[randomIndex], songs[currentIndex]];
+        console.log(randomIndex);
+
+        [newArray[currentIndex], newArray[randomIndex]] = [newArray[randomIndex], newArray[currentIndex]];
     }
 
-    return songs;
+    return newArray;
 }

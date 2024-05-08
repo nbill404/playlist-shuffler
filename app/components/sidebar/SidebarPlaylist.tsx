@@ -1,15 +1,11 @@
 'use client'
 
-import Link from "next/link"
-import { usePathname, useSearchParams } from "next/navigation"
 import { useContext } from "react";
 import { SidebarContext } from "./Sidebar";
 
-export default function SidebarPlaylist({playlist} : {}) {
-    const pathname = usePathname();
-    const playlistId = useSearchParams().get("playlist");
+export default function SidebarPlaylist() {
+    const { playlist } = useContext(SidebarContext);
     const { setSongNum } = useContext(SidebarContext);
-
 
     return (
         <>

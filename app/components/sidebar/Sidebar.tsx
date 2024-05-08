@@ -18,7 +18,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
     const [songNum, setSongNum] = useState(-1);
     const [playlistId, setPlaylistId] = useState(-1);
     const [playlist, setPlaylist] = useState([]);
-    const [selectedSongId, setSelectedSong] = useState(id);
+    const [selectedSongId, setSelectedSongId] = useState(id);
 
     // Fetch playlists
     useEffect(() => {
@@ -35,7 +35,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             .then((data) => {
                 let songs = []
 
-                for (const item of data.data) {   
+                for (const item of data.data) {
                     songs.push(item)
                 }
 
@@ -51,8 +51,8 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
     // Waits for fetch playlist effect to complete before setting the playlist
     useEffect(() => {
         // Ensure that playlist exists
-        if (playlist.length > 0 && typeof songNum !== typeof undefined && typeof songNum !== null) {
-            setSelectedSong(playlist[songNum].id);
+        if ((playlist.length > 0) && (typeof songNum !== typeof undefined) && (typeof songNum !== null)) {
+            setSelectedSongId(playlist[songNum].id);
         }
     }, [songNum, playlist])
 
@@ -75,11 +75,11 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             {typeof userId === typeof undefined ?
                 <p className="p-5">User is not logged in</p>
             :
-            <SidebarContext.Provider value={{playlistId, selectedSong: selectedSongId, setSongNum}}>
-                <SongImage songId={selectedSongId}/>
+            <SidebarContext.Provider value={{playlist, playlistId, selectedSongId, setSongNum, setPlaylist}}>
+                <SongImage/>
                 <div className="divider"/>
                 <PlayerControls/>
-                <SidebarPlaylist playlist={playlist}/>
+                <SidebarPlaylist/>
             </SidebarContext.Provider>
             }
         </div>
