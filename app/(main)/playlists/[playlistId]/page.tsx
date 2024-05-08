@@ -25,24 +25,25 @@ export default async function DisplayPlaylistsPage({params}:
         })
             .then((res) => res.json())
             .then((data) => {
-                let songs = []
-                let playlists = []
+                let combinedList = []
 
                 for (const item of data.data.songList) {                   
-                    songs.push(item)
+                    combinedList.push(item)
                 }
 
                 for (const item of data.data.playlistList) {
-                    playlists.push(item)
+                    combinedList.push(item)
                 }
+
+                combinedList.sort((a, b) => a.position - b.position)
                 
-                return [songs, playlists];
+                return combinedList;
             }).catch((error) => {
                 return [];
             })
     }
 
-    const [songs, playlists] = await getSongsList(params.playlistId);
+    const playlist = await getSongsList(params.playlistId);
 
     return (
         <div className="m-3 p-5 bg-sky-950 rounded-md flex-1">
@@ -54,7 +55,7 @@ export default async function DisplayPlaylistsPage({params}:
                 <AddNewPlaylistButton userId={userId} playlistId={params.playlistId}/>
                 <OptionsBar userId={userId} playlistId={params.playlistId}/>
             </div>
-            <SongsDisplayList userId={userId} playlistId={params.playlistId} songs={songs} playlists={playlists}/>
+            <SongsDisplayList userId={userId} playlistId={params.playlistId} playlist={playlist}/>
         </div>
     )
 }

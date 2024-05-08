@@ -22,8 +22,6 @@ export async function POST(req: Request) {
         const position = songsCount + playlistsCount;
         song.position = position;
 
-        console.log(position);
-
         await db.song.create({
             data: {
                 ...song,

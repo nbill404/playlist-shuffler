@@ -12,14 +12,11 @@ export class Song {
         this.platform = platform;
     }
 
-    // For use with spread operator from database 
-    addDetails(id: string, platform: string, title: string, artist: string, length: number, thumbnailUrl: string) {
-        this.id = id;
-        this.platform = platform;
-        this.title = title;
-        this.artist = artist;
-        this.length = length;
-        this.thumbnailUrl = thumbnailUrl;
+    addDetails(obj: Object) {
+        Object.assign(this, obj);
     }
 }
 
+export const isSong = (obj: Object) => {
+    return typeof obj.title !== typeof undefined
+};

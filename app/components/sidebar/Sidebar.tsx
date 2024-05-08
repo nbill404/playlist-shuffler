@@ -6,6 +6,7 @@ import SongImage from "./SongImage";
 import { useSearchParams } from "next/navigation";
 import { Song } from "@/app/types/song";
 import { shuffle } from "@/app/lib/shuffle";
+import { Playlist } from "@/app/types/playlist";
 
 export const SidebarContext = createContext();
 
@@ -15,10 +16,10 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
     const id = useSearchParams().get("id");
 
     // Will only be called on initial render
-    const [songNum, setSongNum] = useState(-1);
-    const [playlistId, setPlaylistId] = useState(-1);
-    const [playlist, setPlaylist] = useState([]);
-    const [selectedSongId, setSelectedSongId] = useState(id);
+    const [songNum, setSongNum] = useState<Number>(-1);
+    const [playlistId, setPlaylistId] = useState<Number>(-1);
+    const [playlist, setPlaylist] = useState<(Song | Playlist)[]>([]);
+    const [selectedSongId, setSelectedSongId] = useState<string | null>(id);
 
     // Fetch playlists
     useEffect(() => {
@@ -33,15 +34,23 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
         })
             .then((res) => res.json())
             .then((data) => {
-                let songs = []
+                let combinedList = []
 
                 for (const item of data.data.songList) {
-                    songs.push(item)
+                    const song = new Song("", "Youtube")
+                    song.addDetails(item);
+                    combinedList.push(song)
                 }
 
-                songs = shuffle(songs)
+                for (const item of data.data.playlistList) {
+                    const playlist = new Playlist(-1, "")
+                    playlist.addDetails(item)
+                    combinedList.push(playlist)
+                }
 
-                setPlaylist(songs);
+                combinedList.sort((a, b) => a.position - b.position)
+
+                setPlaylist(combinedList);
             }).catch((error) => {
                 console.log(error);
                 return [];

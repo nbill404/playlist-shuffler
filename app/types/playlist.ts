@@ -5,8 +5,9 @@ type Element = (Playlist | Song);
 export class Playlist {
     rank: number = 0; // Rank/Depth of playlist
     id: number;
-    name: string
-    elements: Element[] = []
+    name: string;
+    elements: Element[] = [];
+    position: number = 0;
 
     constructor(id: number, name: string) {
         this.id = id
@@ -42,5 +43,9 @@ export class Playlist {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    addDetails(obj: Object) {
+        Object.assign(this, obj)
     }
 }
