@@ -28,7 +28,10 @@ model Playlist {
   rank Int
   position Int
   user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId Int 
+  userId Int
+  parentPlaylist Playlist? @relation("Playlists", fields: [parentPlaylistId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  parentPlaylistId Int?
+  childPlaylists Playlist[] @relation("Playlists")
   songs Song[]
 }
 

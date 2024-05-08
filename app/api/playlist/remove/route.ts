@@ -1,5 +1,4 @@
 import { db } from "@/app/lib/db";
-import { Whisper } from "next/font/google";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {

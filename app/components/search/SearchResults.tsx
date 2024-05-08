@@ -1,6 +1,6 @@
 'use client'
 import { Song } from "../../types/song";
-import MusicListElement from "../displaySongs/MusicListElement";
+import MusicListElement from "../listViewElements/SongListViewElement";
 import SelectPlaylistDropdown from "./SelectPlaylistDropdown";
 
 interface Props {

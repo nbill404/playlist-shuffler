@@ -2,9 +2,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
 import Link from "next/link";
 import SongsDisplayList from "@/app/components/displaySongs/SongsDisplayList";
-import { Song } from "@/app/types/song";
-import Image from "next/image";
 import ShuffleButton from "@/app/components/displaySongs/ShuffleButton";
+import AddNewPlaylistButton from "@/app/components/displaySongs/AddNewPlaylistButton";
+import OptionsBar from "@/app/components/displaySongs/OptionsBar";
 
 
 export default async function DisplayPlaylistsPage({params}:
@@ -26,18 +26,24 @@ export default async function DisplayPlaylistsPage({params}:
             .then((res) => res.json())
             .then((data) => {
                 let songs = []
+                let playlists = []
 
-                for (const item of data.data) {                   
+                for (const item of data.data.songList) {                   
                     songs.push(item)
                 }
+
+                for (const item of data.data.playlistList) {
+                    playlists.push(item)
+                }
                 
-                return songs;
+                return [songs, playlists];
             }).catch((error) => {
                 return [];
             })
     }
 
-    const songs = await getSongsList(params.playlistId);
+    const [songs, playlists] = await getSongsList(params.playlistId);
+    console.log(playlists)
 
     return (
         <div className="m-3 p-5 bg-sky-950 rounded-md flex-1">
@@ -45,8 +51,11 @@ export default async function DisplayPlaylistsPage({params}:
                 <Link className="btn btn-primary" href={process.env.URL + "/playlists"}>Back</Link>
             </div>    
             <div className="divider"></div>
-            <ShuffleButton playlistId={params.playlistId}/>
-            <SongsDisplayList playlistId={params.playlistId} songs={songs}/>
+            <div className="flex flex-1 gap-2">
+                <AddNewPlaylistButton userId={userId} playlistId={params.playlistId}/>
+                <OptionsBar userId={userId} playlistId={params.playlistId}/>
+            </div>
+            <SongsDisplayList userId={userId} playlistId={params.playlistId} songs={songs} playlists={playlists}/>
         </div>
     )
 }

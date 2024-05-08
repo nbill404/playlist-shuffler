@@ -1,19 +1,27 @@
 'use client'
 import Link from "next/link"
-import MusicListElement from "./MusicListElement"
+import MusicListElement from "../listViewElements/SongListViewElement"
 import { Song } from "@/app/types/song"
 import { usePathname } from "next/navigation"
+import AddNewPlaylistButton from "./AddNewPlaylistButton"
+import { Playlist } from "@/app/types/playlist"
+import PlaylistListElement from "../listViewElements/PlaylistListViewElement"
 
 interface Props {
+    userId: number | undefined
     playlistId: string
     songs: Song[]
+    playlists: Playlist[]
 }
 
-export default function SongsDisplayList({playlistId, songs}: Props) {
+export default function SongsDisplayList({userId, playlistId, songs, playlists}: Props) {
     const pathname = usePathname();
 
+    console.log(playlists)
+
     return (
-        <div>
+        <>
+            
             {songs.length > 0 ? songs.map((song : Song, index: number) =>
                 <Link key={`link-${index}`} href={`${pathname}?playlist=${playlistId}&song=${index}&id=${song.id}`}>
                     <MusicListElement key={`song-${index}`} song={song} num={index}/>
@@ -27,7 +35,12 @@ export default function SongsDisplayList({playlistId, songs}: Props) {
                     </Link>
                 </div>
             }
-        </div>
+            {playlists && playlists.map((playlist: Playlist, index: number) => 
+                <Link key={`link-playlist-${index}`} href={`/playlists/${playlist.id}`}>
+                    <PlaylistListElement key={`playlist-${index}`} playlist={playlist} num={index}/>
+                </Link>
+            )}
+        </>
     )
 
 

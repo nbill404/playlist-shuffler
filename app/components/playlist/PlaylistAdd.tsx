@@ -28,6 +28,7 @@ export default function PlaylistAdd() {
             const data = {
                 user: user,
                 playlist: playlist,
+                parentPlaylistId: null
             }
 
             const response = await fetch('/api/playlist/add', {
