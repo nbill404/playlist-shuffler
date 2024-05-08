@@ -23,9 +23,6 @@ export default function PlaylistGrid({userId, playlists}: Props) {
 
     return (
         <>
-            <div className="grid">
-                <h1 className="text-xl">Your Playlists</h1>
-            </div>
             <div className="p-5 grid grid-cols-5 gap-2 max-h-[75vh] overflow-auto">
                 <GridContext.Provider value={{lists, userId, setPlaylists}}>
                     <PlaylistAdd/>

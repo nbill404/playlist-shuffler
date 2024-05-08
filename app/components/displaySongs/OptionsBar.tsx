@@ -1,4 +1,4 @@
-import AddNewPlaylistButton from "./AddNewPlaylistButton"
+import AddNewPlaylistButton from "./AddNestedPlaylistButton"
 import ShuffleButton from "./ShuffleButton"
 
 

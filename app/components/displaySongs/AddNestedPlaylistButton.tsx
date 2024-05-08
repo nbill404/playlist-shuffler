@@ -1,6 +1,6 @@
 import { Playlist } from "@/app/types/playlist";
 
-export default function AddNewPlaylistButton({userId, playlistId} : {
+export default function AddNestedPlaylistButton({userId, playlistId} : {
     userId: Number | undefined
     playlistId: string
 }) {
@@ -27,7 +27,7 @@ export default function AddNewPlaylistButton({userId, playlistId} : {
                 parentPlaylistId: playlistId
             }
 
-            const response = await fetch('/api/playlist/update', {
+            const response = await fetch(process.env.URL + '/api/playlist/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

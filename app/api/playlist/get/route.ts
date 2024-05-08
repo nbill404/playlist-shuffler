@@ -4,12 +4,13 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     try {
-        const {id, parentPlaylistId} = await req.json();
-        
+        const {id, parentPlaylistId, rank} = await req.json();
+
         const userPlaylists = await db.playlist.findMany({
             where: {
                 userId: Number(id),
-                parentPlaylist: parentPlaylistId
+                parentPlaylistId: parentPlaylistId,
+                rank: rank
             }
         });
         

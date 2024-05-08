@@ -3,7 +3,7 @@ import Link from "next/link"
 import MusicListElement from "../listViewElements/SongListViewElement"
 import { Song } from "@/app/types/song"
 import { usePathname } from "next/navigation"
-import AddNewPlaylistButton from "./AddNewPlaylistButton"
+import AddNewPlaylistButton from "./AddNestedPlaylistButton"
 import { Playlist } from "@/app/types/playlist"
 import PlaylistListElement from "../listViewElements/PlaylistListViewElement"
 

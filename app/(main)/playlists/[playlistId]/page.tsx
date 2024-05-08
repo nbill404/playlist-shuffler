@@ -3,7 +3,7 @@ import { authOptions } from "@/app/lib/auth";
 import Link from "next/link";
 import SongsDisplayList from "@/app/components/displaySongs/SongsDisplayList";
 import ShuffleButton from "@/app/components/displaySongs/ShuffleButton";
-import AddNewPlaylistButton from "@/app/components/displaySongs/AddNewPlaylistButton";
+import AddNewPlaylistButton from "@/app/components/displaySongs/AddNestedPlaylistButton";
 import OptionsBar from "@/app/components/displaySongs/OptionsBar";
 
 
@@ -43,7 +43,6 @@ export default async function DisplayPlaylistsPage({params}:
     }
 
     const [songs, playlists] = await getSongsList(params.playlistId);
-    console.log(playlists)
 
     return (
         <div className="m-3 p-5 bg-sky-950 rounded-md flex-1">
