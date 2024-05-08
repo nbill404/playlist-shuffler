@@ -72,7 +72,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
 
     return (
         <div className="flex flex-col bg-slate-800 w-96 h-[93vh]">
-            {typeof userId === typeof undefined ?
+            {!userId ?
                 <p className="p-5">User is not logged in</p>
             :
             <SidebarContext.Provider value={{playlist, playlistId, selectedSongId, setSongNum, setPlaylist}}>

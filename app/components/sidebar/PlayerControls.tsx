@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image";
 import { useContext } from "react";
-import Sidebar, { SidebarContext } from "./Sidebar";
+import { SidebarContext } from "./Sidebar";
 import { shuffle } from "@/app/lib/shuffle";
 
 export default function PlayerControls() {
@@ -10,17 +10,11 @@ export default function PlayerControls() {
     const { playlist } = useContext(SidebarContext);
 
     const handleClick = () => {
-        console.log("test")
-        console.log(playlist)
-
         let newPlaylist = shuffle(playlist);
-        console.log(newPlaylist)
 
         setPlaylist(newPlaylist);
         setSongNum(0);
     }
-
-
     return (
         <div className="grid grid-cols-5 bg-gray-900 h-12 p-2">
             <Image src="/back-button.svg" width="32" height="32" alt=""></Image>

@@ -5,12 +5,30 @@ export async function POST(req: Request) {
     try {
         const {userId, playlist, song} = await req.json();
 
+        const songsCount = await db.song.count({
+            where: {
+                userId: Number(userId),
+                playlistId: Number(playlist.id)
+            }
+        })
+
+        const playlistsCount = await db.playlist.count({
+            where: {
+                userId: Number(userId),
+                parentPlaylistId: Number(playlist.id)
+            }
+        })
+
+        const position = songsCount + playlistsCount;
+        song.position = position;
+
+        console.log(position);
+
         await db.song.create({
             data: {
                 ...song,
                 userId: Number(userId),
                 playlistId: playlist.id,
-
             }
         });
 

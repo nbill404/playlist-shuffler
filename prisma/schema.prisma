@@ -47,4 +47,6 @@ model Song {
   artist String
   length Int
   thumbnailUrl String
+
+  position Int @default(0)
 }

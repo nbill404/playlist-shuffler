@@ -5,6 +5,7 @@ export class Song {
     artist: string = "";
     length: number = 0;
     thumbnailUrl: string = "";
+    position: number = 0;
 
     constructor(id: string, platform: string) {
         this.id = id;

@@ -7,6 +7,9 @@ export async function POST(req: Request) {
         const {id, ...newPlaylist} = playlist; // Destructure id as creating new playlist needs unique id
 
         // Increment rank if parent is found
+        let playlistCount = 0;
+        let songsCount = 0;
+        
         if (parentPlaylistId) {
             const parentPlaylist = await db.playlist.findUnique({
                 where :{
@@ -17,17 +20,31 @@ export async function POST(req: Request) {
 
             if (parentPlaylist) {
                 newPlaylist.rank = parentPlaylist.rank + 1;
+
+                songsCount = await db.song.count({
+                    where : {
+                        userId: Number(user.id),
+                        playlistId: Number(parentPlaylistId)
+                    }
+                })
+
+                playlistCount = await db.playlist.count({
+                    where: {
+                        userId: Number(user.id),
+                        parentPlaylistId: Number(parentPlaylistId)
+                    }
+                })
             }
         }
 
-
+        const position = songsCount + playlistCount;
         const parentId = parentPlaylistId ? Number(parentPlaylistId) : null
 
         const response = await db.playlist.create({
             data: {
                 ...newPlaylist,
                 userId: Number(user.id),
-                position: 0,
+                position: position,
                 parentPlaylistId : parentId
             }
         });
