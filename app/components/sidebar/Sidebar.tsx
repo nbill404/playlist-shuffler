@@ -35,7 +35,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             .then((data) => {
                 let songs = []
 
-                for (const item of data.data) {
+                for (const item of data.data.songList) {
                     songs.push(item)
                 }
 

@@ -37,7 +37,7 @@ export default function SongsDisplayList({userId, playlistId, songs, playlists}:
             }
             {playlists && playlists.map((playlist: Playlist, index: number) => 
                 <Link key={`link-playlist-${index}`} href={`/playlists/${playlist.id}`}>
-                    <PlaylistListElement key={`playlist-${index}`} playlist={playlist} num={index}/>
+                    <PlaylistListElement key={`playlist-${index}`} playlist={playlist} num={index + songs.length}/>
                 </Link>
             )}
         </>
