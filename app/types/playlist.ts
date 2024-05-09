@@ -14,12 +14,12 @@ export class Playlist {
         this.name = name;
     }
 
-    add(e: Element) {
-        if (typeof e === typeof Playlist) {
-            e.rank = this.rank + 1;
-        }
-
+    push(e: Element) {
         this.elements.push(e);
+    }
+
+    empty() {
+        return this.elements.length === 0;
     }
 
     remove(id: number | string) {
@@ -47,5 +47,9 @@ export class Playlist {
 
     addDetails(obj: Object) {
         Object.assign(this, obj)
+    }
+
+    sort() {
+        this.elements.sort((a, b) => a.position - b.position)
     }
 }
