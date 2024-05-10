@@ -17,17 +17,16 @@ export default function SongsDisplayList({userId, playlistId, playlist}: Props) 
     const pathname = usePathname();
 
     return (
-        <>
-            
+        <div className="max-h-[65vh] overflow-auto">
             {playlist && playlist.length > 0 ? playlist.map((element, index: number) =>
                 isSong(element) ?
-                <Link key={`link-${index}`} href={`${pathname}?playlist=${playlistId}&song=${index}&id=${element.id}`}>
+                <a key={`link-${index}`} href={`${pathname}?playlist=${playlistId}&song=${index}&id=${element.id}`}>
                     <MusicListElement key={`song-${index}`} song={element} num={index}/>
-                </Link>
+                </a>
                 :
-                <Link key={`link-playlist-${index}`} href={`/playlists/${element.id}`}>
+                <a key={`link-playlist-${index}`} href={`/playlists/${element.id}`}>
                     <PlaylistListElement key={`playlist-${index}`} playlist={element} num={index}/>
-                </Link>
+                </a>
             )
             :
                 <div className="flex flex-col gap-2">
@@ -38,7 +37,7 @@ export default function SongsDisplayList({userId, playlistId, playlist}: Props) 
                 </div>
             }
 
-        </>
+        </div>
     )
 
 

@@ -16,7 +16,11 @@ export const convertJsonToPlaylist = (obj: any) => {
         playlist.push(convertJsonToPlaylist(item))
     }
 
-    playlist.sort()
+    if (playlist.canShuffle) {
+        playlist.shuffle()
+    } else {
+        playlist.sort()
+    }
 
     return playlist
 }

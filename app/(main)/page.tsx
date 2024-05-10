@@ -1,3 +1,4 @@
+import Link from "next/link";
 import TestButton from "../components/TestButton";
 
 export default function Home() {
@@ -42,7 +43,7 @@ export default function Home() {
             <li>Soundcloud</li>
         </ul>
         <br/>
-        <a className="btn btn-primary" href="/search">Get Started</a>
+        <Link className="btn btn-primary" href="/search">Get Started</Link>
         <div className="divider divider-primary"></div>
         <TestButton/>
     </div>

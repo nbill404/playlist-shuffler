@@ -34,13 +34,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log("----------------------------------")
-
                 const combinedList = convertJsonToPlaylist(data.data);
-                combinedList.flatten()
-                combinedList.shuffle()
-
-                console.log(combinedList)
 
                 setPlaylist(combinedList);
             }).catch((error) => {
@@ -53,8 +47,10 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
     useEffect(() => {
 
         // Ensure that playlist exists
-        if (playlist && (playlist.elements.length > 0)) {
-            setSelectedSongId(playlist.elements[songNum].id);
+        if (playlist && playlist.length > 0) {
+            if ((0 <= songNum) && (songNum <= playlist.elements.length)) {
+                setSelectedSongId(playlist.elements[songNum].id);
+            }
         }
     }, [songNum, playlist])
 

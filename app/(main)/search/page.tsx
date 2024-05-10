@@ -3,16 +3,20 @@ import { authOptions } from "@/app/lib/auth";
 import SearchContainer from "@/app/components/search/SearchContainer";
 
 export default async function SearchPage() {
-    const getPlaylists = async (id: number | undefined) => {
+    const getPlaylists = async (userId: number | undefined) => {
       try {
-          if (typeof id === typeof undefined) {
+          if (typeof userId === typeof undefined) {
               throw Error("User is not logged in")
           }
 
-          const response = await fetch(process.env.URL + '/api/playlist/get', 
+          const data = {
+            userId: userId,
+          }
+
+          const response = await fetch(process.env.URL + '/api/playlist/getAll', 
           {
               method: 'POST',
-              body: JSON.stringify({id: id})
+              body: JSON.stringify(data)
           });
 
           if (response.ok) {

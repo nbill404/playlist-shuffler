@@ -13,7 +13,7 @@ export default function SidebarPlaylist() {
     return (
         <>
             {playlist ? 
-                <ul className="menu p-4 bg-slate-700 text-base-content">
+                <ul className="flex flex-col overflow-auto menu p-4 bg-slate-700 max-h-[50vh] text-base-content">
                     {playlist.elements.map((element : any, index : number) => 
                         isSong(element) ?
                         <SongSelectButton key={`song-${index}`} index={index} song={element}/>
