@@ -2,10 +2,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import PlayerControls from "./PlayerControls";
 import SidebarPlaylist from "./SidebarPlaylist";
-import SongImage from "./SongImage";
-import { useSearchParams } from "next/navigation";
+import SongImage from "./SongDisplay";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Playlist } from "@/app/lib/playlist";
 import { convertJsonToPlaylist } from "@/app/lib/convert";
+import { useRouter } from "next/navigation";
 
 export const SidebarContext = createContext();
 
@@ -21,6 +22,9 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
     const [selectedSongId, setSelectedSongId] = useState<string | null>(id);
     const [songEnded, setSongEnded] = useState<boolean>(false);
 
+    const router = useRouter();
+    const pathname = usePathname();
+
     // Fetch playlists
     useEffect(() => {
         const data = {
@@ -35,6 +39,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             .then((res) => res.json())
             .then((data) => {
                 const combinedList = convertJsonToPlaylist(data.data);
+                combinedList.flatten()
 
                 setPlaylist(combinedList);
             }).catch((error) => {

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import YouTubeEmbed from "../embedPlayers/YoutubeEmbed";
 import { SidebarContext } from "./Sidebar";
 
-export default function SongImage() {
+export default function SongDisplay() {
     const { selectedSongId } = useContext(SidebarContext);
     const { setSongEnded } = useContext(SidebarContext);
 
