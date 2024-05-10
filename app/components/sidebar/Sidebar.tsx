@@ -37,9 +37,9 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
     const id = useSearchParams().get("id");
 
     // Will only be called on initial render
-    const [songNum, setSongNum] = useState<Number>(-1);
-    const [playlistId, setPlaylistId] = useState<Number>(-1);
-    const [playlist, setPlaylist] = useState<Playlist>(null);
+    const [songNum, setSongNum] = useState<number>(-1);
+    const [playlistId, setPlaylistId] = useState<number>(-1);
+    const [playlist, setPlaylist] = useState<Playlist | null>(null);
     const [selectedSongId, setSelectedSongId] = useState<string | null>(id);
 
     // Fetch playlists
@@ -56,9 +56,11 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             .then((res) => res.json())
             .then((data) => {
                 console.log("----------------------------------")
-                console.log(data.data)
 
                 const combinedList = convertJson(data.data);
+                
+                combinedList.flatten()
+
                 console.log(combinedList)
 
                 setPlaylist(combinedList);
@@ -70,9 +72,10 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
 
     // Waits for fetch playlist effect to complete before setting the playlist
     useEffect(() => {
+
         // Ensure that playlist exists
-        if ((playlist && playlist.length > 0) && (typeof songNum !== typeof undefined) && (typeof songNum !== null)) {
-            setSelectedSongId(playlist[songNum].id);
+        if (playlist && (playlist.elements.length > 0)) {
+            setSelectedSongId(playlist.elements[songNum].id);
         }
     }, [songNum, playlist])
 

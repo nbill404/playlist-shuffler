@@ -1,4 +1,4 @@
-import { Song } from "./song";
+import { Song, isSong } from "./song";
 
 type Element = (Playlist | Song);
 
@@ -43,6 +43,29 @@ export class Playlist {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    // Flattens all subplaylists into single list
+    flatten() {
+        console.log("--------Flattening-------")
+
+        this.elements = this.flattenAux([...this.elements])
+        console.log(this.elements)
+    }
+
+    flattenAux(array: Element[]) {
+        let newArr : Element[] = []
+
+        for (const e of array) {
+            if (isSong(e)) {
+                newArr.push(e);
+            } else {
+                const subarr = this.flattenAux([...e.elements]);
+                newArr = newArr.concat(subarr);
+            }
+        }
+
+        return newArr;
     }
 
     addDetails(obj: Object) {
