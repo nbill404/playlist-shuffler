@@ -28,7 +28,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             playlistId: playlistId
         }
 
-        fetch("/api/playlist/getAll", {
+        fetch("/api/playlist/getAllLayers", {
             method: 'POST',
             body: JSON.stringify(data)
         })

@@ -2,20 +2,26 @@ import { authOptions } from "@/app/lib/auth";
 import { getServerSession } from "next-auth";
 import PlaylistGrid from "@/app/components/playlist/PlaylistGrid";
 import RankButton from "@/app/components/playlist/RankButton";
+import { useSearchParams } from "next/navigation";
 
-export default async function PlaylistsPage() {
-    const getPlaylists = async (id: number | undefined) => {
+export default async function PlaylistsPage({searchParams} : {
+    searchParams : {r : string}
+
+}) {
+    console.log(searchParams)
+
+    const getPlaylists = async (userId: number | undefined) => {
         try {
-            if (typeof id === typeof undefined) {
+            if (typeof userId === typeof undefined) {
                 throw Error("User is not logged in")
             }
 
-            const response = await fetch(process.env.URL + '/api/playlist/get', 
+            const response = await fetch(process.env.URL + '/api/playlist/getAllRank', 
             {
                 method: 'POST',
                 body: JSON.stringify({
-                    id: id,
-                    rank: 0
+                    userId: userId,
+                    rank: Number(searchParams.r)
                 })
             });
     
@@ -48,11 +54,10 @@ export default async function PlaylistsPage() {
         <div className="m-3 p-5 bg-sky-950 rounded-md flex-1">
             <div className="flex gap-2">
                 <h1 className="text-xl">Your Playlists</h1>
-                {Array.from(Array(10).keys()).map((i: number, _: number) => <RankButton key={`rank-button-${i}`} rank={i+1}/>)}
+                {Array.from(Array(10).keys()).map((i: number, _: number) => <RankButton key={`rank-button-${i}`} rank={i}/>)}
                 
             </div>
             <PlaylistGrid userId={userId} playlists={playlists}/>
         </div>
     )
-
 }

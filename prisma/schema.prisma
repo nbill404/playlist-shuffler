@@ -27,6 +27,8 @@ model Playlist {
   name String 
   rank Int
   position Int
+  canShuffle Boolean @default(false)
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId Int
   parentPlaylist Playlist? @relation("Playlists", fields: [parentPlaylistId], references: [id], onDelete: Cascade, onUpdate: Cascade)

@@ -9,6 +9,7 @@ export class Playlist {
     name: string;
     elements: Element[] = [];
     position: number = 0;
+    canShuffle: boolean = false;
 
     constructor(id: number, name: string) {
         this.id = id
@@ -48,10 +49,7 @@ export class Playlist {
 
     // Flattens all subplaylists into single list
     flatten() {
-        console.log("--------Flattening-------")
-
         this.elements = this.flattenAux([...this.elements])
-        console.log(this.elements)
     }
 
     flattenAux(array: Element[]) {

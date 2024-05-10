@@ -2,9 +2,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
 import Link from "next/link";
 import SongsDisplayList from "@/app/components/displaySongs/SongsDisplayList";
-import ShuffleButton from "@/app/components/displaySongs/ShuffleButton";
 import AddNewPlaylistButton from "@/app/components/displaySongs/AddNestedPlaylistButton";
-import OptionsBar from "@/app/components/displaySongs/OptionsBar";
+import OptionsBar from "@/app/components/displaySongs/optionsBar/OptionsBar";
 
 
 export default async function DisplayPlaylistsPage({params}:
@@ -19,7 +18,7 @@ export default async function DisplayPlaylistsPage({params}:
             playlistId: playlistId
         }
 
-        return fetch(process.env.URL + "/api/song/get", {
+        return fetch(process.env.URL + "/api/playlist/get", {
             method: 'POST',
             body: JSON.stringify(data)
         })
@@ -27,11 +26,11 @@ export default async function DisplayPlaylistsPage({params}:
             .then((data) => {
                 let combinedList = []
 
-                for (const item of data.data.songList) {                   
+                for (const item of data.data.elements.songList) {                   
                     combinedList.push(item)
                 }
 
-                for (const item of data.data.playlistList) {
+                for (const item of data.data.elements.playlistList) {
                     combinedList.push(item)
                 }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { Playlist } from "@/app/lib/playlist"
+import { Playlist } from "@/app/types/playlist"
 import Link from "next/link"
 
 interface Props {

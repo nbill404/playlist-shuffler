@@ -1,31 +1,27 @@
 import { NextResponse } from "next/server";
 import { db } from "@/app/lib/db";
 
-// For adding new playlists
+// 
 export async function POST(req: Request) {
     try {
-        const {user, playlist, parentPlaylistId} = await req.json();
-        const {id, ...newPlaylist} = playlist; // Destructure id as creating new playlist needs unique id
-        console.log(parentPlaylistId)
-        
-        // Update
-        const response = await db.playlist.create({
+        const {userId, playlistId, values} = await req.json();
+
+
+        await db.playlist.update({
+            where: {
+                userId: Number(userId),
+                id: Number(playlistId)
+            },
             data: {
-                ...newPlaylist,
-                userId: Number(user.id),
-                position: 0,
-                parentPlaylistId: Number(parentPlaylistId)
+                ...values
             }
-        });
-
-        if (response) {
-            console.log("Created")
-        }
+        })
 
 
-        return NextResponse.json({data: {id: response.id}, message: "Added new playlist"}, {status: 201});
+
+        return NextResponse.json({message: "Update successful"}, {status: 201});
     } catch (error) {
         console.log(error);
-        return NextResponse.json({data: {}, message: "Adding Failed"}, {status: 500});
+        return NextResponse.json({message: "Update failed"}, {status: 500});
     }
 }

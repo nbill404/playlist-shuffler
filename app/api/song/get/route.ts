@@ -21,8 +21,11 @@ export async function POST(req: Request) {
         })
 
         const data = {
-            songList: songList,
-            playlistList: playlistList
+            details: {},
+            elements: {
+                songList: songList,
+                playlistList: playlistList
+            }
         }
         
         return NextResponse.json({data: data, message: "Playlist fetch success"}, {status: 201});
