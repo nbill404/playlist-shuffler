@@ -1,5 +1,5 @@
 'use client'
-import { Song } from "../../types/song";
+import { Song } from "../../lib/song";
 import MusicListElement from "../listViewElements/SongListViewElement";
 import SelectPlaylistDropdown from "./SelectPlaylistDropdown";
 

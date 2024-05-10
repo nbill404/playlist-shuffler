@@ -4,32 +4,10 @@ import PlayerControls from "./PlayerControls";
 import SidebarPlaylist from "./SidebarPlaylist";
 import SongImage from "./SongImage";
 import { useSearchParams } from "next/navigation";
-import { Song } from "@/app/types/song";
-import { shuffle } from "@/app/lib/shuffle";
-import { Playlist } from "@/app/types/playlist";
+import { Playlist } from "@/app/lib/playlist";
+import { convertJsonToPlaylist } from "@/app/lib/convert";
 
 export const SidebarContext = createContext();
-
-const convertJson = (obj) => {
-    const playlist = new Playlist(-1, "");
-    playlist.addDetails(obj.details)
-
-    for (const item of obj.elements.songList) {
-        const song = new Song("", "Youtube")
-        song.addDetails(item);
-        playlist.push(song)
-    }
-
-    for (const item of obj.elements.playlistList) {
-        playlist.push(convertJson(item))    
-    }
-
-    playlist.sort()
-
-    return playlist
-}
-
-
 
 export default function Sidebar({userId} : { userId: number | undefined}) {
     const queryPlaylistId = useSearchParams().get("playlist");
@@ -41,6 +19,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
     const [playlistId, setPlaylistId] = useState<number>(-1);
     const [playlist, setPlaylist] = useState<Playlist | null>(null);
     const [selectedSongId, setSelectedSongId] = useState<string | null>(id);
+    const [songEnded, setSongEnded] = useState<boolean>(false);
 
     // Fetch playlists
     useEffect(() => {
@@ -57,9 +36,9 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             .then((data) => {
                 console.log("----------------------------------")
 
-                const combinedList = convertJson(data.data);
-                
+                const combinedList = convertJsonToPlaylist(data.data);
                 combinedList.flatten()
+                combinedList.shuffle()
 
                 console.log(combinedList)
 
@@ -93,12 +72,19 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
         }        
     }, [querySongNum])
 
+    useEffect(() => {
+        if (songEnded) {
+            setSongNum(songNum + 1);
+            setSongEnded(false);
+        }
+    }, [songEnded, songNum])
+
     return (
         <div className="flex flex-col bg-slate-800 w-96 h-[93vh]">
             {!userId ?
                 <p className="p-5">User is not logged in</p>
             :
-            <SidebarContext.Provider value={{playlist, playlistId, selectedSongId, setSongNum, setPlaylist}}>
+            <SidebarContext.Provider value={{playlist, playlistId, selectedSongId, setSongNum, setPlaylist, setSongEnded}}>
                 <SongImage/>
                 <div className="divider"/>
                 <PlayerControls/>

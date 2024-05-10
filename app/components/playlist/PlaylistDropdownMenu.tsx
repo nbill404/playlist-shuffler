@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { GridContext } from "./PlaylistGrid";
 import { useContext } from "react";
-import { Playlist } from "@/app/types/playlist";
+import { Playlist } from "@/app/lib/playlist";
 
 interface Props {
     playlist: Playlist

@@ -1,7 +1,8 @@
-import { Song } from "../types/song";
+import { Playlist } from "./playlist";
+import { Song } from "./song";
 
 // https://stackoverflow.com/a/48083382
-export function shuffle(array: Song[]) {
+export function shuffle(array: (Playlist | Song)[]) {
     let newArray = [...array];
     let currentIndex = array.length, randomIndex;
 

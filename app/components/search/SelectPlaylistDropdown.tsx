@@ -1,9 +1,9 @@
 'use client'
-import { Playlist } from "@/app/types/playlist"
+import { Playlist } from "@/app/lib/playlist"
 import { useContext } from "react"
 import { SearchContext } from "./SearchContainer"
 import AddToPlaylistButton from "../displaySongs/AddToPlaylistButton";
-import { Song } from "@/app/types/song";
+import { Song } from "@/app/lib/song";
 
 interface Props {
     song: Song

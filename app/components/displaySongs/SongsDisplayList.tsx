@@ -1,10 +1,10 @@
 'use client'
 import Link from "next/link"
 import MusicListElement from "../listViewElements/SongListViewElement"
-import { Song, isSong } from "@/app/types/song"
+import { Song, isSong } from "@/app/lib/song"
 import { usePathname } from "next/navigation"
 import AddNewPlaylistButton from "./AddNestedPlaylistButton"
-import { Playlist } from "@/app/types/playlist"
+import { Playlist } from "@/app/lib/playlist"
 import PlaylistListElement from "../listViewElements/PlaylistListViewElement"
 
 interface Props {

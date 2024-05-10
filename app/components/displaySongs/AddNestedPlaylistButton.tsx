@@ -1,4 +1,4 @@
-import { Playlist } from "@/app/types/playlist";
+import { Playlist } from "@/app/lib/playlist";
 
 export default function AddNestedPlaylistButton({userId, playlistId} : {
     userId: Number | undefined

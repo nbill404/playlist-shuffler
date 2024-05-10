@@ -1,3 +1,4 @@
+import { shuffle } from "./shuffle";
 import { Song, isSong } from "./song";
 
 type Element = (Playlist | Song);
@@ -74,5 +75,9 @@ export class Playlist {
 
     sort() {
         this.elements.sort((a, b) => a.position - b.position)
+    }
+
+    shuffle() {
+        this.elements = shuffle(this.elements);
     }
 }

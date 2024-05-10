@@ -1,7 +1,7 @@
 'use client'
 import { useContext } from "react";
 import { SidebarContext } from "./Sidebar";
-import { isSong } from "@/app/types/song";
+import { isSong } from "@/app/lib/song";
 import SongSelectButton from "./SongSelectButton";
 import SidebarSubPlaylist from "./SidebarSubPlaylist";
 

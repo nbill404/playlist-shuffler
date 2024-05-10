@@ -1,5 +1,5 @@
 'use client'
-import { isSong } from "@/app/types/song"
+import { isSong } from "@/app/lib/song"
 import SongSelectButton from "./SongSelectButton"
 
 export default function SidebarSubPlaylist({playlist}) {

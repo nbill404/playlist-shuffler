@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, createContext, useState } from "react";
 import PlaylistAdd from "./PlaylistAdd";
 import PlaylistDropdownMenu from "./PlaylistDropdownMenu";
 import PlaylistGridElement from "./PlaylistGridElement";
-import { Playlist } from "@/app/types/playlist";
+import { Playlist } from "@/app/lib/playlist";
 
 interface Props {
     userId: number | undefined

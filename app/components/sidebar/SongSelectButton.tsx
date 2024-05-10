@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { SidebarContext } from "./Sidebar";
-import { Song } from "@/app/types/song";
+import { Song } from "@/app/lib/song";
 
 
 

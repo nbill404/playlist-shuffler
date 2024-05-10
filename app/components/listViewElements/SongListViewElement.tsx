@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image"
-import { Song } from "../../types/song"
+import { Song } from "../../lib/song"
 
 interface Props {
     song: Song

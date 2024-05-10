@@ -1,5 +1,5 @@
 'use client'
-import { Playlist } from "@/app/types/playlist";
+import { Playlist } from "@/app/lib/playlist";
 import Image from "next/image";
 import { useContext } from "react";
 import { GridContext } from "./PlaylistGrid";

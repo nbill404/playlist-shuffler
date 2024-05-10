@@ -2,8 +2,8 @@
 import { createContext, useState } from "react";
 import SearchResults from "./SearchResults"
 import SearchBar from "./SearchBar";
-import { Song } from "../../types/song";
-import { Playlist } from "@/app/types/playlist";
+import { Song } from "../../lib/song";
+import { Playlist } from "@/app/lib/playlist";
 
 interface Props {
     userId: number | undefined

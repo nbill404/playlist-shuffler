@@ -1,4 +1,4 @@
-import { Song } from "@/app/types/song"
+import { Song } from "@/app/lib/song"
 import { NextResponse } from "next/server";
 
 const YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
