@@ -1,19 +1,17 @@
 'use client'
 import Image from "next/image";
 import { GridContext } from "./PlaylistGrid";
-import { useContext } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { Playlist } from "@/app/lib/playlist";
+import { error } from "console";
 
 interface Props {
     playlist: Playlist
 }
 
 export default function PlaylistDropdownMenu({playlist}: Props) {
-    const context = useContext(GridContext);
-
-    const {userId} = context;
-    const {lists} = context;
-    const {setPlaylists} = context;
+    const {userId, lists, setPlaylists} = useContext(GridContext);
+    const [renameActive, setRenameActive] = useState(false);
 
     const handleRemove = async () => {
         try {
@@ -35,6 +33,34 @@ export default function PlaylistDropdownMenu({playlist}: Props) {
         }
     }
 
+    const handleRename = () => {
+        setRenameActive(!renameActive);
+    }
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget)
+
+        const newName = formData.get("renameField");
+
+        if (newName) {
+            const data = {
+                userId : userId,
+                playlistId : playlist.id,
+                values : {
+                    name : newName
+                }
+            }
+
+            fetch("/api/playlist/update", {
+                method: "POST",
+                body: JSON.stringify(data)
+            }).catch(error => console.log(error));
+
+            playlist.name = newName;
+        }
+    }
+
     return (
         <div className="dropdown">
             <Image 
@@ -46,9 +72,16 @@ export default function PlaylistDropdownMenu({playlist}: Props) {
                 alt=""
                 >
             </Image>
-            <ul className="dropdown-content menu bg-gray-700 w-32" tabIndex={0}>
+            <ul className="dropdown-content menu bg-gray-700 flex flex-col" tabIndex={0}>
                 <li><button onClick={handleRemove}>Remove</button></li>
-                <li><button>Rename</button></li>
+                <li><button onClick={handleRename}>Rename</button></li>
+                {renameActive && 
+                    <li>
+                        <form onSubmit={handleSubmit}>
+                            <input className="input input-sm" name="renameField"></input>
+                        </form>
+                    </li>
+                }
             </ul>
         </div>
     )
