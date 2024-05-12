@@ -1,13 +1,17 @@
 'use client'
 
-import { ChangeEventHandler, FormEvent } from "react";
+import { Playlist } from "@/app/lib/playlist";
+import { ChangeEventHandler } from "react";
 
-export default function ShuffleToggle({userId, playlistId}) {
+export default function ShuffleToggle({userId, playlistDetails} : {
+    userId : string
+    playlistDetails : Playlist
+}) {
 
     const handleChange = (e : ChangeEventHandler<HTMLInputElement>) => {
         const data = {
             userId: userId,
-            playlistId: playlistId,
+            playlistId: playlistDetails.id,
             values: {
                 canShuffle: e.currentTarget.checked
             }
@@ -21,7 +25,7 @@ export default function ShuffleToggle({userId, playlistId}) {
     }
 
     return (
-        <input className="toggle" type="checkbox" onChange={handleChange}></input>
+        <input className="toggle toggle-primary" type="checkbox" defaultChecked={playlistDetails.canShuffle} onChange={handleChange}></input>
     )
 
 

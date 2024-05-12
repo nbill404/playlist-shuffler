@@ -6,6 +6,15 @@ export async function POST(req: Request) {
     try {
         const {userId, playlistId} = await req.json();
         
+        const playlist = await db.playlist.findUnique({
+            where: {
+                userId: Number(userId),
+                id: Number(playlistId)
+            }
+
+
+        });
+
         const songList = await db.song.findMany({
             where: {
                 userId: Number(userId),
@@ -21,7 +30,7 @@ export async function POST(req: Request) {
         })
 
         const data = {
-            details: {},
+            details: playlist,
             elements: {
                 songList: songList,
                 playlistList: playlistList
