@@ -8,7 +8,6 @@ export default async function PlaylistsPage({searchParams} : {
     searchParams : {r : string}
 
 }) {
-    console.log(searchParams)
 
     const getPlaylists = async (userId: number | undefined) => {
         try {
