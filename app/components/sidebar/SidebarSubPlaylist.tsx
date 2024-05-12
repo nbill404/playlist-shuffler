@@ -11,7 +11,7 @@ export default function SidebarSubPlaylist({playlist}) {
                 <ul>
                     {playlist.elements.map((element: Song | Playlist, index: number) => 
                         element instanceof Song ?
-                        <SongSelectButton key={`song-${index}`} index={index} song={element}/>
+                        <SongSelectButton key={`song-${index}`} song={element}/>
                         : 
                         <SidebarSubPlaylist key={`sublist-${index}`} playlist={element}/>
                     )}

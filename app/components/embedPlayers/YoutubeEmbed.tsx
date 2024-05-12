@@ -1,20 +1,43 @@
 'use client'
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useEffect } from "react"
 import YouTube, { YouTubeEvent } from "react-youtube"
 
 interface Props {
     videoId: string
+    songPaused: boolean
     setSongEnded : Dispatch<SetStateAction<boolean>>
+    setSongPaused : Dispatch<SetStateAction<boolean>>
 }
 
-export default function YouTubeEmbed({videoId, setSongEnded} : Props) {
+// https://stackoverflow.com/questions/69579941/using-react-youtube-is-there-any-way-to-reference-the-player-other-than-with-an
+var cElement = null; // Stores player event
+
+export default function YouTubeEmbed({videoId, songPaused, setSongEnded, setSongPaused} : Props) {
+
     const handleReady = (event: YouTubeEvent<number>) => {
         event.target.playVideo();
+        cElement = event;
     }
 
-    const handleEnd = (event: YouTubeEvent<number>) => {
+    const handleEnd = () => {
         setSongEnded(true)
     }
+
+    const handlePaused = (event: YouTubeEvent<number>) => {
+        setSongPaused(event.data === 2)
+    }
+
+    // Pause/Play
+    useEffect(() => {
+        if (cElement) {
+            if (songPaused) {
+                cElement.target.pauseVideo();
+            } else {
+                cElement.target.playVideo();
+            }
+        }
+    }
+    , [songPaused])
 
     const opts = {
         width: "320",
@@ -26,6 +49,8 @@ export default function YouTubeEmbed({videoId, setSongEnded} : Props) {
             videoId={videoId}
             onReady={handleReady}
             onEnd={handleEnd}
+            onPlay={handlePaused}
+            onPause={handlePaused}
             opts={opts}
         >
         </YouTube>

@@ -40,6 +40,21 @@ export class Playlist {
         this.elements = shuffle(this.elements);
     }
 
+    shuffleUnconditional() {
+        let newArr = [...this.elements]
+        let currentIndex = this.elements.length, randomIndex;
+    
+        while (currentIndex != 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+    
+            [newArr[currentIndex], newArr[randomIndex]] = [newArr[randomIndex], newArr[currentIndex]];
+            [newArr[currentIndex].position, newArr[randomIndex].position] = [newArr[randomIndex].position, newArr[currentIndex].position]
+        }
+        
+        this.elements = newArr;
+    }   
+
     remove(id: number | string) {
         // Playlist id is a number, song id is a string
         
