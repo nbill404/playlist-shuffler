@@ -31,10 +31,10 @@ export default function PlaylistGrid({userId, playlists, rank}: Props) {
             <div className="p-5 grid grid-cols-5 gap-2 max-h-[75vh] overflow-auto">
                 <GridContext.Provider value={{lists, userId, setPlaylists}}>
                     {rank === 0 && <PlaylistAdd/>}
-                    {lists.map((item: Playlist, i: number) => 
+                    {lists.map((element: Playlist, i: number) => 
                     <div key={`playlistcontainer${i}`} className="grid grid-cols-2">
-                        <PlaylistGridElement key={`playlist-${i}`} playlist={item} />
-                        <PlaylistDropdownMenu key={`dropdown-${i}`} playlist={item}/>
+                        <PlaylistGridElement key={`playlist-${i}`} playlist={element} />
+                        <PlaylistDropdownMenu key={`dropdown-${i}`} playlist={element}/>
                     </div>
                     )}    
                 </GridContext.Provider>
