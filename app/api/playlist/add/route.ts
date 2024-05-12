@@ -21,6 +21,11 @@ export async function POST(req: Request) {
             if (parentPlaylist) {
                 newPlaylist.rank = parentPlaylist.rank + 1;
 
+                if (newPlaylist.rank >= 10) {
+                    return NextResponse.json({data: {} , message : "Cannot create any more layers"}, {status: 500});
+                }
+
+
                 songsCount = await db.song.count({
                     where : {
                         userId: Number(user.id),
