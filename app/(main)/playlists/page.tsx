@@ -49,7 +49,7 @@ export default async function PlaylistsPage({searchParams} : {
                 {Array.from(Array(10).keys()).map((i: number, _: number) => <RankButton key={`rank-button-${i}`} rank={i}/>)}
                 
             </div>
-            <PlaylistGrid userId={userId} playlists={playlists} rank={Number(searchParams.r)}/>
+            <PlaylistGrid userId={userId} playlists={playlists} rank={searchParams.r ? Number(searchParams.r): 0}/>
         </div>
     )
 }
