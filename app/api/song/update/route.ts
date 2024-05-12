@@ -1,16 +1,17 @@
-import { NextResponse } from "next/server";
 import { db } from "@/app/lib/db";
+import { NextResponse } from "next/server";
 
-// 
+
+
 export async function POST(req: Request) {
     try {
-        const {userId, playlistId, values} = await req.json();
+        const {userId, songId, values} = await req.json();
 
 
-        await db.playlist.update({
+        await db.song.update({
             where: {
                 userId: Number(userId),
-                id: Number(playlistId)
+                id: songId
             },
             data: {
                 ...values

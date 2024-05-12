@@ -22,3 +22,4 @@ https://www.svgrepo.com/svg/513089/youtube-168
 https://www.svgrepo.com/svg/522237/plus
 https://www.svgrepo.com/svg/374767/picklist-type
 https://www.svgrepo.com/svg/533712/shuffle
+https://www.svgrepo.com/svg/529002/hamburger-menu 

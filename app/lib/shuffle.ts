@@ -10,8 +10,6 @@ export function shuffle(array: (Playlist | Song)[]) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
 
-        console.log(randomIndex);
-
         [newArray[currentIndex], newArray[randomIndex]] = [newArray[randomIndex], newArray[currentIndex]];
     }
 

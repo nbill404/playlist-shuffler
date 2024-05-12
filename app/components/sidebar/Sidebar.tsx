@@ -42,7 +42,6 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
                 
                 combinedList.updateGlobalPosition()
                 combinedList.flattenId();
-                console.log(combinedList.idList)
 
                 setPlaylist(combinedList);
             }).catch((error) => {
