@@ -23,9 +23,6 @@ export default async function DisplayPlaylistsPage({params}:
         })
             .then((res) => res.json())
             .then((data) => {
-                
-
-                // Cannot pass class object from server to client component
                 return data.data;
             }).catch((error) => {
                 return {};

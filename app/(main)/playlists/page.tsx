@@ -26,14 +26,7 @@ export default async function PlaylistsPage({searchParams} : {
     
             if (response.ok) {
                 const data = await response.json();
-    
-                let playlists = []
-    
-                for (const playlist of data.data) {
-                    playlists.push(playlist)
-                }
-
-                return playlists;
+                return data.data;
             } else {
                 console.log(response);
                 return [];
@@ -56,7 +49,7 @@ export default async function PlaylistsPage({searchParams} : {
                 {Array.from(Array(10).keys()).map((i: number, _: number) => <RankButton key={`rank-button-${i}`} rank={i}/>)}
                 
             </div>
-            <PlaylistGrid userId={userId} playlists={playlists}/>
+            <PlaylistGrid userId={userId} playlists={playlists} rank={Number(searchParams.r)}/>
         </div>
     )
 }

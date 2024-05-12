@@ -8,6 +8,7 @@ import { Playlist } from "@/app/lib/playlist";
 interface Props {
     userId: number | undefined
     playlists: Playlist[]
+    rank: number
 }
 
 interface GridContextType {
@@ -18,7 +19,7 @@ interface GridContextType {
 
 export const GridContext = createContext<GridContextType | null>(null);
 
-export default function PlaylistGrid({userId, playlists}: Props) {
+export default function PlaylistGrid({userId, playlists, rank}: Props) {
     const [lists, setPlaylists] = useState(playlists);
 
     useEffect(() => {
@@ -29,7 +30,7 @@ export default function PlaylistGrid({userId, playlists}: Props) {
         <>
             <div className="p-5 grid grid-cols-5 gap-2 max-h-[75vh] overflow-auto">
                 <GridContext.Provider value={{lists, userId, setPlaylists}}>
-                    <PlaylistAdd/>
+                    {rank === 0 && <PlaylistAdd/>}
                     {lists.map((item: Playlist, i: number) => 
                     <div key={`playlistcontainer${i}`} className="grid grid-cols-2">
                         <PlaylistGridElement key={`playlist-${i}`} playlist={item} />
