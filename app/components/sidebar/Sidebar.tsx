@@ -39,7 +39,10 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             .then((res) => res.json())
             .then((data) => {
                 const combinedList = convertJsonToPlaylist(data.data);
-                combinedList.flatten()
+                
+                combinedList.updateGlobalPosition()
+                combinedList.flattenId();
+                console.log(combinedList.idList)
 
                 setPlaylist(combinedList);
             }).catch((error) => {
@@ -50,11 +53,10 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
 
     // Waits for fetch playlist effect to complete before setting the playlist
     useEffect(() => {
-
         // Ensure that playlist exists
-        if (playlist && playlist.length > 0) {
-            if ((0 <= songNum) && (songNum <= playlist.elements.length)) {
-                setSelectedSongId(playlist.elements[songNum].id);
+        if (playlist !== null) {
+            if ((0 <= songNum) && (songNum <= playlist!.elements.length)) {
+                setSelectedSongId(playlist?.idList[songNum]);
             }
         }
     }, [songNum, playlist])
@@ -73,10 +75,12 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
         }        
     }, [querySongNum])
 
+    // Play next on end
     useEffect(() => {
         if (songEnded) {
             setSongNum(songNum + 1);
             setSongEnded(false);
+            console.log("test")
         }
     }, [songEnded, songNum])
 
@@ -85,7 +89,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             {!userId ?
                 <p className="p-5">User is not logged in</p>
             :
-            <SidebarContext.Provider value={{playlist, playlistId, selectedSongId, setSongNum, setPlaylist, setSongEnded}}>
+            <SidebarContext.Provider value={{playlist, playlistId, selectedSongId, setSongNum, setPlaylist, setSongEnded, setSelectedSongId}}>
                 <SongImage/>
                 <div className="divider"/>
                 <PlayerControls/>

@@ -4,15 +4,15 @@ import { Song } from "@/app/lib/song";
 
 
 
-export default function SongSelectButton({index, song} : { 
-    index : number 
+export default function SongSelectButton({song} : { 
     song : Song
 }) {
-    const { setSongNum } = useContext(SidebarContext);
+    const { setSelectedSongId } = useContext(SidebarContext);
+    const { songNum } = useContext(SidebarContext)
 
     return (
-        <li className="text-left hover:bg-slate-600 rounded">
-            <button onClick={() => setSongNum(index)}>{song.title}</button>
+        <li className={`text-left hover:bg-slate-600 rounded ${(songNum === song.globalPosition) && "bg-slate-600"}`}>
+            <button onClick={() => setSelectedSongId(song.id)}>{song.title}</button>
         </li>
     )
 }

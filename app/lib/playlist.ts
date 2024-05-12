@@ -11,6 +11,8 @@ export class Playlist {
     position: number = 0;
     canShuffle: boolean = false;
 
+    idList =  []; // Flattened copy of list containing only ids for song indexing 
+
     constructor(id: number, name: string) {
         this.id = id
         this.name = name;
@@ -22,6 +24,18 @@ export class Playlist {
 
     empty() {
         return this.elements.length === 0;
+    }
+
+    addDetails(obj: Object) {
+        Object.assign(this, obj)
+    }
+
+    sort() {
+        this.elements.sort((a, b) => a.position - b.position)
+    }
+
+    shuffle() {
+        this.elements = shuffle(this.elements);
     }
 
     remove(id: number | string) {
@@ -67,15 +81,43 @@ export class Playlist {
         return newArr;
     }
 
-    addDetails(obj: Object) {
-        Object.assign(this, obj)
+    flattenId() {
+        this.idList = [];
+        this.flattenIdAux(this.elements);
     }
 
-    sort() {
-        this.elements.sort((a, b) => a.position - b.position)
+    flattenIdAux(array: Element[]) {
+        for (const e of array) {
+            if (isSong(e)) {
+                this.idList.push(e.id);
+            } else {
+                this.flattenIdAux(e.elements);
+            }
+        }
     }
 
-    shuffle() {
-        this.elements = shuffle(this.elements);
+    updateGlobalPosition(array: Element[] = this.elements, current: {index : number} = {index: 0}) {
+        for (const e of array) {
+            if (isSong(e)) {
+                e.globalPosition = current.index;
+                current.index += 1;
+            } else {
+                this.updateGlobalPosition(e.elements, current);
+            }
+        }
     }
+
+    printList(array: Element[] = this.elements) {
+        for (const e of array) {
+            if (isSong(e)) {
+                console.log(e);
+            } else {
+                console.log(e)
+                this.printList(e.elements);
+            }
+        }
+    }
+
 }
+
+
