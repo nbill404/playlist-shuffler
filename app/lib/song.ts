@@ -1,4 +1,5 @@
 export class Song {
+    // Database
     id: string;
     platform: string;
     title: string = "";
@@ -7,7 +8,8 @@ export class Song {
     thumbnailUrl: string = "";
     position: number = 0;
     
-    globalPosition: number = -1; // Used to determine overall index regardless of being in subplaylist
+    // Client only
+    globalPosition? : number; // Used to determine overall index regardless of being in subplaylist
 
     constructor(id: string, platform: string) {
         this.id = id;

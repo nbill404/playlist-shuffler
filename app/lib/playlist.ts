@@ -4,6 +4,7 @@ import { Song, isSong } from "./song";
 type Element = (Playlist | Song);
 
 export class Playlist {
+    // Database 
     rank: number = 0; // Rank/Depth of playlist
     id: number;
     name: string;
@@ -11,7 +12,8 @@ export class Playlist {
     position: number = 0;
     canShuffle: boolean = false;
 
-    idList =  []; // Flattened copy of list containing only ids for song indexing 
+    // Client only
+    idList? : string[]; // Flattened copy of list containing only ids for song indexing 
 
     constructor(id: number, name: string) {
         this.id = id
