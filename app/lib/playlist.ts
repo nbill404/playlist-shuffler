@@ -1,5 +1,5 @@
 import { shuffle } from "./shuffle";
-import { Song, isSong } from "./song";
+import { Song } from "./song";
 
 type Element = (Playlist | Song);
 
@@ -72,7 +72,7 @@ export class Playlist {
         let newArr : Element[] = []
 
         for (const e of array) {
-            if (isSong(e)) {
+            if (e instanceof Song) {
                 newArr.push(e);
             } else {
                 const subarr = this.flattenAux([...e.elements]);
@@ -90,8 +90,8 @@ export class Playlist {
 
     flattenIdAux(array: Element[]) {
         for (const e of array) {
-            if (isSong(e)) {
-                this.idList.push(e.id);
+            if (e instanceof Song) {
+                this.idList?.push(e.id);
             } else {
                 this.flattenIdAux(e.elements);
             }
@@ -100,7 +100,7 @@ export class Playlist {
 
     updateGlobalPosition(array: Element[] = this.elements, current: {index : number} = {index: 0}) {
         for (const e of array) {
-            if (isSong(e)) {
+            if (e instanceof Song) {
                 e.globalPosition = current.index;
                 current.index += 1;
             } else {
@@ -111,7 +111,7 @@ export class Playlist {
 
     printList(array: Element[] = this.elements) {
         for (const e of array) {
-            if (isSong(e)) {
+            if (e instanceof Song) {
                 console.log(e);
             } else {
                 console.log(e)

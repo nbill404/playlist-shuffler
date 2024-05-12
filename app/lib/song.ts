@@ -20,7 +20,3 @@ export class Song {
         Object.assign(this, obj);
     }
 }
-
-export const isSong = (obj: Object) => {
-    return typeof obj.title !== typeof undefined
-};
