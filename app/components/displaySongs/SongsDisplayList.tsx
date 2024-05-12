@@ -1,13 +1,13 @@
 'use client'
 import Link from "next/link"
 import MusicListElement from "../listViewElements/SongListViewElement"
-import { Song, isSong } from "@/app/lib/song"
+import { Song } from "@/app/lib/song"
 import { usePathname } from "next/navigation"
 import { Playlist } from "@/app/lib/playlist"
 import PlaylistListElement from "../listViewElements/PlaylistListViewElement"
 import RearrangeArrows from "../listViewElements/RearrangeArrows"
 import { useEffect, useState } from "react"
-import { convertJsonToPlaylist, convertJsonToPlaylistSingle } from "@/app/lib/convert"
+import { convertJsonToPlaylistSingle } from "@/app/lib/convert"
 
 interface Props {
     userId: number | undefined
@@ -84,8 +84,7 @@ export default function SongsDisplayList({userId, data}: Props) {
     return (
         <div className="max-h-[65vh] overflow-auto">
             {playlist && playlist.elements.length > 0 ? playlist.elements.map((element : any, index: number) =>
-                isSong(element) ?
-                
+                element instanceof Song ?
                 <div key={`link-${index}`} className="grid grid-cols-8">
                     <a className="col-span-7"  href={`${pathname}?playlist=${playlist.id}&song=${index}&id=${element.id}`}>
                         <MusicListElement key={`song-${index}`} song={element} num={index}/>

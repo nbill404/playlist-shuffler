@@ -1,6 +1,7 @@
 'use client'
-import { isSong } from "@/app/lib/song"
+import { Song } from "@/app/lib/song"
 import SongSelectButton from "./SongSelectButton"
+import { Playlist } from "@/app/lib/playlist"
 
 export default function SidebarSubPlaylist({playlist}) {
     return (
@@ -8,8 +9,8 @@ export default function SidebarSubPlaylist({playlist}) {
             <details>
             <summary className="text-left">{playlist.name}</summary>
                 <ul>
-                    {playlist.elements.map((element: any, index: number) => 
-                        isSong(element) ?
+                    {playlist.elements.map((element: Song | Playlist, index: number) => 
+                        element instanceof Song ?
                         <SongSelectButton key={`song-${index}`} index={index} song={element}/>
                         : 
                         <SidebarSubPlaylist key={`sublist-${index}`} playlist={element}/>
