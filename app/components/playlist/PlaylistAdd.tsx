@@ -43,8 +43,10 @@ export default function PlaylistAdd() {
                 const data = await response.json();
 
                 const newPlaylist = {
-                    id: data.data.id,
-                    name: name
+                    details: {
+                        id: data.data.id,
+                        name: name
+                    }
                 }
 
                 const newPlaylists = [...lists, newPlaylist]

@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
     try {
         // user id, playlist id
-        const {userId, playlist} = await req.json();
+        const {userId, playlistId} = await req.json();
 
         // Delete all associate songs
         await db.song.deleteMany({
             where: {
                 userId: Number(userId),
-                playlistId: playlist.id
+                playlistId: playlistId
             }
         }
         );
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
         await db.playlist.delete({
             where: {
                 userId: Number(userId),
-                id: playlist.id 
+                id: playlistId 
             }
         });
 

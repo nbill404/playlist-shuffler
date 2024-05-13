@@ -9,7 +9,7 @@ interface Props {
     playlist: Playlist
 }
 
-export default function PlaylistDropdownMenu({playlist}: Props) {
+export default function PlaylistDropdownMenu({playlist}) {
     const {userId, lists, setPlaylists} = useContext(GridContext);
     const [renameActive, setRenameActive] = useState(false);
 
@@ -19,7 +19,7 @@ export default function PlaylistDropdownMenu({playlist}: Props) {
                 method: 'POST',
                 body: JSON.stringify({
                     userId: userId,
-                    playlist: playlist
+                    playlistId: playlist.details.id
                 })
             })
 
@@ -46,7 +46,7 @@ export default function PlaylistDropdownMenu({playlist}: Props) {
         if (newName) {
             const data = {
                 userId : userId,
-                playlistId : playlist.id,
+                playlistId : playlist.details.id,
                 values : {
                     name : newName
                 }
