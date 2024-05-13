@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 
 interface Props {
     index: number
-    setSwapIndexes: Dispatch<SetStateAction<[number, number]>>
+    setSwapIndexes: Dispatch<SetStateAction<[number, number] | null>>
 }
 
 export default function DownArrow({index, setSwapIndexes}: Props) {

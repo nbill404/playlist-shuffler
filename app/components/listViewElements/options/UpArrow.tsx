@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react"
 
 interface Props {
     index: number
-    setSwapIndexes: Dispatch<SetStateAction<[number, number]>>
+    setSwapIndexes: Dispatch<SetStateAction<[number, number] | null>>
 }
 
 export default function UpArrow({index, setSwapIndexes} : Props) {
@@ -12,7 +12,7 @@ export default function UpArrow({index, setSwapIndexes} : Props) {
     }
 
     return (
-        <button className="hover:bg-sky-800"onClick={handleClick}>
+        <button className="hover:bg-sky-800" onClick={handleClick}>
             <Image src="/up-arrow.svg" width="30" height="30" alt=""></Image>
         </button>
     )

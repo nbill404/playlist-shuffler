@@ -5,9 +5,9 @@ import { Song } from "@/app/lib/song"
 import { usePathname } from "next/navigation"
 import { Playlist } from "@/app/lib/playlist"
 import PlaylistListElement from "../listViewElements/PlaylistListViewElement"
-import RearrangeArrows from "../listViewElements/RearrangeArrows"
 import { useEffect, useState } from "react"
 import { convertJsonToPlaylistSingle } from "@/app/lib/convert"
+import ElementOptions from "../listViewElements/options/ElementOptions"
 
 interface Props {
     userId: number | undefined
@@ -89,14 +89,14 @@ export default function SongsDisplayList({userId, data}: Props) {
                     <a className="col-span-7"  href={`${pathname}?playlist=${playlist.id}&song=${index}&id=${element.id}`}>
                         <MusicListElement key={`song-${index}`} song={element} num={index}/>
                     </a>
-                    <RearrangeArrows index={index} setSwapIndexes={setSwapIndexes}/>
+                    <ElementOptions index={index} setSwapIndexes={setSwapIndexes}/>
                 </div>
                 :
                 <div key={`link-${index}`} className="grid grid-cols-8">
                     <a className="col-span-7" href={`/playlists/${element.id}`}>
                         <PlaylistListElement key={`playlist-${index}`} playlist={element} num={index}/>
                     </a>
-                    <RearrangeArrows index={index} setSwapIndexes={setSwapIndexes}/>
+                    <ElementOptions index={index} setSwapIndexes={setSwapIndexes}/>
                 </div>
             )
             :

@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from "react";
 
 interface Props {
     index: number
-    setSwapIndexes: Dispatch<SetStateAction<[number, number]>>
+    setSwapIndexes: Dispatch<SetStateAction<[number, number] | null>>
 }
 
 export default function RearrangeArrows({index, setSwapIndexes} : Props) {
