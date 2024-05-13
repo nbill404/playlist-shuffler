@@ -32,3 +32,5 @@ https://www.svgrepo.com/svg/521076/back
 https://www.svgrepo.com/svg/521146/foward
 https://www.svgrepo.com/svg/521201/pause
 https://www.svgrepo.com/svg/521207/play
+
+https://www.svgrepo.com/svg/523624/playlist-minimalistic-2
