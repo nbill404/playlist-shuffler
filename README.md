@@ -25,3 +25,10 @@ https://www.svgrepo.com/svg/533712/shuffle
 https://www.svgrepo.com/svg/529002/hamburger-menu 
 https://www.svgrepo.com/svg/108986/left-arrow
 https://www.svgrepo.com/svg/27797/right-arrow
+https://www.svgrepo.com/svg/520676/cross
+https://www.svgrepo.com/svg/533052/star
+
+https://www.svgrepo.com/svg/521076/back
+https://www.svgrepo.com/svg/521146/foward
+https://www.svgrepo.com/svg/521201/pause
+https://www.svgrepo.com/svg/521207/play
