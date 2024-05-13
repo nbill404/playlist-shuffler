@@ -23,3 +23,5 @@ https://www.svgrepo.com/svg/522237/plus
 https://www.svgrepo.com/svg/374767/picklist-type
 https://www.svgrepo.com/svg/533712/shuffle
 https://www.svgrepo.com/svg/529002/hamburger-menu 
+https://www.svgrepo.com/svg/108986/left-arrow
+https://www.svgrepo.com/svg/27797/right-arrow

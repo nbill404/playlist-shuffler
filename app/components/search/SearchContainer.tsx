@@ -4,8 +4,7 @@ import SearchResults from "./SearchResults"
 import SearchBar from "./SearchBar";
 import { Song } from "../../lib/song";
 import { Playlist } from "@/app/lib/playlist";
-import { list } from "postcss";
-import { convertJsonToPlaylist, convertJsonToPlaylistSingle } from "@/app/lib/convert";
+import { convertJsonToPlaylistSingle } from "@/app/lib/convert";
 
 interface Props {
     userId: number | undefined
@@ -19,7 +18,10 @@ export default function SearchContainer({userId} : Props) {
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
 
     useEffect(() => {
-        if (typeof playlistId === typeof "number") {
+        console.log("Outside", playlistId, typeof playlistId)
+        if (typeof playlistId == "number") {
+            console.log("Inside", playlistId)
+
             const data = {
                 userId: userId,
                 playlistId: playlistId
@@ -33,11 +35,13 @@ export default function SearchContainer({userId} : Props) {
             .then((resJson) => {
                 let lists = []
 
-                for (const item of resJson.data.elements.playlistList) {
-                    const playlist = convertJsonToPlaylistSingle(item)
-
-                    lists.push(playlist);
+                for (const item of convertJsonToPlaylistSingle(resJson.data).elements) {
+                    if (item instanceof Playlist) {
+                        lists.push(item)
+                    }
                 }
+
+                console.log(lists)
 
                 setPlaylists(lists);
             })
@@ -76,7 +80,7 @@ export default function SearchContainer({userId} : Props) {
     }, [playlistId, userId]);
     
     return (
-        <SearchContext.Provider value={{userId, playlists}}>
+        <SearchContext.Provider value={{userId, playlistId, playlists, setPlaylistsId}}>
             <SearchBar onQuery={setResults}/>
             <SearchResults results={results}/>
         </SearchContext.Provider>

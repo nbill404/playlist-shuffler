@@ -1,8 +1,9 @@
 'use client'
 import { Playlist } from "@/app/lib/playlist"
 import { useContext } from "react";
-import { SearchContext } from "../search/SearchContainer";
+import { SearchContext } from "./SearchContainer";
 import { Song } from "@/app/lib/song";
+import Image from "next/image";
 
 interface Props {
     playlist: Playlist
@@ -12,6 +13,7 @@ interface Props {
 
 export default function AddToPlaylistButton({playlist, song} : Props) {
     const { userId } = useContext(SearchContext);
+    const { setPlaylistsId } = useContext(SearchContext);
 
     const handleAdd = async () => {
         try {
@@ -34,6 +36,22 @@ export default function AddToPlaylistButton({playlist, song} : Props) {
         }
     }
 
+    const handleSelectSubPlaylist = () => {
+        console.log(playlist.id)
+        setPlaylistsId(Number(playlist.id));
+    }
 
-    return (<button className="text-xl rounded w-48 hover:bg-sky-600" onClick={handleAdd}>{playlist.name}</button>)
+
+    return (
+        <div className="grid-cols-8 w-48 text-xl rounded items-center">
+            <button className="hover:bg-sky-600 col-span-7" onClick={handleAdd}>
+                {playlist.name}
+            </button>
+
+
+            <button className="hover:bg-sky-600" onClick={handleSelectSubPlaylist}>
+                <Image src="/right-arrow.svg" width="24" height="24" alt=""></Image>
+            </button>
+        </div>
+    )
 }

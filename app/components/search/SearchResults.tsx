@@ -8,7 +8,7 @@ interface Props {
 }
 
 
-export default function SearchResults({results}: Props) {
+export default function SearchResults({results, playlistId}: Props) {
     return (
         <div className="flex flex-col gap-2 max-h-[75vh] m-3 p-5 overflow-auto">
             {results && results.map((result: Song, index: number) => 
