@@ -9,7 +9,7 @@ interface Props {
 
 export default function PlaylistGridElement({playlist} : Props) {
     return (
-    <Link href={`/playlists/${playlist.id}`}>
+    <Link href={`/playlists/${playlist.details.id}`}>
         <div className="w-32 h-32 bg-slate-800"/>
         <div>{playlist.details.name}</div>
     </Link>

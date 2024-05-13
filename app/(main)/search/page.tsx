@@ -20,13 +20,13 @@ export default async function SearchPage() {
           });
 
           if (response.ok) {
-              const data = await response.json();
+                const data = await response.json();
 
-              let playlists = []
+                let playlists = []
 
-              for (const playlist of data.data) {
-                  playlists.push(playlist)
-              }
+                for (const playlist of data.data) {
+                    playlists.push(playlist)
+                }
 
               return playlists;
           } else {
@@ -46,7 +46,7 @@ export default async function SearchPage() {
 
   return (
       <div className="m-3 p-5 bg-sky-950 rounded-md flex-1">
-          <SearchContainer userId={userId} playlists={playlists}/>
+          <SearchContainer userId={userId}/>
       </div>
   )
 }
