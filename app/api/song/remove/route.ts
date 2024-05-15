@@ -6,7 +6,7 @@ export async function POST(req: Request) {
         // user id, playlist id
         const {userId, songId} = await req.json();
 
-        await db.playlist.delete({
+        await db.song.delete({
             where: {
                 userId: Number(userId),
                 id: songId

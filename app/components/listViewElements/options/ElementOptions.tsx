@@ -1,17 +1,24 @@
+'use client'
 import { Dispatch, SetStateAction } from "react"
 import RearrangeArrows from "./RearrangeArrows"
 import RemoveElementButton from "./RemoveElementButton"
 import PriorityButton from "./PriorityButton"
 import PlayElementButton from "./PlayElementButton"
+import { Playlist } from "@/app/lib/playlist"
+import { Song } from "@/app/lib/song"
 
 
 interface Props {
+    userId: number
     index: number
+    playlist: Playlist
+    element: Playlist | Song
+    setPlaylist: Dispatch<SetStateAction<Playlist | null>>
     setSwapIndexes: Dispatch<SetStateAction<[number, number] | null>>
 }
 
 
-export default function ElementOptions({index, setSwapIndexes} : Props) {
+export default function ElementOptions({userId, index, playlist, element, setPlaylist, setSwapIndexes} : Props) {
 
 
     return (
@@ -19,7 +26,7 @@ export default function ElementOptions({index, setSwapIndexes} : Props) {
         <PlayElementButton/>
         <PriorityButton/>
         <RearrangeArrows index={index} setSwapIndexes={setSwapIndexes}/>
-        <RemoveElementButton/>
+        <RemoveElementButton userId={userId} element={element} playlist={playlist} setPlaylist={setPlaylist} />
     </div>)
 
 

@@ -28,6 +28,7 @@ model Playlist {
   rank Int
   position Int
   canShuffle Boolean @default(false)
+  starred Boolean @default(false)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId Int
@@ -51,4 +52,5 @@ model Song {
   thumbnailUrl String
 
   position Int @default(0)
+  starred Boolean @default(false)
 }

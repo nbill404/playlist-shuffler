@@ -42,9 +42,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             .then((data) => {
                 const combinedList = convertJsonToPlaylist(data.data);
                 
-                combinedList.shuffleUnconditional();
-                combinedList.updateGlobalPosition()
-                combinedList.flattenId();
+                
 
                 setPlaylist(combinedList);
             }).catch((error) => {

@@ -11,6 +11,7 @@ export class Playlist {
     elements: Element[] = [];
     position: number = 0;
     canShuffle: boolean = false;
+    starred: boolean = false;
 
     // Client only
     idList? : string[]; // Flattened copy of list containing only ids for song indexing 
@@ -40,6 +41,27 @@ export class Playlist {
         this.elements = shuffle(this.elements);
     }
 
+    setMode(mode: number) {
+        switch (mode) {
+            case 1: // Shuffle all unconditional
+                this.shuffleUnconditional();
+                break;
+            case 2: // Shuffle with user settings
+                this.shuffle();
+                break;
+            case 3: // Flatten to single list and shuffle
+                this.flatten();
+                this.shuffleUnconditional();
+                break;
+            default: // Play normally
+                break;
+        }
+
+        this.updateGlobalPosition()
+        this.flattenId();   
+    }
+
+
     shuffleUnconditional() {
         let newArr = [...this.elements]
         let currentIndex = this.elements.length, randomIndex;
@@ -61,17 +83,23 @@ export class Playlist {
         try {
             let index = 0;
 
-            for (; index < this.elements.length; index) {
+            for (; index < this.elements.length; index++) {
                 // Explicit comparison will filter out wrong type
                 if (id === this.elements[index].id) {
                     break;
                 }
             }
 
-            if (index == this.elements.length) {
+            if (index === this.elements.length) {
                 throw Error("Element not found in list");
             } else {
-                this.elements.splice(index, index);
+                this.elements.splice(index, 1);
+
+                // Update positions
+                index = 0;
+                for (; index < this.elements.length; index++) {
+                    this.elements[index].position = index
+                }
             }
         } catch (error) {
             console.log(error);

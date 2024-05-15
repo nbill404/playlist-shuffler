@@ -7,6 +7,7 @@ export class Song {
     length: number = 0;
     thumbnailUrl: string = "";
     position: number = 0;
+    starred: boolean = false;
     
     // Client only
     globalPosition? : number; // Used to determine overall index regardless of being in subplaylist
