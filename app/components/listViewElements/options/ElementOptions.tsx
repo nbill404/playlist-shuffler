@@ -24,7 +24,7 @@ export default function ElementOptions({userId, index, playlist, element, setPla
     return (
     <div className="grid grid-cols-4 gap-2">
         <PlayElementButton/>
-        <PriorityButton/>
+        <PriorityButton userId={userId} element={element}/>
         <RearrangeArrows index={index} setSwapIndexes={setSwapIndexes}/>
         <RemoveElementButton userId={userId} element={element} playlist={playlist} setPlaylist={setPlaylist} />
     </div>)
