@@ -31,11 +31,11 @@ export class Playlist {
     }
 
     addDetails(obj: Object) {
-        Object.assign(this, obj)
+        Object.assign(this, obj);
     }
 
     sort() {
-        this.elements.sort((a, b) => a.position - b.position)
+        this.elements.sort((a, b) => a.position - b.position);
     }
 
     remove(id: number | string) {
@@ -87,74 +87,9 @@ export class Playlist {
         this.flattenId();   
     }
 
-    shuffleWithSettings() {
-        this.elements = this.shuffleWithSettingsAux([...this.elements], this.canShuffle);
-    }
-
-    shuffleWithSettingsAux(array: Element[], setting : boolean) {    
-        if (setting) {
-            let priorityArr = array.filter((e) => e.starred);
-            let nonPriorityArr = array.filter((e) => !e.starred);
-            let currentIndex = priorityArr.length, randomIndex;
-
-            for (const element of priorityArr) {
-                if (element instanceof Playlist) {
-                    element.elements = this.shuffleWithSettingsAux([...element.elements], element.canShuffle);
-                }
-            }
-
-            while (currentIndex != 0) {
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex--;
-
-                [priorityArr[currentIndex], priorityArr[randomIndex]] = [priorityArr[randomIndex], priorityArr[currentIndex]];
-                [priorityArr[currentIndex].position, priorityArr[randomIndex].position] = [priorityArr[randomIndex].position, priorityArr[currentIndex].position]
-            }
-
-            currentIndex = nonPriorityArr.length;
-
-            for (const element of nonPriorityArr) {
-                if (element instanceof Playlist) {
-                    element.elements = this.shuffleWithSettingsAux([...element.elements], element.starred);
-                }
-            }
-
-            while (currentIndex != 0) {
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex--;
-
-                [nonPriorityArr[currentIndex], nonPriorityArr[randomIndex]] = [nonPriorityArr[randomIndex], nonPriorityArr[currentIndex]];
-                [nonPriorityArr[currentIndex].position, nonPriorityArr[randomIndex].position] = [nonPriorityArr[randomIndex].position, nonPriorityArr[currentIndex].position]
-            }
-
-
-            return priorityArr.concat(nonPriorityArr);
-        } else {
-            for (const element of array) {
-                if (element instanceof Playlist) {
-                    element.elements = this.shuffleWithSettingsAux([...element.elements], element.starred);
-                }
-            }
-
-            return array;
-        }
-    }
-
-
-    shuffleUnconditional() {
-        this.elements = this.shuffleUnconditionalAux([...this.elements]);
-    }
-
-    shuffleUnconditionalAux(array : Element[]) {
+    shuffleElements(array: Element[]) {
         let newArr = [...array]
         let currentIndex = array.length, randomIndex;
-        
-        // Recursive call before shuffling
-        for (const element of newArr) {
-            if (element instanceof Playlist) {
-                element.elements = this.shuffleUnconditionalAux([...element.elements])
-            }
-        }
 
         while (currentIndex != 0) {
             randomIndex = Math.floor(Math.random() * currentIndex);
@@ -163,6 +98,61 @@ export class Playlist {
             [newArr[currentIndex], newArr[randomIndex]] = [newArr[randomIndex], newArr[currentIndex]];
             [newArr[currentIndex].position, newArr[randomIndex].position] = [newArr[randomIndex].position, newArr[currentIndex].position]
         }
+
+        return newArr;
+    }
+
+    shuffleWithSettings() {
+        this.elements = this.shuffleWithSettingsAux([...this.elements], this.canShuffle);
+    }
+
+    shuffleWithSettingsAux(array: Element[], canShuffle : boolean) {    
+        if (canShuffle) {
+            let priorityArr = array.filter((e) => e.starred);
+            let nonPriorityArr = array.filter((e) => !e.starred);
+
+            // Handle priority elements
+            for (const element of priorityArr) {
+                if (element instanceof Playlist) {
+                    element.elements = this.shuffleWithSettingsAux(element.elements, element.canShuffle);
+                }
+            }
+            priorityArr = this.shuffleElements(priorityArr);
+
+            // Handle non-priority elements
+            for (const element of nonPriorityArr) {
+                if (element instanceof Playlist) {
+                    element.elements = this.shuffleWithSettingsAux(element.elements, element.canShuffle);
+                }
+            }
+            nonPriorityArr = this.shuffleElements(nonPriorityArr);
+
+            return priorityArr.concat(nonPriorityArr);
+        } else {
+            // Elements will have same position in current playlist but not necessarily in subplaylists
+            for (const element of array) {
+                if (element instanceof Playlist) {
+                    element.elements = this.shuffleWithSettingsAux(element.elements, element.canShuffle);
+                }
+            }
+
+            return array;
+        }
+    }
+
+    shuffleUnconditional() {
+        this.elements = this.shuffleUnconditionalAux([...this.elements]);
+    }
+
+    shuffleUnconditionalAux(array : Element[]) {
+        // Recursive call before shuffling
+        for (const element of array) {
+            if (element instanceof Playlist) {
+                element.elements = this.shuffleUnconditionalAux(element.elements)
+            }
+        }
+
+        const newArr = this.shuffleElements(array);
 
         return newArr;
     }   
@@ -181,7 +171,7 @@ export class Playlist {
             if (e instanceof Song) {
                 newArr.push(e);
             } else {
-                const subarr = this.flattenAux([...e.elements]);
+                const subarr = this.flattenAux(e.elements);
                 newArr = newArr.concat(subarr);
             }
         }

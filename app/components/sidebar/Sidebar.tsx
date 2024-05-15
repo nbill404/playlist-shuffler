@@ -2,12 +2,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import PlayerControls from "./PlayerControls";
 import SidebarPlaylist from "./SidebarPlaylist";
-import SongImage from "./SongDisplay";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Playlist } from "@/app/lib/playlist";
 import { convertJsonToPlaylist } from "@/app/lib/convert";
-import { useRouter } from "next/navigation";
-import { set } from "zod";
+
 import SongDisplay from "./SongDisplay";
 
 export const SidebarContext = createContext();
@@ -64,7 +62,6 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
 
     // Updates when query parameter changes
     useEffect(() => {
-        console.log(queryPlaylistId)
         if (typeof queryPlaylistId !== typeof null) {
             
             setPlaylistId(Number(queryPlaylistId))
