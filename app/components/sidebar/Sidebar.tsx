@@ -16,9 +16,10 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
     const queryPlaylistId = useSearchParams().get("playlist");
     const querySongNum = useSearchParams().get("song");
     const id = useSearchParams().get("id");
+    const mode = useSearchParams().get("mode");
 
     // Will only be called on initial render
-    const [songNum, setSongNum] = useState<number>(-1);
+    const [songNum, setSongNum] = useState<number>(0);
     const [playlistId, setPlaylistId] = useState<number>(-1);
     const [playlist, setPlaylist] = useState<Playlist | null>(null);
     const [selectedSongId, setSelectedSongId] = useState<string | null>(id);
@@ -42,14 +43,14 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             .then((data) => {
                 const combinedList = convertJsonToPlaylist(data.data);
                 
-                
+                combinedList.setMode(Number(mode));
 
                 setPlaylist(combinedList);
             }).catch((error) => {
                 console.log(error);
                 return [];
             })
-    }, [userId, playlistId]);
+    }, [userId, playlistId, mode]);
 
     // Waits for fetch playlist effect to complete before setting the playlist
     useEffect(() => {
@@ -63,10 +64,12 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
 
     // Updates when query parameter changes
     useEffect(() => {
-        if (typeof queryPlaylistId !== typeof null && playlistId !== Number(queryPlaylistId)) {
+        console.log(queryPlaylistId)
+        if (typeof queryPlaylistId !== typeof null) {
+            
             setPlaylistId(Number(queryPlaylistId))
         }
-    }, [queryPlaylistId, playlistId])
+    }, [queryPlaylistId])
 
     // Updates when query parameter changes
     useEffect(() => {
