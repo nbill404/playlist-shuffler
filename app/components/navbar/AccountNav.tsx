@@ -1,17 +1,16 @@
-import { getServerSession } from "next-auth"
-import { authOptions } from "../../lib/auth"
 import { Avatar } from "./Avatar";
 import LogoutButton from "./LogoutButton";
+import { Session } from "inspector";
 
-export default async function AccountNav() {
-    const session = await getServerSession(authOptions);
+export default async function AccountNav({session} : {session: Session | null}) {
+    
 
     return (
       <>
         {session ? 
         <>
           <p className="text text-xl">Welcome {session?.user.username}!</p>
-          <Avatar/>
+          <Avatar name={session?.user.username}/>
           <LogoutButton/>
             
         </>
