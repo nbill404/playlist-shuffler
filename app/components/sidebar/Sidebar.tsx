@@ -56,12 +56,17 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
                     newPlaylist.setMode(Number(mode));
 
                     setPlaylist(newPlaylist);
+
+                    if (!querySongId) {
+                        setSongNum(0);
+                    }
+
                 }).catch((error) => {
                     console.log(error);
                     return [];
                 })
         }
-    }, [userId, queryPlaylistId, mode]);
+    }, [userId, queryPlaylistId, mode, querySongId]);
 
     // Waits for fetch playlist effect to complete before setting the playlist
     useEffect(() => {
@@ -74,12 +79,11 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
 
     // Play next on end
     useEffect(() => {
-        if (songEnded && playlist && songNum + 1 < playlist.idList?.length) {
-            const url = `${pathname}?playlist=${playlistId}&id=${playlist.idList[songNum + 1]}`;
+        if (songEnded) {
+            setSongNum(songNum + 1);
             setSongEnded(false);
-            router.push(url);
         }
-    }, [songEnded, songNum, playlist, pathname, playlistId, router])
+    }, [songEnded, songNum])
 
     // Handle shuffle 
     useEffect(() => {
