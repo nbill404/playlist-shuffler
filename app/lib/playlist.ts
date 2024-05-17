@@ -30,6 +30,20 @@ export class Playlist {
         return this.elements.length === 0;
     }
 
+    getIndex(id: string) {
+        // Assumes id list is created
+
+        if (this.idList) {
+            for (let i = 0; i < this.idList?.length; i++) {
+                if (this.idList[i] === id) {
+                    return i;
+                }
+            }
+        }
+
+        return -1;
+    }
+
     addDetails(obj: Object) {
         Object.assign(this, obj);
     }

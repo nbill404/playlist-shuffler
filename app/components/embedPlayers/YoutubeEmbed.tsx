@@ -41,7 +41,10 @@ export default function YouTubeEmbed({videoId, songPaused, setSongEnded, setSong
 
     const opts = {
         width: "320",
-        height: "180"
+        height: "180",
+        playerVars: {
+            autoplay: 1
+        }
     }
 
     return (

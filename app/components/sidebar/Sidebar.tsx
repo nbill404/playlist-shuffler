@@ -2,57 +2,69 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import PlayerControls from "./PlayerControls";
 import SidebarPlaylist from "./SidebarPlaylist";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Playlist } from "@/app/lib/playlist";
 import { convertJsonToPlaylist } from "@/app/lib/convert";
 
 import SongDisplay from "./SongDisplay";
+import { useRouter } from "next/navigation";
 
 export const SidebarContext = createContext();
 
 export default function Sidebar({userId} : { userId: number | undefined}) {
     const queryPlaylistId = useSearchParams().get("playlist");
-    const querySongNum = useSearchParams().get("song");
-    const id = useSearchParams().get("id");
+    const querySongId = useSearchParams().get("id");
     const mode = useSearchParams().get("mode");
 
     // Will only be called on initial render
     const [songNum, setSongNum] = useState<number>(0);
     const [playlistId, setPlaylistId] = useState<number>(-1);
     const [playlist, setPlaylist] = useState<Playlist | null>(null);
-    const [selectedSongId, setSelectedSongId] = useState<string | null>(id);
+    const [selectedSongId, setSelectedSongId] = useState<string | null>(querySongId);
     const [songEnded, setSongEnded] = useState<boolean>(false);
     const [songPaused, setSongPaused] = useState<boolean>(false);
     const [isShuffling, setIsShuffling] = useState<boolean>(false);
 
+    const router = useRouter();
+    const pathname = usePathname();
 
-    // Fetch playlists
+    // Initial song selection
     useEffect(() => {
-        const data = {
-            userId: userId,
-            playlistId: playlistId
-        }
+        if (querySongId && playlist) {
+            setSongNum(playlist?.getIndex(querySongId));
+        }     
+    }, [querySongId, playlist])
 
-        fetch("/api/playlist/getAllLayers", {
-            method: 'POST',
-            body: JSON.stringify(data)
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                const combinedList = convertJsonToPlaylist(data.data);
-                
-                combinedList.setMode(Number(mode));
+    // Fetch playlists. Only call on when new query is made
+    useEffect(() => {
+        if (typeof queryPlaylistId !== typeof null) {
+            setPlaylistId(Number(queryPlaylistId));
 
-                setPlaylist(combinedList);
-            }).catch((error) => {
-                console.log(error);
-                return [];
+            const data = {
+                userId: userId,
+                playlistId: Number(queryPlaylistId)
+            }
+
+            fetch("/api/playlist/getAllLayers", {
+                method: 'POST',
+                body: JSON.stringify(data)
             })
-    }, [userId, playlistId, mode]);
+                .then((res) => res.json())
+                .then((data) => {
+                    const newPlaylist = convertJsonToPlaylist(data.data);
+                    
+                    newPlaylist.setMode(Number(mode));
+
+                    setPlaylist(newPlaylist);
+                }).catch((error) => {
+                    console.log(error);
+                    return [];
+                })
+        }
+    }, [userId, queryPlaylistId, mode]);
 
     // Waits for fetch playlist effect to complete before setting the playlist
     useEffect(() => {
-        // Ensure that playlist exists
         if (playlist instanceof Playlist && playlist.idList) {
             if ((0 <= songNum) && (songNum < playlist.idList.length)) {
                 setSelectedSongId(playlist?.idList[songNum]);
@@ -60,28 +72,14 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
         }
     }, [songNum, playlist])
 
-    // Updates when query parameter changes
-    useEffect(() => {
-        if (typeof queryPlaylistId !== typeof null) {
-            
-            setPlaylistId(Number(queryPlaylistId))
-        }
-    }, [queryPlaylistId])
-
-    // Updates when query parameter changes
-    useEffect(() => {
-        if (typeof querySongNum !== typeof null) {
-            setSongNum(Number(querySongNum))
-        }        
-    }, [querySongNum])
-
     // Play next on end
     useEffect(() => {
-        if (songEnded) {
-            setSongNum(songNum + 1);
+        if (songEnded && playlist && songNum + 1 < playlist.idList?.length) {
+            const url = `${pathname}?playlist=${playlistId}&id=${playlist.idList[songNum + 1]}`;
             setSongEnded(false);
+            router.push(url);
         }
-    }, [songEnded, songNum])
+    }, [songEnded, songNum, playlist, pathname, playlistId, router])
 
     // Handle shuffle 
     useEffect(() => {

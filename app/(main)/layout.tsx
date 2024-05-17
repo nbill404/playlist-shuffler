@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/navbar/Navbar";
-import Sidebar from "../components/sidebar/Sidebar";
-import SidebarAuth from "../components/sidebar/SidebarAuth";
+import SidebarWrapper from "../components/sidebar/SidebarWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +22,7 @@ export default function RootLayout({
         <main className="min-h-full">
             <Navbar/>
             <div className="flex">
-                <SidebarAuth/>
+                <SidebarWrapper/>
                 <div className="p-5 flex flex-1 bg-gray-700">
                     {children}
                 </div>
