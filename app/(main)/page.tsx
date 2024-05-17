@@ -6,7 +6,6 @@ export default function Home() {
     const featuresList = [
         ["Playlists within playlists: ", "Shuffling will shuffle all songs and all songs within playlists"],
         ["Lock playlists: ", "Deactivate shuffling songs for specific playlists (Useful for albums or songs with multiple parts)."],
-        ["Start on song/playlist: ", "Song/Playlist will play first when shuffling"],
         ["Priority songs: ", "Songs can be favourited so that they will always appear first when shuffling. Unranked songs will be shuffled as normal after the ranked ones"]
     ]
 

@@ -3,7 +3,6 @@ import { Dispatch, SetStateAction } from "react"
 import RearrangeArrows from "./RearrangeArrows"
 import RemoveElementButton from "./RemoveElementButton"
 import PriorityButton from "./PriorityButton"
-import PlayElementButton from "./PlayElementButton"
 import { Playlist } from "@/app/lib/playlist"
 import { Song } from "@/app/lib/song"
 
@@ -23,7 +22,6 @@ export default function ElementOptions({userId, index, playlist, element, setPla
 
     return (
     <div className="grid grid-cols-4 gap-2">
-        <PlayElementButton/>
         <PriorityButton userId={userId} element={element}/>
         <RearrangeArrows index={index} setSwapIndexes={setSwapIndexes}/>
         <RemoveElementButton userId={userId} element={element} playlist={playlist} setPlaylist={setPlaylist} />
