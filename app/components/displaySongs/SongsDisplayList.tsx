@@ -86,16 +86,16 @@ export default function SongsDisplayList({userId, data}: Props) {
             {playlist && playlist.elements.length > 0 ? playlist.elements.map((element : any, index: number) =>
                 element instanceof Song ?
                 <div key={`link-${index}`} className="grid grid-cols-8">
-                    <a className="col-span-7"  href={`${pathname}?playlist=${playlist.id}&id=${element.id}`}>
+                    <Link className="col-span-7"  href={`${pathname}?playlist=${playlist.id}&id=${element.id}`}>
                         <MusicListElement key={`song-${index}`} song={element} num={index}/>
-                    </a>
+                    </Link>
                     <ElementOptions userId={userId} index={index} element={element} playlist={playlist} setPlaylist={setPlaylist} setSwapIndexes={setSwapIndexes}/>
                 </div>
                 :
                 <div key={`link-${index}`} className="grid grid-cols-8">
-                    <a className="col-span-7" href={`/playlists/${element.id}`}>
+                    <Link className="col-span-7" href={`/playlists/${element.id}`}>
                         <PlaylistListElement key={`playlist-${index}`} playlist={element} num={index}/>
-                    </a>
+                    </Link>
                     <ElementOptions userId={userId} index={index} element={element} playlist={playlist} setPlaylist={setPlaylist} setSwapIndexes={setSwapIndexes}/>
                 </div>
             )
