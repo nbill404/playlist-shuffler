@@ -2,8 +2,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
 import Link from "next/link";
 import SongsDisplayList from "@/app/components/displaySongs/SongsDisplayList";
-import AddNewPlaylistButton from "@/app/components/displaySongs/AddNestedPlaylistButton";
 import OptionsBar from "@/app/components/displaySongs/optionsBar/OptionsBar";
+import AddNestedPlaylistButton from "@/app/components/displaySongs/AddNestedPlaylistButton";
 
 export default async function DisplayPlaylistsPage({params}:
     {params: {playlistId : string}}
@@ -40,7 +40,7 @@ export default async function DisplayPlaylistsPage({params}:
             </div>    
             <div className="divider"></div>
             <div className="flex flex-1 gap-2">
-                <AddNewPlaylistButton userId={userId} playlistId={data.details.id}/>
+                <AddNestedPlaylistButton userId={userId} playlistId={data.details.id}/>
                 <OptionsBar userId={userId} playlistDetails={data.details}/>
             </div>
             <SongsDisplayList userId={userId} data={data}/>
