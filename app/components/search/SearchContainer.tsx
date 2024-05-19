@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import { Song } from "../../lib/song";
 import { Playlist } from "@/app/lib/playlist";
 import { convertJsonToPlaylistSingle } from "@/app/lib/convert";
+import SearchIdBar from "./SearchIdBar";
 
 interface Props {
     userId: number | undefined
@@ -81,7 +82,10 @@ export default function SearchContainer({userId} : Props) {
     
     return (
         <SearchContext.Provider value={{userId, playlistId, playlists, setPlaylistsId}}>
-            <SearchBar onQuery={setResults}/>
+            <div className="flex gap-2">
+                <SearchBar setResults={setResults}/>
+                <SearchIdBar setResults={setResults}/>
+            </div>
             <SearchResults results={results}/>
         </SearchContext.Provider>
     )
