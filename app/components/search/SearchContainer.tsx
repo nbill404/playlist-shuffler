@@ -14,15 +14,15 @@ interface Props {
 export const SearchContext = createContext();
 
 export default function SearchContainer({userId} : Props) {
-    const [results, setResults] = useState<Song[]>([]);
-    const [playlistId, setPlaylistsId] = useState<number | null>(null);
-    const [playlists, setPlaylists] = useState<Playlist[]>([]);
+    const [ results, setResults ] = useState<Song[]>([]);
+    const [ pageNum, setPageNum ] = useState<number>(0);
+
+    const [ playlistId, setPlaylistsId] = useState<number | null>(null);
+    const [ playlists, setPlaylists] = useState<Playlist[]>([]);
 
     useEffect(() => {
-        console.log("Outside", playlistId, typeof playlistId)
+        // 
         if (typeof playlistId == "number") {
-            console.log("Inside", playlistId)
-
             const data = {
                 userId: userId,
                 playlistId: playlistId
@@ -42,15 +42,12 @@ export default function SearchContainer({userId} : Props) {
                     }
                 }
 
-                console.log(lists)
-
                 setPlaylists(lists);
             })
             .catch(error => {
                 console.log(error)
             })
-
-        } else {
+        } else { // Root playlist
             const data = {
                 userId: userId,
                 rank: 0
@@ -64,13 +61,11 @@ export default function SearchContainer({userId} : Props) {
             .then((resJson) => {
                 let lists = []
 
-
                 for (const item of resJson.data) {
                     const playlist = convertJsonToPlaylistSingle(item)
 
                     lists.push(playlist);
                 }
-                
 
                 setPlaylists(lists);
             })
@@ -79,6 +74,13 @@ export default function SearchContainer({userId} : Props) {
             })
         }
     }, [playlistId, userId]);
+
+    useEffect(() => {
+
+
+
+    }, [pageNum])
+
     
     return (
         <SearchContext.Provider value={{userId, playlistId, playlists, setPlaylistsId}}>

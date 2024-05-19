@@ -1,6 +1,6 @@
 'use client'
 import { Playlist } from "@/app/lib/playlist"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { SearchContext } from "./SearchContainer"
 import AddToPlaylistButton from "./AddToPlaylistButton";
 import { Song } from "@/app/lib/song";
@@ -14,14 +14,21 @@ export default function SelectPlaylistDropdown({song}: Props) {
     const { playlists } = useContext(SearchContext); 
     const { playlistId } = useContext(SearchContext);
     const { setPlaylistsId } = useContext(SearchContext);
-
+    const [ addSuccessTimer, setAddSuccessTimer ] = useState<number>(0);
 
     const handleClick = () => {
         setPlaylistsId(null);
     }
 
+    useEffect(() => {
+        if (addSuccessTimer > 0) {
+            setAddSuccessTimer(addSuccessTimer - 1);
+        }
+    }, [addSuccessTimer, setAddSuccessTimer])
+
 
     return (
+        <>
         <div className="dropdown-content dropdown-end bg-blue-600 align-self-end" tabIndex={0}>
             {playlistId && 
                 <button className="flex flex-1"onClick={handleClick}>
@@ -30,10 +37,18 @@ export default function SelectPlaylistDropdown({song}: Props) {
                 </button>
             }
             {playlists && playlists.map((playlist: Playlist, index: number) => 
-                <AddToPlaylistButton key={`options-${index}`} playlist={playlist} song={song}/>
+                <AddToPlaylistButton key={`options-${index}`} playlist={playlist} song={song} setAddSuccessTimer={setAddSuccessTimer}/>
             )}
-
         </div>
+        {addSuccessTimer > 0 && 
+            <div className="toast">
+                <div className="alert alert-success">
+                    Successfully added
+                </div>
+            </div>
+        }
+        </>
+
     )
 }
 
