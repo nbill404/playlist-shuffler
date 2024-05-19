@@ -13,7 +13,7 @@ interface Props {
     data: Object
 }
 
-const updatePosition = (element: Song | Playlist, userId : number, position : number) => {
+const updatePosition = (playlistId: number, element: Song | Playlist, userId : number, position : number) => {
     if (element instanceof Playlist) {
         const data = {
             userId: userId,
@@ -30,6 +30,7 @@ const updatePosition = (element: Song | Playlist, userId : number, position : nu
     } else if (element instanceof Song) {
         const data = {
             userId: userId,
+            playlistId: playlistId,
             songId: element.id,
             values: {
                 position: position
@@ -50,7 +51,6 @@ export default function ElementsDisplayWrapper({userId, data}: Props) {
     useEffect(() => {
         if (data) {
             setPlaylist(convertJsonToPlaylistSingle(data))
-            console.log(data)
         }
     }, [data])
 
@@ -67,8 +67,8 @@ export default function ElementsDisplayWrapper({userId, data}: Props) {
             const element2 = playlist.elements[j];
 
             // Database update
-            updatePosition(element1, userId, j);
-            updatePosition(element2, userId, i);
+            updatePosition(playlist.id, element1, userId, j);
+            updatePosition(playlist.id, element2, userId, i);
 
             // Client update
             [element1.position, element2.position] = [j, i];

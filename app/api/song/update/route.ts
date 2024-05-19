@@ -5,13 +5,16 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     try {
-        const {userId, songId, values} = await req.json();
+        const {userId, songId, playlistId, values} = await req.json();
 
 
         await db.song.update({
             where: {
+                songPlaylistId : {
+                    playlistId: playlistId,
+                    id: songId
+                },
                 userId: Number(userId),
-                id: songId
             },
             data: {
                 ...values

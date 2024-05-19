@@ -4,12 +4,15 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
     try {
         // user id, playlist id
-        const {userId, songId} = await req.json();
+        const {userId, songId, playlistId} = await req.json();
 
         await db.song.delete({
             where: {
                 userId: Number(userId),
-                id: songId
+                songPlaylistId : {
+                    id: songId,
+                    playlistId: playlistId
+                }
             }
         });
 

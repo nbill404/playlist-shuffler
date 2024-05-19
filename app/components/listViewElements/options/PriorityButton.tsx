@@ -7,10 +7,11 @@ import { useEffect, useState } from "react"
 interface Props {
     userId: number
     element: Playlist | Song
+    playlistId: number
 }
 
 
-export default function PriorityButton({userId, element} : Props) {
+export default function PriorityButton({userId, element, playlistId} : Props) {
     const [isPressed, setIsPressed] = useState(element.starred);
 
     useEffect(() => {
@@ -24,7 +25,10 @@ export default function PriorityButton({userId, element} : Props) {
 
         if (element instanceof Song) {
             url = "/api/song/update";
-            Object.assign(data, {songId: element.id});
+            Object.assign(data, {
+                songId: element.id,
+                playlistId: playlistId
+            });
         } else if (element instanceof Playlist) {
             url = "/api/playlist/update";
             Object.assign(data, {playlistId: element.id});

@@ -45,7 +45,7 @@ model Song {
   playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   playlistId Int
 
-  @@id([userId, playlistId])
+  @@id(name: "songPlaylistId", [id, playlistId])
 
   platform String
   title String

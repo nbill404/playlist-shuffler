@@ -8,12 +8,13 @@ interface Props {
     userId: number
     element: Playlist | Song
     playlist: Playlist | null
+    playlistId: number
     setPlaylist: Dispatch<SetStateAction<Playlist | null>>
 }
 
 
 
-export default function RemoveElementButton({userId, element, playlist, setPlaylist} : Props) {
+export default function RemoveElementButton({userId, element, playlist, playlistId, setPlaylist} : Props) {
     const updatePosition = (playlist: Playlist) => {
         for (let i = 0; i < playlist.elements.length; i++) {
             let url = "";
@@ -24,7 +25,9 @@ export default function RemoveElementButton({userId, element, playlist, setPlayl
 
             if (element instanceof Song) {
                 url = "/api/song/update";
-                Object.assign(data, {songId: element.id});
+                Object.assign(data, {
+                    playlistId: playlistId,
+                    songId: element.id});
             } else if (element instanceof Playlist) {
                 url = "/api/playlist/update";
                 Object.assign(data, {playlistId: element.id});
@@ -46,6 +49,7 @@ export default function RemoveElementButton({userId, element, playlist, setPlayl
         if (element instanceof Song) {
             const data = {
                 userId: userId,
+                playlistId: playlistId,
                 songId: element.id
             }
 
