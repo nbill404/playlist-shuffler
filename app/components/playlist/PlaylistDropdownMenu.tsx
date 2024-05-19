@@ -15,7 +15,7 @@ export default function PlaylistDropdownMenu({playlist}) {
 
     const handleRemove = async () => {
         try {
-            const response = await fetch("/api/playlist/remove", {
+            const response = await fetch("/api/playlist/removeAllLayers", {
                 method: 'POST',
                 body: JSON.stringify({
                     userId: userId,
