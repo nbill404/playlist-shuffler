@@ -43,6 +43,7 @@ export default function AddNestedPlaylistButton({userId, playlist, setPlaylist} 
                 const json = await response.json();
                 newElement.position = json.data.position
                 newElement.rank = json.data.rank;
+                newElement.id = json.data.id;
                 
                 const newPlaylist = Object.assign( {}, playlist );
                 Object.setPrototypeOf( newPlaylist, Playlist.prototype );

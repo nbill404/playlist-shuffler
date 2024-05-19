@@ -14,17 +14,13 @@ interface Props {
 
 
 export default function RemoveElementButton({userId, element, playlist, setPlaylist} : Props) {
-
     const updatePosition = (playlist: Playlist) => {
-
         for (let i = 0; i < playlist.elements.length; i++) {
             let url = "";
             const element = playlist.elements[i];
             const data = {
                 userId: userId
             };
-
-            
 
             if (element instanceof Song) {
                 url = "/api/song/update";
@@ -42,8 +38,6 @@ export default function RemoveElementButton({userId, element, playlist, setPlayl
                 method: "POST",
                 body: JSON.stringify(data)
             }).catch(error => console.log(error))
-
-
         }
     }
 
@@ -73,17 +67,21 @@ export default function RemoveElementButton({userId, element, playlist, setPlayl
         } else if (element instanceof Playlist) {
             const data = {
                 userId: userId,
-                songId: element.id
+                playlistId: element.id
             }
 
-            fetch("/api/playlist/remove/", {
+            fetch("/api/playlist/removeAllLayers", {
                 method: "POST",
                 body: JSON.stringify(data)
             }).then(() => {
                 // Update positions
+                const newPlaylist = Object.assign( {}, playlist );
+                Object.setPrototypeOf( newPlaylist, Playlist.prototype );
 
-
-
+                newPlaylist.remove(element.id);
+                updatePosition(newPlaylist);
+                
+                setPlaylist(newPlaylist)
             }).catch(error => console.log(error))
 
         }
