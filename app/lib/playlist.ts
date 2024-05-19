@@ -11,7 +11,7 @@ export class Playlist {
     name: string;
     elements: Element[] = [];
     position: number = 0;
-    canShuffle: boolean = false;
+    canShuffle: boolean = true;
     starred: boolean = false;
 
     // Client only
