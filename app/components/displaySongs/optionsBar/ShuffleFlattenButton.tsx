@@ -7,10 +7,9 @@ export default function ShuffleFlattenButton({ playlistId }: {playlistId : strin
 
     return (
         <Link href={`${usePathname()}?playlist=${playlistId}&mode=3`}>
-            <Image src="/shuffle-button.svg" width={24} height={24} alt="Shuffle" title="Shuffle all unconditionally"/>
+            <Image className="z-0 absolute" src="/shuffle-button.svg" width={24} height={24} alt="Shuffle" title="Shuffle all unconditionally"/>
+            <Image className="translate-y-2" src="/horizontal-line.svg"width={24} height={24} alt=""></Image>
         </Link>
-
-
     )
 
 

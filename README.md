@@ -32,3 +32,4 @@ https://www.svgrepo.com/svg/521207/play
 https://www.svgrepo.com/svg/523624/playlist-minimalistic-2
 https://www.svgrepo.com/svg/479653/email-9
 https://www.svgrepo.com/svg/532363/user-alt-1
+https://www.svgrepo.com/svg/110692/horizontal-line
