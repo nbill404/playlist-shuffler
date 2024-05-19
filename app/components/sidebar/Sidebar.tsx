@@ -108,7 +108,6 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             :
             <SidebarContext.Provider value={{playlist, playlistId, selectedSongId, songNum, songPaused, setSongNum, setPlaylist, setSongEnded, setSelectedSongId, setSongPaused, setIsShuffling}}>
                 <SongDisplay/>
-                <div className="divider"/>
                 <PlayerControls/>
                 <SidebarPlaylist/>
             </SidebarContext.Provider>

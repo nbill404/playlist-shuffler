@@ -34,7 +34,7 @@ export default function PlayerControls() {
         setIsShuffling(true);
     }
 
-    return (
+    return playlist ? 
         <div className="grid grid-cols-4 bg-gray-900 h-12 p-2">
             <button onClick={handleBack}>
                 <Image src="/back-button.svg" width="32" height="32" alt=""></Image>
@@ -52,5 +52,6 @@ export default function PlayerControls() {
                 <Image src="/shuffle-button.svg" width="32" height="32" alt=""></Image>
             </button>
         </div>
-    );
+        :
+        <></>
 }
