@@ -8,19 +8,19 @@ import ShuffleFlattenButton from "./ShuffleFlattenButton"
 
 
 interface Props {
-    userId: number | undefined,
-    playlistDetails : Playlist
+    userId: number,
+    playlist: Playlist
 }
 
-export default function OptionsBar({userId, playlistDetails} : Props) {
+export default function OptionsBar({userId, playlist} : Props) {
 
     return (
         <div className="flex gap-2 bg-slate-700 w-auto h-12 items-center px-2 rounded">
-            <PlayButton playlistId={playlistDetails?.id + ""}/>
-            <ShuffleUnconditionalButton playlistId={playlistDetails?.id + ""}/>
-            <ShuffleButton playlistId={playlistDetails?.id + ""}/>
-            <ShuffleFlattenButton playlistId={playlistDetails?.id + ""}/>
-            <ShuffleToggle userId={userId} playlistDetails={playlistDetails}/>
+            <PlayButton playlistId={playlist.id + ""}/>
+            <ShuffleUnconditionalButton playlistId={playlist?.id + ""}/>
+            <ShuffleButton playlistId={playlist.id + ""}/>
+            <ShuffleFlattenButton playlistId={playlist?.id + ""}/>
+            <ShuffleToggle userId={userId} playlistDetails={playlist}/>
         </div>
     )
 

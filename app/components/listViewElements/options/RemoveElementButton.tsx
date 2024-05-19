@@ -17,9 +17,6 @@ export default function RemoveElementButton({userId, element, playlist, setPlayl
 
     const updatePosition = (playlist: Playlist) => {
 
-        console.log(playlist)
-
-
         for (let i = 0; i < playlist.elements.length; i++) {
             let url = "";
             const element = playlist.elements[i];
@@ -40,8 +37,6 @@ export default function RemoveElementButton({userId, element, playlist, setPlayl
             Object.assign(data, {values: {
                 position: i
             }})
-
-            console.log(data)
 
             fetch(url, {
                 method: "POST",

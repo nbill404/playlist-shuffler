@@ -1,12 +1,14 @@
+'use client'
 import { Playlist } from "@/app/lib/playlist";
+import { Dispatch, SetStateAction } from "react";
 
-export default function AddNestedPlaylistButton({userId, playlistId} : {
-    userId: Number | undefined
-    playlistId: string
+export default function AddNestedPlaylistButton({userId, playlist, setPlaylist} : {
+    userId: number
+    playlist: Playlist
+    setPlaylist: Dispatch<SetStateAction<Playlist | null>>
 }) {
 
     const handleSubmit = async (formData: FormData) => {
-        'use server'
         try {
             if (typeof userId === typeof undefined) {
                 throw Error("User is not logged in");
@@ -19,15 +21,16 @@ export default function AddNestedPlaylistButton({userId, playlistId} : {
             }
 
             const user = {id: userId}
-            const {elements, ...playlist} = new Playlist(0, name); // Extract elements
+            const newElement = new Playlist(0, name);
+            const {elements, ...details} = newElement; // Extract elements
 
             const data = {
                 user: user,
-                playlist: playlist,
-                parentPlaylistId: playlistId
+                playlist: details,
+                parentPlaylistId: playlist.id
             }
 
-            const response = await fetch(process.env.URL + '/api/playlist/add', {
+            const response = await fetch('/api/playlist/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -37,7 +40,15 @@ export default function AddNestedPlaylistButton({userId, playlistId} : {
 
 
             if (response.ok) {
-                console.log("Success")
+                const json = await response.json();
+                newElement.position = json.data.position
+                newElement.rank = json.data.rank;
+                
+                const newPlaylist = Object.assign( {}, playlist );
+                Object.setPrototypeOf( newPlaylist, Playlist.prototype );
+                newPlaylist.push(newElement);
+
+                setPlaylist(newPlaylist);
             }
         }
         catch (error) {

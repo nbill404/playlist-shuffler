@@ -5,81 +5,19 @@ import { Song } from "@/app/lib/song"
 import { usePathname } from "next/navigation"
 import { Playlist } from "@/app/lib/playlist"
 import PlaylistListElement from "../listViewElements/PlaylistListViewElement"
-import { useEffect, useState } from "react"
-import { convertJsonToPlaylistSingle } from "@/app/lib/convert"
+
 import ElementOptions from "../listViewElements/options/ElementOptions"
+import { Dispatch, SetStateAction } from "react"
 
 interface Props {
-    userId: number | undefined
-    data: Object
+    userId: number
+    playlist: Playlist
+    setPlaylist : Dispatch<SetStateAction<Playlist | null>>,
+    setSwapIndexes: Dispatch<SetStateAction<[number, number] | null>>
 }
 
-const updatePosition = (element: Song | Playlist, userId : number | undefined, position : number) => {
-    if (element instanceof Playlist) {
-        const data = {
-            userId: userId,
-            playlistId: element.id,
-            values: {
-                position : position
-            }
-        }
-
-        fetch("/api/playlist/update", {
-            method: "POST",
-            body: JSON.stringify(data)
-        }).catch((error) => console.log(error))
-    } else if (element instanceof Song) {
-        const data = {
-            userId: userId,
-            songId: element.id,
-            values: {
-                position: position
-            }
-        }
-
-        fetch("/api/song/update", {
-            method: "POST",
-            body: JSON.stringify(data)
-        }).catch((error) => console.log(error))
-    }
-}
-
-export default function SongsDisplayList({userId, data}: Props) {
+export default function SongsDisplayList({userId, playlist, setPlaylist, setSwapIndexes}: Props) {
     const pathname = usePathname();
-    const [playlist, setPlaylist] = useState<Playlist | null>(null);
-    const [swapIndexes, setSwapIndexes] = useState<[number, number] | null>(null);
-
-    useEffect(() => {
-        if (data) {
-            setPlaylist(convertJsonToPlaylistSingle(data))
-        }
-    }, [data])
-
-    // Swap elements
-    useEffect(() => {
-        if (swapIndexes && playlist) {
-            const i = swapIndexes[0];
-            const j = swapIndexes[1];
-
-            if (i < 0) { return; }
-            if (j >= playlist.elements.length) { return; }
-            
-            const element1 = playlist.elements[i];
-            const element2 = playlist.elements[j];
-
-            // Database update
-            updatePosition(element1, userId, j);
-            updatePosition(element2, userId, i);
-
-            // Client update
-            [element1.position, element2.position] = [j, i];
-            [playlist.elements[i], playlist.elements[j]] = [playlist.elements[j], playlist.elements[i]];
-            
-            setSwapIndexes(null);
-        }
-
-    }, [userId, playlist, swapIndexes])
-
 
     return (
         <div className="max-h-[65vh] overflow-auto">

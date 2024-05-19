@@ -36,6 +36,8 @@ export async function POST(req: Request) {
                 playlistList: playlistList
             }
         }
+
+        console.log(data)
         
         return NextResponse.json({data: data, message: "Playlist fetch success"}, {status: 201});
         

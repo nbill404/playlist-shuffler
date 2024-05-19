@@ -4,7 +4,7 @@ import { Playlist } from "@/app/lib/playlist";
 import { ChangeEventHandler } from "react";
 
 export default function ShuffleToggle({userId, playlistDetails} : {
-    userId : string
+    userId : number
     playlistDetails : Playlist
 }) {
 

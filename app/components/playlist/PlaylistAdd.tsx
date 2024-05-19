@@ -40,11 +40,11 @@ export default function PlaylistAdd() {
             });
 
             if (response.ok) {
-                const data = await response.json();
+                const json = await response.json();
 
                 const newPlaylist = {
                     details: {
-                        id: data.data.id,
+                        id: json.data.id,
                         name: name
                     }
                 }

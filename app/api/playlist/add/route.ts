@@ -54,7 +54,7 @@ export async function POST(req: Request) {
             }
         });
 
-        return NextResponse.json({data: {id: response.id}, message: "Adding Success"}, {status: 201});
+        return NextResponse.json({data: response, message: "Adding Success"}, {status: 201});
     } catch (error) {
         console.log(error);
         return NextResponse.json({data: {}, message: "Adding Failed"}, {status: 500});
