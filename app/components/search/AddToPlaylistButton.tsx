@@ -14,12 +14,8 @@ interface Props {
 
 export default function AddToPlaylistButton({playlist, song, setAddSuccessTimer} : Props) {
     const { userId } = useContext(SearchContext);
-    const { setPlaylistsId } = useContext(SearchContext);
-    
-
 
     const handleAdd = () => {
-        
         const data = {
             userId: userId,
             playlist: playlist,
@@ -35,18 +31,9 @@ export default function AddToPlaylistButton({playlist, song, setAddSuccessTimer}
         .catch(error =>  console.log(error))
     }
 
-    const handleSelectSubPlaylist = () => {
-        setPlaylistsId(Number(playlist.id));
-    }
-
     return (
-        <div className="grid-cols-8 w-48 text-xl rounded items-center">
-            <button className="hover:bg-sky-600 col-span-7 ps-1" onClick={handleAdd}>
+        <button className="w-48 text-xl text-left rounded hover:bg-sky-600 ps-1" onClick={handleAdd}>
                 {playlist.name}
-            </button>
-            <button className="hover:bg-sky-600" onClick={handleSelectSubPlaylist}>
-                <Image src="/right-arrow.svg" width="24" height="24" alt=""></Image>
-            </button>
-        </div>
+        </button>
     )
 }

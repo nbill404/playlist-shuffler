@@ -5,6 +5,7 @@ import { SearchContext } from "./SearchContainer"
 import AddToPlaylistButton from "./AddToPlaylistButton";
 import { Song } from "@/app/lib/song";
 import Image from "next/image";
+import SelectSubPlaylistArrow from "./SelectSubPlaylistArrow";
 
 interface Props {
     song: Song
@@ -36,8 +37,12 @@ export default function SelectPlaylistDropdown({song}: Props) {
                     <p>Back to top</p>
                 </button>
             }
-            {playlists && playlists.map((playlist: Playlist, index: number) => 
-                <AddToPlaylistButton key={`options-${index}`} playlist={playlist} song={song} setAddSuccessTimer={setAddSuccessTimer}/>
+            {playlists && playlists.map((playlist: Playlist, index: number) =>
+                <div key={`options-${index}`} className="flex" >
+                    <AddToPlaylistButton playlist={playlist} song={song} setAddSuccessTimer={setAddSuccessTimer}/> 
+                    <SelectSubPlaylistArrow playlist={playlist} setPlaylistsId={setPlaylistsId}/>
+                </div>
+
             )}
         </div>
         {addSuccessTimer > 0 && 

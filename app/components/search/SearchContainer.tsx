@@ -16,63 +16,46 @@ export const SearchContext = createContext();
 export default function SearchContainer({userId} : Props) {
     const [ results, setResults ] = useState<Song[]>([]);
     const [ pageNum, setPageNum ] = useState<number>(0);
+    const [ token, setToken ] = useState<string>("");
 
-    const [ playlistId, setPlaylistsId] = useState<number | null>(null);
+    const [ playlistId, setPlaylistsId] = useState<number | null>(1);
     const [ playlists, setPlaylists] = useState<Playlist[]>([]);
+    
 
     useEffect(() => {
-        // 
-        if (typeof playlistId == "number") {
-            const data = {
-                userId: userId,
-                playlistId: playlistId
-            }
-            
-            fetch("/api/playlist/get", {
-                method: "POST",
-                body: JSON.stringify(data)
-            })
-            .then((res) => res.json())
-            .then((resJson) => {
-                let lists = []
-
-                for (const item of convertJsonToPlaylistSingle(resJson.data).elements) {
-                    if (item instanceof Playlist) {
-                        lists.push(item)
-                    }
-                }
-
-                setPlaylists(lists);
-            })
-            .catch(error => {
-                console.log(error)
-            })
-        } else { // Root playlist
-            const data = {
-                userId: userId,
-                rank: 0
-            }
-
-            fetch("/api/playlist/getAllRank", {
-                method: "POST",
-                body: JSON.stringify(data)
-            })
-            .then((res) => res.json())
-            .then((resJson) => {
-                let lists = []
-
-                for (const item of resJson.data) {
-                    const playlist = convertJsonToPlaylistSingle(item)
-
-                    lists.push(playlist);
-                }
-
-                setPlaylists(lists);
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        // Sub playlists
+        const data = {
+            userId: userId,
         }
+        let url = ""
+
+        if (typeof playlistId == "number") {
+            Object.assign(data, {playlistId: playlistId});
+            url = "/api/playlist/get"
+        } else { // Root playlist
+            Object.assign(data, {rank: 0});
+            url = "/api/playlist/getRank";
+        }
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+        .then((res) => res.json())
+        .then((json) => {
+            let lists = []
+
+            for (const item of convertJsonToPlaylistSingle(json.data).elements) {
+                if (item instanceof Playlist) {
+                    lists.push(item)
+                }
+            }
+
+            setPlaylists(lists);
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }, [playlistId, userId]);
 
     useEffect(() => {
