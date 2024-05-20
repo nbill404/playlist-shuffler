@@ -1,7 +1,7 @@
 import { Song } from "@/app/lib/song";
 import { Dispatch, FormEvent, SetStateAction } from "react";
 
-export default function SearchIdBar({setResults} : {setResults: Dispatch<SetStateAction<Song[]>>}) {
+export default function SearchIdBar({setResults} : {setResults: Dispatch<SetStateAction<Song[][]>>}) {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
@@ -19,7 +19,7 @@ export default function SearchIdBar({setResults} : {setResults: Dispatch<SetStat
 
             if (response.ok) {
                 const data = await response.json();
-                const songList = data.results;
+                const songList = [data.results];
 
                 setResults(songList);
             }

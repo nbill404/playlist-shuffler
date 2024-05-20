@@ -6,6 +6,7 @@ import { Song } from "../../lib/song";
 import { Playlist } from "@/app/lib/playlist";
 import { convertJsonToPlaylistSingle } from "@/app/lib/convert";
 import SearchIdBar from "./SearchIdBar";
+import PageSelectButton from "./PageSelectButton";
 
 interface Props {
     userId: number | undefined
@@ -14,14 +15,16 @@ interface Props {
 export const SearchContext = createContext();
 
 export default function SearchContainer({userId} : Props) {
-    const [ results, setResults ] = useState<Song[]>([]);
+    const [ results, setResults ] = useState<Song[][]>([]);
     const [ pageNum, setPageNum ] = useState<number>(0);
     const [ token, setToken ] = useState<string>("");
 
     const [ playlistId, setPlaylistsId] = useState<number | null>(1);
     const [ playlists, setPlaylists] = useState<Playlist[]>([]);
-    
+    const [ query, setQuery ] = useState<string>("")
+    const [ isSearching, setIsSearching ] = useState<boolean>(false)
 
+    // Get playlists for dropdown menu
     useEffect(() => {
         // Sub playlists
         const data = {
@@ -58,20 +61,55 @@ export default function SearchContainer({userId} : Props) {
         })
     }, [playlistId, userId]);
 
+    // Query search
     useEffect(() => {
+        if (query.length > 0 && isSearching) {
+            const data = {
+                query: query,
+                token: token
+            };
+
+            fetch("/api/search/list",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+            }).then((res) => res.json()
+            ).then((json) => {
+                const songList = json.results;
+                const newResults = [...results].concat([songList]);
+
+                setResults(newResults);
+                setToken(json.token);
+                setIsSearching(false);
+            }).catch((error) => console.log(error))
+        }
+        }, [query, results, token, isSearching])
 
 
-
-    }, [pageNum])
+    useEffect(() => {
+        if (results.length <= pageNum) {
+            setIsSearching(true);
+        }
+    }, [pageNum, results])
 
     
     return (
         <SearchContext.Provider value={{userId, playlistId, playlists, setPlaylistsId}}>
             <div className="flex gap-2">
-                <SearchBar setResults={setResults}/>
+                <SearchBar setQuery={setQuery} setIsSearching={setIsSearching}/>
                 <SearchIdBar setResults={setResults}/>
+
             </div>
-            <SearchResults results={results}/>
+            <SearchResults results={results[pageNum]}/>
+            {results.length > 0 && 
+                <div className="flex flex-1 gap-1 justify-end px-5">
+                <PageSelectButton nextPage={false} pageNum={pageNum} setPageNum={setPageNum}/>
+                <PageSelectButton nextPage={true} pageNum={pageNum} setPageNum={setPageNum}/>
+                </div>
+            }
         </SearchContext.Provider>
     )
 }

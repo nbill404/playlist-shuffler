@@ -5,8 +5,8 @@ const YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
 
 export async function POST(req: Request) {
     try {
-        const {query} = await req.json()
-        const parameters = `part=snippet&maxResults=10&q=${query}`
+        const {query, token} = await req.json();
+        const parameters = `part=snippet&maxResults=10&q=${query}` + (token.length > 0 ? `&pageToken=${token}` : "");
         
         // Youtube API call
         const response = await fetch(`${YOUTUBE_SEARCH_API}?${parameters}&key=${process.env.YOUTUBE_API_KEY}`);
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
                 }
             }
 
-            return NextResponse.json({results: songs, message: "Search successful"}, {status: 201});
+            return NextResponse.json({results: songs, token: data.nextPageToken, message: "Search successful"}, {status: 201});
         } else {
             return NextResponse.json({results: [], message: "Search failed"}, {status: 500})
         }

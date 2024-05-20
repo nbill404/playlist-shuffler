@@ -1,30 +1,20 @@
 import { Song } from "@/app/lib/song";
 import { Dispatch, FormEvent, SetStateAction } from "react";
 
-export default function SearchBar({setResults} : {setResults: Dispatch<SetStateAction<Song[]>>}) {
+interface Props {
+    setQuery: Dispatch<SetStateAction<string>>
+    setIsSearching: Dispatch<SetStateAction<boolean>>
+}
+
+export default function SearchBar({setQuery, setIsSearching} : Props) {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        try {
-            e.preventDefault();
-            const formData = new FormData(e.currentTarget);
-            const query = {query: formData.get("query")};
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const query = formData.get("query")
 
-            const response = await fetch("/api/search/list",
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(query)
-            })
-
-            if (response.ok) {
-                const data = await response.json();
-                const songList = data.results;
-
-                setResults(songList);
-            }
-        } catch (error) {
-            console.log(error);
+        if (query) {
+            setQuery(query.toString());
+            setIsSearching(true);
         }
     }
 
