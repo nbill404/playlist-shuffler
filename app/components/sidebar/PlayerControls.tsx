@@ -19,9 +19,7 @@ export default function PlayerControls() {
     }
 
     const handlePause = () => {
-        setSongPaused(!songPaused)
-
-        console.log(songPaused)
+        setSongPaused(!songPaused);
     }
 
     const handleForward = () => {

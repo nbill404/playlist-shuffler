@@ -32,7 +32,8 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
     useEffect(() => {
         if (querySongId && playlist) {
             setSongNum(playlist?.getIndex(querySongId));
-        }     
+            console.log(playlist?.getIndex(querySongId))
+        }
     }, [querySongId, playlist])
 
     // Fetch playlists. Only call on when new query is made
@@ -70,9 +71,12 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
 
     // Waits for fetch playlist effect to complete before setting the playlist
     useEffect(() => {
+        console.log(songNum);
+
         if (playlist instanceof Playlist && playlist.idList) {
             if ((0 <= songNum) && (songNum < playlist.idList.length)) {
                 setSelectedSongId(playlist?.idList[songNum]);
+                console.log(playlist?.idList[songNum]);
             }
         }
     }, [songNum, playlist])
@@ -107,7 +111,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
                 <p className="p-5">User is not logged in</p>
             :
             <SidebarContext.Provider value={{playlist, playlistId, selectedSongId, songNum, songPaused, setSongNum, setPlaylist, setSongEnded, setSelectedSongId, setSongPaused, setIsShuffling}}>
-                <SongDisplay/>
+                <SongDisplay selectedSongId={selectedSongId}/>
                 <PlayerControls/>
                 <SidebarPlaylist/>
             </SidebarContext.Provider>

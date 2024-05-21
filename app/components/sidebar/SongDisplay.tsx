@@ -1,24 +1,36 @@
 'use client'
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import YouTubeEmbed from "../embedPlayers/YoutubeEmbed";
 import { SidebarContext } from "./Sidebar";
 import Image from "next/image";
 
-export default function SongDisplay() {
-    const { selectedSongId } = useContext(SidebarContext);
+export default function SongDisplay({selectedSongId} : {selectedSongId : string | null}) {
     const { songPaused } = useContext(SidebarContext);
     const { setSongPaused } = useContext(SidebarContext);
     const { setSongEnded } = useContext(SidebarContext);
 
-    return (
-        <div className="flex justify-center items-center p-2">
-            {selectedSongId
-            ? <YouTubeEmbed videoId={selectedSongId} songPaused={songPaused} setSongEnded={setSongEnded} setSongPaused={setSongPaused}/>
-            : 
+    const [player, setPlayer] = useState<JSX.Element>(<></>);
+
+    useEffect(() => {
+        if (selectedSongId) {
+            setPlayer(
+                <YouTubeEmbed videoId={selectedSongId} songPaused={songPaused} setSongEnded={setSongEnded} setSongPaused={setSongPaused}/>
+            )
+
+        } else {
+            setPlayer(
             <div className="m-5 h-32 w-32 flex items-center justify-center">
                 <Image src="/cd.svg" width="64" height="64" alt=""></Image>
             </div>
-            }
+            );
+        }
+
+    }, [selectedSongId, songPaused, setSongPaused, setSongEnded])
+
+
+    return (
+        <div className="flex justify-center items-center p-2">
+            {player}
         </div>
     )
 
