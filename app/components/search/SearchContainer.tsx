@@ -27,6 +27,8 @@ export default function SearchContainer({userId} : Props) {
     const [ isSearching, setIsSearching ] = useState<boolean>(false);
     const [ idSearch, setIdSearch ] = useState<boolean>(false);
 
+    const [selectedEntry, setSelectedEntry] = useState<number>(-1);
+
     // Get playlists for dropdown menu
     useEffect(() => {
         // Sub playlists
@@ -115,6 +117,7 @@ export default function SearchContainer({userId} : Props) {
                 setPrevQuery(query);
                 setToken(json.token);
                 setIsSearching(false);
+                setSelectedEntry(-1);
             }).catch((error) => console.log(error))
         }
         }, [prevQuery, query, results, token, isSearching])
@@ -131,9 +134,9 @@ export default function SearchContainer({userId} : Props) {
         <SearchContext.Provider value={{userId, playlistId, playlists, setPlaylistsId}}>
             <div className="flex gap-2">
                 <SearchBar setQuery={setQuery} setIsSearching={setIsSearching} setIdSearch={setIdSearch}/>
-                <SearchIdBar setResults={setResults} setIdSearch={setIdSearch}/>
+                <SearchIdBar setResults={setResults} setIdSearch={setIdSearch} setSelectedEntry={setSelectedEntry}/>
             </div>
-            <SearchResults results={results[pageNum]}/>
+            <SearchResults results={results[pageNum]} selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry}/>
             {results.length > 0 && !idSearch && 
                 <div className="flex flex-1 gap-1 justify-end px-5">
                 <PageSelectButton nextPage={false} pageNum={pageNum} setPageNum={setPageNum}/>

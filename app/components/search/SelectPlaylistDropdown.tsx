@@ -30,7 +30,6 @@ export default function SelectPlaylistDropdown({song}: Props) {
 
     return (
         <>
-        <div className="dropdown-content dropdown-end bg-blue-600 align-self-end" tabIndex={0}>
             {playlistId && 
                 <button className="flex flex-1"onClick={handleClick}>
                     <Image src="/left-arrow.svg" height="16" width="16" alt=""></Image>
@@ -44,7 +43,6 @@ export default function SelectPlaylistDropdown({song}: Props) {
                 </div>
 
             )}
-        </div>
         {addSuccessTimer > 0 && 
             <div className="toast">
                 <div className="alert alert-success">

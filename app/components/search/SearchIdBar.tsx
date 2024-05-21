@@ -4,10 +4,11 @@ import { Dispatch, FormEvent, SetStateAction } from "react";
 interface Props {
     setResults: Dispatch<SetStateAction<Song[][]>>
     setIdSearch: Dispatch<SetStateAction<boolean>>
+    setSelectedEntry: Dispatch<SetStateAction<number>>
 }
 
 
-export default function SearchIdBar({setResults, setIdSearch}: Props) {
+export default function SearchIdBar({setResults, setIdSearch, setSelectedEntry}: Props) {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
@@ -29,6 +30,7 @@ export default function SearchIdBar({setResults, setIdSearch}: Props) {
 
                 setResults(songList);
                 setIdSearch(true);
+                setSelectedEntry(-1);
             }
         } catch (error) {
             console.log(error);
