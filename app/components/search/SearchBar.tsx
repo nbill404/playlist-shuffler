@@ -4,19 +4,19 @@ import { Dispatch, FormEvent, SetStateAction } from "react";
 interface Props {
     setQuery: Dispatch<SetStateAction<string>>
     setIsSearching: Dispatch<SetStateAction<boolean>>
+    setIdSearch: Dispatch<SetStateAction<boolean>>
 }
 
-export default function SearchBar({setQuery, setIsSearching} : Props) {
+export default function SearchBar({setQuery, setIsSearching, setIdSearch} : Props) {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const query = formData.get("query")
 
-        console.log(query)
-
         if (query) {
             setQuery(query.toString());
             setIsSearching(true);
+            setIdSearch(false);
         }
     }
 
