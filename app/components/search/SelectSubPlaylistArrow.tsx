@@ -12,6 +12,7 @@ export default function SelectSubPlaylistArrow({playlist, setPlaylistsId}: Props
 
     const handleSelectSubPlaylist = () => {
         setPlaylistsId(playlist.id);
+        console.log(playlist.id);
     }
 
     return (

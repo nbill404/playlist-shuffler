@@ -19,7 +19,7 @@ export default function SearchContainer({userId} : Props) {
     const [ pageNum, setPageNum ] = useState<number>(0);
     const [ token, setToken ] = useState<string>("");
 
-    const [ playlistId, setPlaylistsId] = useState<number | null>(1);
+    const [ playlistId, setPlaylistsId] = useState<number | null>(null);
     const [ playlists, setPlaylists] = useState<Playlist[]>([]);
     
     const [ prevQuery, setPrevQuery ] = useState<string>("");
@@ -35,33 +35,54 @@ export default function SearchContainer({userId} : Props) {
         }
         let url = ""
 
-        if (typeof playlistId == "number") {
+        if (playlistId) {
             Object.assign(data, {playlistId: playlistId});
-            url = "/api/playlist/get"
+            url = "/api/playlist/getSub"
+
+
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+            .then((res) => res.json())
+            .then((json) => {
+                let lists = [];
+
+                for (const element of json.data) {
+                    const playlist = convertJsonToPlaylistSingle(element);
+                    lists.push(playlist);
+                }
+    
+                setPlaylists(lists);
+            })
+            .catch(error => {
+                console.log(error)
+            })
         } else { // Root playlist
             Object.assign(data, {rank: 0});
-            url = "/api/playlist/getRank";
+            url = "/api/playlist/getAllRank";
+
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+            .then((res) => res.json())
+            .then((json) => {
+                let lists = []
+    
+                for (const item of json.data) {
+                    const playlist = convertJsonToPlaylistSingle(item);
+                    lists.push(playlist)
+                }
+    
+                setPlaylists(lists);
+            })
+            .catch(error => {
+                console.log(error)
+            })
         }
 
-        fetch(url, {
-            method: "POST",
-            body: JSON.stringify(data)
-        })
-        .then((res) => res.json())
-        .then((json) => {
-            let lists = []
 
-            for (const item of convertJsonToPlaylistSingle(json.data).elements) {
-                if (item instanceof Playlist) {
-                    lists.push(item)
-                }
-            }
-
-            setPlaylists(lists);
-        })
-        .catch(error => {
-            console.log(error)
-        })
     }, [playlistId, userId]);
 
     // Query search

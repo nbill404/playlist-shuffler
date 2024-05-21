@@ -219,6 +219,16 @@ export class Playlist {
         }
     }
 
+    containsPlaylists() {
+        for (const element of this.elements) {
+            if (element instanceof Playlist) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     printList(array: Element[] = this.elements) {
         for (const e of array) {
             if (e instanceof Song) {

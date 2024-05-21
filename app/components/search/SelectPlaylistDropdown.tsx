@@ -40,7 +40,7 @@ export default function SelectPlaylistDropdown({song}: Props) {
             {playlists && playlists.map((playlist: Playlist, index: number) =>
                 <div key={`options-${index}`} className="flex" >
                     <AddToPlaylistButton playlist={playlist} song={song} setAddSuccessTimer={setAddSuccessTimer}/> 
-                    <SelectSubPlaylistArrow playlist={playlist} setPlaylistsId={setPlaylistsId}/>
+                    {playlist.containsPlaylists() && <SelectSubPlaylistArrow playlist={playlist} setPlaylistsId={setPlaylistsId}/>}
                 </div>
 
             )}
