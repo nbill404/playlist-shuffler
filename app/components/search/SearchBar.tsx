@@ -12,6 +12,8 @@ export default function SearchBar({setQuery, setIsSearching} : Props) {
         const formData = new FormData(e.currentTarget);
         const query = formData.get("query")
 
+        console.log(query)
+
         if (query) {
             setQuery(query.toString());
             setIsSearching(true);

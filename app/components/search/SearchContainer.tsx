@@ -21,6 +21,8 @@ export default function SearchContainer({userId} : Props) {
 
     const [ playlistId, setPlaylistsId] = useState<number | null>(1);
     const [ playlists, setPlaylists] = useState<Playlist[]>([]);
+    
+    const [ prevQuery, setPrevQuery ] = useState<string>("");
     const [ query, setQuery ] = useState<string>("")
     const [ isSearching, setIsSearching ] = useState<boolean>(false)
 
@@ -79,14 +81,21 @@ export default function SearchContainer({userId} : Props) {
             }).then((res) => res.json()
             ).then((json) => {
                 const songList = json.results;
-                const newResults = [...results].concat([songList]);
 
-                setResults(newResults);
+                if (prevQuery == query) {
+                    const newResults = [...results].concat([songList]);
+                    setResults(newResults);
+                } else {
+                    setResults([songList])
+                    setPageNum(0);
+                }
+
+                setPrevQuery(query);
                 setToken(json.token);
                 setIsSearching(false);
             }).catch((error) => console.log(error))
         }
-        }, [query, results, token, isSearching])
+        }, [prevQuery, query, results, token, isSearching])
 
 
     useEffect(() => {
@@ -101,7 +110,6 @@ export default function SearchContainer({userId} : Props) {
             <div className="flex gap-2">
                 <SearchBar setQuery={setQuery} setIsSearching={setIsSearching}/>
                 <SearchIdBar setResults={setResults}/>
-
             </div>
             <SearchResults results={results[pageNum]}/>
             {results.length > 0 && 
