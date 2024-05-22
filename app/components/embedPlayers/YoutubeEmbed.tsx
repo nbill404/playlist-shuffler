@@ -15,7 +15,6 @@ var cElement = null; // Stores player event
 export default function YouTubeEmbed({videoId, songPaused, setSongEnded, setSongPaused} : Props) {
 
     const handleReady = (event: YouTubeEvent<number>) => {
-        event.target.playVideo();
         cElement = event;
     }
 
