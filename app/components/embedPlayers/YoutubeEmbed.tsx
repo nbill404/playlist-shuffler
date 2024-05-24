@@ -18,6 +18,7 @@ export default function YouTubeEmbed({videoId, nextVideoId, songPaused, setSongE
     const [bufferCheck, setBufferCheck] = useState(false);
 
     const handleReady = (event: YouTubeEvent<number>) => {
+        setBufferCheck(false);
         cElement = event;
     }
 
@@ -30,6 +31,7 @@ export default function YouTubeEmbed({videoId, nextVideoId, songPaused, setSongE
     }
 
     const handleStateChange = (event: YouTubeEvent<number>) => {
+        // Only attempt once per video
         if (event.data === 3 && !bufferCheck) {
             event.target.pauseVideo();
             event.target.playVideo();
