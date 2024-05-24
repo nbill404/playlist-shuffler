@@ -4,7 +4,13 @@ import YouTubeEmbed from "../embedPlayers/YoutubeEmbed";
 import { SidebarContext } from "./Sidebar";
 import Image from "next/image";
 
-export default function SongDisplay({selectedSongId} : {selectedSongId : string | null}) {
+interface Props {
+    selectedSongId: string | null;
+    nextVideoId: string | null;
+}
+
+
+export default function SongDisplay({selectedSongId, nextVideoId} : Props) {
     const { songPaused } = useContext(SidebarContext);
     const { setSongPaused } = useContext(SidebarContext);
     const { setSongEnded } = useContext(SidebarContext);
@@ -14,7 +20,7 @@ export default function SongDisplay({selectedSongId} : {selectedSongId : string 
     useEffect(() => {
         if (selectedSongId) {
             setPlayer(
-                <YouTubeEmbed videoId={selectedSongId} songPaused={songPaused} setSongEnded={setSongEnded} setSongPaused={setSongPaused}/>
+                <YouTubeEmbed videoId={selectedSongId} nextVideoId={nextVideoId} songPaused={songPaused} setSongEnded={setSongEnded} setSongPaused={setSongPaused}/>
             )
 
         } else {
@@ -25,7 +31,7 @@ export default function SongDisplay({selectedSongId} : {selectedSongId : string 
             );
         }
 
-    }, [selectedSongId, songPaused, setSongPaused, setSongEnded])
+    }, [selectedSongId, nextVideoId, songPaused, setSongPaused, setSongEnded])
 
 
     return (

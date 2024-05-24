@@ -25,6 +25,8 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
     const [songPaused, setSongPaused] = useState<boolean>(false);
     const [isShuffling, setIsShuffling] = useState<boolean>(false);
 
+    const [nextVideoId, setNextVideoId] = useState<string | null>(null);
+
     const router = useRouter();
     const pathname = usePathname();
 
@@ -71,12 +73,16 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
 
     // Waits for fetch playlist effect to complete before setting the playlist
     useEffect(() => {
-        console.log(songNum);
-
         if (playlist instanceof Playlist && playlist.idList) {
             if ((0 <= songNum) && (songNum < playlist.idList.length)) {
                 setSelectedSongId(playlist?.idList[songNum]);
-                console.log(playlist?.idList[songNum]);
+
+                if (songNum !== playlist.idList.length - 1) {
+                    setNextVideoId(playlist.idList[songNum] + 1);
+                } else {
+                    setNextVideoId(null);
+                }
+
             }
         }
     }, [songNum, playlist])
@@ -111,7 +117,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
                 <p className="p-5">User is not logged in</p>
             :
             <SidebarContext.Provider value={{playlist, playlistId, selectedSongId, songNum, songPaused, setSongNum, setPlaylist, setSongEnded, setSelectedSongId, setSongPaused, setIsShuffling}}>
-                <SongDisplay selectedSongId={selectedSongId}/>
+                <SongDisplay selectedSongId={selectedSongId} nextVideoId={nextVideoId}/>
                 <PlayerControls/>
                 <SidebarPlaylist/>
             </SidebarContext.Provider>
