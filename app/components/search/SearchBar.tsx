@@ -22,7 +22,7 @@ export default function SearchBar({setQuery, setIsSearching, setIdSearch} : Prop
 
     return (
         <form className="flex flex-row gap-3" onSubmit={handleSubmit}>
-            <input className="input" name="query" type="text" placeholder="Search"></input>
+            <input className="input" name="query" type="text" placeholder="Search youtube"></input>
             <button className="btn btn-primary" type="submit">Search</button>
         </form>
     )

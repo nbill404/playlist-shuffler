@@ -39,7 +39,7 @@ export default function SearchIdBar({setResults, setIdSearch, setSelectedEntry}:
 
     return (
         <form className="flex flex-row gap-3" onSubmit={handleSubmit}>
-            <input className="input" name="query" type="text" placeholder="Search by id"></input>
+            <input className="input" name="query" type="text" placeholder="Search by video id"></input>
             <button className="btn btn-primary" type="submit">Search</button>
         </form>
     )
