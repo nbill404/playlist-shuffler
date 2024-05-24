@@ -7,6 +7,7 @@ import SongsDisplayList from "./SongsDisplayList";
 import OptionsBar from "./optionsBar/OptionsBar";
 import Link from "next/link";
 import AddNestedPlaylistButton from "./AddNestedPlaylistButton";
+import { useRouter } from "next/navigation";
 
 interface Props {
     userId: number
@@ -48,6 +49,8 @@ export default function ElementsDisplayWrapper({userId, data}: Props) {
     const [playlist, setPlaylist] = useState<Playlist | null>(null);
     const [swapIndexes, setSwapIndexes] = useState<[number, number] | null>(null);
 
+    const router = useRouter();
+
     useEffect(() => {
         if (data) {
             setPlaylist(convertJsonToPlaylistSingle(data))
@@ -79,12 +82,14 @@ export default function ElementsDisplayWrapper({userId, data}: Props) {
     }, [userId, playlist, swapIndexes])
 
 
-
 return playlist ? 
         <>
-            <div className="grid grid-cols-4 items-center">
-                <Link className="btn btn-primary max-w-16" href={"/playlists"}>Back</Link>
-                <h1 className="text-2xl text-center col-span-2 font-bold">{playlist.name}</h1>
+            <div className="grid grid-cols-5 items-center">
+                <div className="flex gap-1">
+                    <button className="btn btn-primary max-w-16" onClick={() => router.back()}>Back</button>
+                    <Link className="btn btn-primary max-w-24" href={"/playlists"}>Back to top</Link>
+                </div>
+                <h1 className="text-2xl text-center col-span-3 font-bold">{playlist.name}</h1>
                 <p className="text-lg">Layer: {playlist.rank + 1}</p>
             </div>    
             <div className="divider"></div>
@@ -95,5 +100,5 @@ return playlist ?
             <SongsDisplayList userId={userId} playlist={playlist} setPlaylist={setPlaylist} setSwapIndexes={setSwapIndexes}/>
             </>
         :
-        <p>Error playlist not found</p>
+        <p>Loading</p>
 }
