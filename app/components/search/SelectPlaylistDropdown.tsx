@@ -1,11 +1,11 @@
 'use client'
 import { Playlist } from "@/app/lib/playlist"
 import { useContext, useEffect, useState } from "react"
-import { SearchContext } from "./SearchContainer"
 import AddToPlaylistButton from "./AddToPlaylistButton";
 import { Song } from "@/app/lib/song";
 import Image from "next/image";
 import SelectSubPlaylistArrow from "./SelectSubPlaylistArrow";
+import { SearchContext } from "@/app/contexts/searchContext";
 
 interface Props {
     song: Song
@@ -18,7 +18,9 @@ export default function SelectPlaylistDropdown({song}: Props) {
     const [ addSuccessTimer, setAddSuccessTimer ] = useState<number>(0);
 
     const handleClick = () => {
-        setPlaylistsId(null);
+        if (setPlaylistsId) {
+            setPlaylistsId(null);
+        }
     }
 
     useEffect(() => {
@@ -39,7 +41,7 @@ export default function SelectPlaylistDropdown({song}: Props) {
             {playlists && playlists.map((playlist: Playlist, index: number) =>
                 <div key={`options-${index}`} className="flex" >
                     <AddToPlaylistButton playlist={playlist} song={song} setAddSuccessTimer={setAddSuccessTimer}/> 
-                    {playlist.containsPlaylists() && <SelectSubPlaylistArrow playlist={playlist} setPlaylistsId={setPlaylistsId}/>}
+                    {playlist.containsPlaylists() && <SelectSubPlaylistArrow playlist={playlist} />}
                 </div>
 
             )}

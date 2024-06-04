@@ -1,9 +1,9 @@
 'use client'
 import { Playlist } from "@/app/lib/playlist"
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
-import { SearchContext } from "./SearchContainer";
 import { Song } from "@/app/lib/song";
 import Image from "next/image";
+import { SearchContext } from "@/app/contexts/searchContext";
 
 interface Props {
     playlist: Playlist

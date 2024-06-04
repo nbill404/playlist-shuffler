@@ -7,12 +7,13 @@ import { Playlist } from "@/app/lib/playlist";
 import { convertJsonToPlaylistSingle } from "@/app/lib/convert";
 import SearchIdBar from "./SearchIdBar";
 import PageSelectButton from "./PageSelectButton";
+import { SearchContext } from "@/app/contexts/searchContext";
 
 interface Props {
     userId: number | undefined
 }
 
-export const SearchContext = createContext();
+
 
 export default function SearchContainer({userId} : Props) {
     const [ results, setResults ] = useState<Song[][]>([]);

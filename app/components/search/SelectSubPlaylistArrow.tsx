@@ -1,18 +1,21 @@
+import { SearchContext } from "@/app/contexts/searchContext";
 import { Playlist } from "@/app/lib/playlist";
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
+import { useContext } from "react";
 
 interface Props {
     playlist: Playlist
-    setPlaylistsId: Dispatch<SetStateAction<number>>
 }
 
 
-export default function SelectSubPlaylistArrow({playlist, setPlaylistsId}: Props) {
+export default function SelectSubPlaylistArrow({playlist}: Props) {
+    const {setPlaylistsId} = useContext(SearchContext)
+
 
     const handleSelectSubPlaylist = () => {
-        setPlaylistsId(playlist.id);
-        console.log(playlist.id);
+        if (setPlaylistsId) {
+            setPlaylistsId(playlist.id);
+        }
     }
 
     return (

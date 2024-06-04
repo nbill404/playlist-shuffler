@@ -3,7 +3,6 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import { Song } from "../../lib/song";
 import MusicListElement from "../listViewElements/SongListViewElement";
 import SelectPlaylistDropdown from "./SelectPlaylistDropdown";
-import { SearchContext } from "./SearchContainer";
 
 interface Props {
     results: Song[]
@@ -12,8 +11,6 @@ interface Props {
 }
 
 export default function SearchResults({results, selectedEntry, setSelectedEntry}: Props) {
-    const { playlistId } = useContext(SearchContext);
-
     return (
         <div className="flex flex-col gap-2 max-h-[70vh] m-3 p-5 overflow-auto">
             {results && results.map((result: Song, index: number) => 
