@@ -10,7 +10,7 @@ export default function Home() {
     ]
 
     return (
-        <div className="m-3 p-5 bg-sky-950 rounded-md flex-1">
+        <div className="m-3 p-5 bg-sky-950 rounded-md flex-1 text-white max-h-[85vh] overflow-auto">
             <h1 className="text-2xl">Welcome!</h1>
             <br/>
             <p>
