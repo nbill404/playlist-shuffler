@@ -72,7 +72,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-row gap-2">
                     <Image src="github-mark.svg" width="24" height="24" alt=""></Image>
-                    <p>https://github.com/nbill404</p>
+                    <a href="https://github.com/nbill404">https://github.com/nbill404</a>
                 </div>
             </div>
 
