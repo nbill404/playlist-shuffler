@@ -36,17 +36,18 @@ const getElements = async (array : any, userId: number) => {
 }
 
 
-
-
 // Retrieves details of all playlists with a specific rank
 export async function POST(req: Request) {
     try {
         const {userId, rank} = await req.json();
-            
+        
+        const queryRank = rank ? rank : 0;
+
+
         const playlists = await db.playlist.findMany({
             where: {
                 userId: Number(userId),
-                rank: Number(rank)
+                rank: Number(queryRank)
             }
         })
 
