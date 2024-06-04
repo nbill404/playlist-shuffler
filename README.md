@@ -1,21 +1,21 @@
 ## Playlist Shuffler
 This website is a allows you to create playlists and use advanced shuffling options.
 
-The site is a NextJs project using TailwindCSS and DaisyUI components. It uses a PostgreSQL backend with Prisma as the database model
+The site is a NextJs project using TailwindCSS and DaisyUI components. It uses a PostgreSQL backend with Prisma as the database model.
 
 #### Features
 
-Playlists within playlists: \
-* You can combine playlists and songs within a single playlist. \
-* Shuffling will shuffle all songs and all songs within playlists. \
-* You can create subplaylists up to 10 layers deep. \
-* Organise your playlists by artist/genre/mood or however you like \
+Playlists within playlists:
+* You can combine playlists and songs within a single playlist.
+* Shuffling will shuffle all songs and all songs within playlists.
+* You can create subplaylists up to 10 layers deep.
+* Organise your playlists by artist/genre/mood or however you like.
 
-Lock playlists: \
-* Deactivate shuffling songs for specific playlists (Useful for albums or songs with multiple parts). \
+Lock playlists:
+* Deactivate shuffling songs for specific playlists (Useful for albums or songs with multiple parts).
 
-Priority songs: \
-* Songs/Playlists can be favourited so that they will always appear first when shuffling. Unfavourited songs/playlists will be shuffled as normal after the favourited ones \
+Priority songs:
+* Songs/Playlists can be favourited so that they will always appear first when shuffling. Unfavourited songs/playlists will be shuffled as normal after the favourited ones
 
 #### Attributions
 Svgs were provided by svgrepo.com
@@ -39,5 +39,4 @@ https://www.svgrepo.com/svg/521201/pause \
 https://www.svgrepo.com/svg/521207/play \
 https://www.svgrepo.com/svg/523624/playlist-minimalistic-2 \
 https://www.svgrepo.com/svg/479653/email-9 \
-https://www.svgrepo.com/svg/532363/user-alt-1 \ 
-https://www.svgrepo.com/svg/110692/horizontal-line \
+https://www.svgrepo.com/svg/110692/horizontal-line
