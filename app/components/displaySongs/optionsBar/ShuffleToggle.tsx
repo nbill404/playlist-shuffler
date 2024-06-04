@@ -1,19 +1,19 @@
 'use client'
 
 import { Playlist } from "@/app/lib/playlist";
-import { ChangeEventHandler } from "react";
+import { ChangeEvent, ChangeEventHandler } from "react";
 
 export default function ShuffleToggle({userId, playlistDetails} : {
     userId : number
     playlistDetails : Playlist
 }) {
 
-    const handleChange = (e : ChangeEventHandler<HTMLInputElement>) => {
+    const handleChange = (event : ChangeEvent<HTMLInputElement>) => {
         const data = {
             userId: userId,
             playlistId: playlistDetails.id,
             values: {
-                canShuffle: e.currentTarget.checked
+                canShuffle: event.currentTarget.checked
             }
         }
 

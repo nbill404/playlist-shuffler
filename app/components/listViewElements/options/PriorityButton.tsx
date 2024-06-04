@@ -40,7 +40,7 @@ export default function PriorityButton({userId, element, playlistId} : Props) {
         }).catch((error) => console.log(error))
 
         element.starred = isPressed;
-    }, [isPressed, element, userId])
+    }, [isPressed, element, userId, playlistId])
 
 
     const handleClick = () => {

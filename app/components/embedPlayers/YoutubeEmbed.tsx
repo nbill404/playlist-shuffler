@@ -11,7 +11,7 @@ interface Props {
 }
 
 // https://stackoverflow.com/questions/69579941/using-react-youtube-is-there-any-way-to-reference-the-player-other-than-with-an
-var cElement = null; // Stores player event
+var cElement : any = null; // Stores player event
 
 export default function YouTubeEmbed({videoId, nextVideoId, songPaused, setSongEnded, setSongPaused} : Props) {
     

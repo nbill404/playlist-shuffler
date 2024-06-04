@@ -3,7 +3,7 @@ import { Song } from "./song";
 
 // Get all layers
 export const convertJsonToPlaylist = (obj: any) => {
-    const playlist = new Playlist(-1, "");
+    const playlist = new Playlist();
     playlist.addDetails(obj.details)
 
     for (const item of obj.elements.songList) {
@@ -23,7 +23,7 @@ export const convertJsonToPlaylist = (obj: any) => {
 
 // Get single layer
 export const convertJsonToPlaylistSingle = (obj: any) => {
-    const playlist = new Playlist(-1, "");
+    const playlist = new Playlist();
     playlist.addDetails(obj.details)
 
     for (const item of obj.elements.songList) {
@@ -33,7 +33,7 @@ export const convertJsonToPlaylistSingle = (obj: any) => {
     }
 
     for (const item of obj.elements.playlistList) {
-        const newPlaylist = new Playlist(-1, "");
+        const newPlaylist = new Playlist();
         newPlaylist.addDetails(item)
         playlist.push(newPlaylist)
     }

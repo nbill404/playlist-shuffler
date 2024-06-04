@@ -19,42 +19,42 @@ export default function AddNestedPlaylistButton({userId, playlist, setPlaylist} 
             const name = formData.get("name");
 
             if (name == "") {
-                throw Error("Please enter a name");
-            }
+                const user = {id: userId}
+                const newElement = new Playlist();
+                newElement.name = name.toString();
 
-            const user = {id: userId}
-            const newElement = new Playlist(0, name);
-            const {elements, ...details} = newElement; // Extract elements
+                const {elements, ...details} = newElement; // Extract elements
 
-            const data = {
-                user: user,
-                playlist: details,
-                parentPlaylistId: playlist.id
-            }
+                const data = {
+                    user: user,
+                    playlist: details,
+                    parentPlaylistId: playlist.id
+                }
 
-            const response = await fetch('/api/playlist/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
+                const response = await fetch('/api/playlist/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
 
 
-            if (response.ok) {
-                const json = await response.json();
-                newElement.position = json.data.position
-                newElement.rank = json.data.rank;
-                newElement.id = json.data.id;
-                
-                const newPlaylist = Object.assign( {}, playlist );
-                Object.setPrototypeOf( newPlaylist, Playlist.prototype );
-                newPlaylist.push(newElement);
+                if (response.ok) {
+                    const json = await response.json();
+                    newElement.position = json.data.position
+                    newElement.rank = json.data.rank;
+                    newElement.id = json.data.id;
+                    
+                    const newPlaylist = Object.assign( {}, playlist );
+                    Object.setPrototypeOf( newPlaylist, Playlist.prototype );
+                    newPlaylist.push(newElement);
 
-                setPlaylist(newPlaylist);
-                setAdded(true);
-                setTimer(20000);
-            }
+                    setPlaylist(newPlaylist);
+                    setAdded(true);
+                    setTimer(20000);
+                }
+        }
         }
         catch (error) {
             console.log(error);

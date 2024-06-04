@@ -17,9 +17,7 @@ export class Playlist {
     // Client only
     idList? : string[]; // Flattened copy of list containing only ids for song indexing 
 
-    constructor(id: number, name: string) {
-        this.id = id
-        this.name = name;
+    constructor() {
     }
 
     push(e: Element) {

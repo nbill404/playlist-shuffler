@@ -1,6 +1,6 @@
+import { Session } from "next-auth";
 import { Avatar } from "./Avatar";
 import LogoutButton from "./LogoutButton";
-import { Session } from "inspector";
 
 export default async function AccountNav({session} : {session: Session | null}) {
     

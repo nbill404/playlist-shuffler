@@ -19,38 +19,37 @@ export default function PlaylistAdd() {
             const name = formData.get("name");
 
             if (name == "") {
-                throw Error("Please enter a name");
-            }
+                const user = {id: userId}
+                const {elements, ...playlist} = new Playlist(); // Extract elements
+                playlist.name = name;
 
-            const user = {id: userId}
-            const {elements, ...playlist} = new Playlist(0, name); // Extract elements
-
-            const data = {
-                user: user,
-                playlist: playlist,
-                parentPlaylistId: null
-            }
-
-            const response = await fetch('/api/playlist/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                const json = await response.json();
-
-                const newPlaylist = {
-                    details: {
-                        id: json.data.id,
-                        name: name
-                    }
+                const data = {
+                    user: user,
+                    playlist: playlist,
+                    parentPlaylistId: null
                 }
 
-                const newPlaylists = [...lists, newPlaylist]
-                setPlaylists(newPlaylists);
+                const response = await fetch('/api/playlist/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const json = await response.json();
+
+                    const newPlaylist = {
+                        details: {
+                            id: json.data.id,
+                            name: name
+                        }
+                    }
+
+                    const newPlaylists = [...lists, newPlaylist]
+                    setPlaylists(newPlaylists);
+                }
             }
 
         } catch (error) {

@@ -2,8 +2,9 @@ import { db } from "@/app/lib/db";
 import { NextResponse } from "next/server";
 
 // Recursively gets all layers of a playlist
-const getPlaylists = async (userId , playlistId) => {
+const getPlaylists = async (userId: number , playlistId: number) => {
     try {
+        // Get parent
         const songList = await db.song.findMany({
             where: {
                 userId: Number(userId),
@@ -18,17 +19,18 @@ const getPlaylists = async (userId , playlistId) => {
             }
         })
 
-        const data = {
+        const data =  {
             songList: songList,
-            playlistList: []
+            playlistList: Array()
         }
-
+        
+        
         for (const playlist of playlistList) {
             const subPlaylist = {
                 details : playlist,
                 elements: await getPlaylists(userId, playlist.id)
             }
-            
+
             data.playlistList.push(subPlaylist)
         }
 
@@ -37,8 +39,8 @@ const getPlaylists = async (userId , playlistId) => {
     } catch (error) {
         console.log(error);
         return {
-            songList : [],
-            playlistList: []
+            details: null,
+            elements: Array()
         };
     }
 }
