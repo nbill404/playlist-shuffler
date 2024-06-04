@@ -1,14 +1,15 @@
 'use client'
+import { GridContext, GridContextType } from "@/app/contexts/gridContext";
 import { Playlist } from "@/app/lib/playlist";
 import Image from "next/image";
 import { useContext } from "react";
-import { GridContext } from "./PlaylistGrid";
-
 
 export default function PlaylistAdd() {
-    const {userId} = useContext(GridContext)
-    const {lists} = useContext(GridContext);
-    const {setPlaylists} = useContext(GridContext)
+    const context : GridContextType | null = useContext(GridContext);
+
+    const userId = context?.userId;
+    const lists = context?.lists;
+    const setPlaylists = context?.setPlaylists;
 
     const handleClick = async (formData: FormData) => {
         try {
@@ -16,12 +17,12 @@ export default function PlaylistAdd() {
                 throw Error("User is not logged in");
             }
 
-            const name = formData.get("name");
-
-            if (name == "") {
+            const name = formData.get("name")?.toString();
+            
+            if (name && lists && setPlaylists) {
                 const user = {id: userId}
                 const {elements, ...playlist} = new Playlist(); // Extract elements
-                playlist.name = name;
+                playlist.name = name ? name : "";
 
                 const data = {
                     user: user,
@@ -40,13 +41,8 @@ export default function PlaylistAdd() {
                 if (response.ok) {
                     const json = await response.json();
 
-                    const newPlaylist = {
-                        details: {
-                            id: json.data.id,
-                            name: name
-                        }
-                    }
-
+                    const newPlaylist = new Playlist();
+                    newPlaylist.addDetails(json.data)
                     const newPlaylists = [...lists, newPlaylist]
                     setPlaylists(newPlaylists);
                 }

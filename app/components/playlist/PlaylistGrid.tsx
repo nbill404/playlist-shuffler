@@ -4,6 +4,8 @@ import PlaylistAdd from "./PlaylistAdd";
 import PlaylistDropdownMenu from "./PlaylistDropdownMenu";
 import PlaylistGridElement from "./PlaylistGridElement";
 import { Playlist } from "@/app/lib/playlist";
+import { GridContext } from "@/app/contexts/gridContext";
+import { convertJsonToPlaylistSingle } from "@/app/lib/convert";
 
 interface Props {
     userId: number | undefined
@@ -11,19 +13,18 @@ interface Props {
     rank: number
 }
 
-interface GridContextType {
-    lists: Playlist[]
-    userId: number | undefined
-    setPlaylists: Dispatch<SetStateAction<Playlist[]>>
-}
-
-export const GridContext = createContext<GridContextType | null>(null);
-
 export default function PlaylistGrid({userId, playlists, rank}: Props) {
     const [lists, setPlaylists] = useState(playlists);
 
+    // Run when fetch from server
     useEffect(() => {
-        setPlaylists(playlists)
+        let convertedPlaylists = []
+
+        for (const item of playlists) {
+            convertedPlaylists.push(convertJsonToPlaylistSingle(item));
+        }
+
+        setPlaylists(convertedPlaylists)
     }, [playlists])
 
     return (

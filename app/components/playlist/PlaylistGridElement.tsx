@@ -1,6 +1,6 @@
 'use client'
 
-import { Playlist } from "@/app/types/playlist"
+import { Playlist } from "@/app/lib/playlist"
 import Link from "next/link"
 
 interface Props {
@@ -9,9 +9,9 @@ interface Props {
 
 export default function PlaylistGridElement({playlist} : Props) {
     return (
-    <Link href={`/playlists/${playlist.details.id}`}>
+    <Link href={`/playlists/${playlist.id}`}>
         <div className="w-32 h-32 bg-slate-800"/>
-        <div>{playlist.details.name}</div>
+        <div>{playlist.name}</div>
     </Link>
     )
 

@@ -1,25 +1,30 @@
 'use client'
 import Image from "next/image";
-import { GridContext } from "./PlaylistGrid";
 import { FormEvent, useContext, useState } from "react";
 import { Playlist } from "@/app/lib/playlist";
-import { error } from "console";
+import { GridContext } from "@/app/contexts/gridContext";
 
 interface Props {
     playlist: Playlist
 }
 
-export default function PlaylistDropdownMenu({playlist}) {
-    const {userId, lists, setPlaylists} = useContext(GridContext);
+export default function PlaylistDropdownMenu({playlist} : Props) {
+    const context = useContext(GridContext);
+
+    const userId = context?.userId;
+    const lists = context?.lists;
+    const setPlaylists = context?.setPlaylists;
     const [renameActive, setRenameActive] = useState(false);
 
     const handleRemove = async () => {
         try {
+            if (lists && setPlaylists){
+
             const response = await fetch("/api/playlist/removeAllLayers", {
                 method: 'POST',
                 body: JSON.stringify({
                     userId: userId,
-                    playlistId: playlist.details.id
+                    playlistId: playlist.id
                 })
             })
 
@@ -27,6 +32,7 @@ export default function PlaylistDropdownMenu({playlist}) {
                 const newLists = lists.filter((e: Playlist, i: number) => e !== playlist)
                 setPlaylists(newLists);
             }
+        }
 
         } catch (error) {
             console.log(error);
@@ -41,12 +47,12 @@ export default function PlaylistDropdownMenu({playlist}) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget)
 
-        const newName = formData.get("renameField");
+        const newName = formData.get("renameField")?.toString();
 
         if (newName) {
             const data = {
                 userId : userId,
-                playlistId : playlist.details.id,
+                playlistId : playlist.id,
                 values : {
                     name : newName
                 }
