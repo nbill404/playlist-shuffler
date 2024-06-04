@@ -1,5 +1,3 @@
-import { array } from "zod";
-import { shuffle } from "./shuffle";
 import { Song } from "./song";
 
 type Element = (Playlist | Song);
@@ -7,8 +5,8 @@ type Element = (Playlist | Song);
 export class Playlist {
     // Database 
     rank: number = 0; // Rank/Depth of playlist
-    id: number;
-    name: string;
+    id: number = -1;
+    name: string = "";
     elements: Element[] = [];
     position: number = 0;
     canShuffle: boolean = true;

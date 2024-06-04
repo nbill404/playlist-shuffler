@@ -1,9 +1,10 @@
 'use client'
 import { useContext, useState } from "react";
-import { SidebarContext } from "./Sidebar";
+
 import { Song } from "@/app/lib/song";
 import SongSelectButton from "./SongSelectButton";
 import SidebarSubPlaylist from "./SidebarSubPlaylist";
+import { SidebarContext } from "@/app/contexts/sidebarContext";
 
 
 export default function SidebarPlaylist() {

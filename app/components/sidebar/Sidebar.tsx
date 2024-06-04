@@ -1,15 +1,13 @@
 'use client'
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PlayerControls from "./PlayerControls";
 import SidebarPlaylist from "./SidebarPlaylist";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Playlist } from "@/app/lib/playlist";
 import { convertJsonToPlaylist } from "@/app/lib/convert";
 
 import SongDisplay from "./SongDisplay";
-import { useRouter } from "next/navigation";
-
-export const SidebarContext = createContext();
+import { SidebarContext } from "@/app/contexts/sidebarContext";
 
 export default function Sidebar({userId} : { userId: number | undefined}) {
     const queryPlaylistId = useSearchParams().get("playlist");
@@ -27,8 +25,6 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
 
     const [nextVideoId, setNextVideoId] = useState<string | null>(null);
 
-    const router = useRouter();
-    const pathname = usePathname();
 
     // Initial song selection
     useEffect(() => {
@@ -116,7 +112,7 @@ export default function Sidebar({userId} : { userId: number | undefined}) {
             {!userId ?
                 <p className="p-5">User is not logged in</p>
             :
-            <SidebarContext.Provider value={{playlist, playlistId, selectedSongId, songNum, songPaused, setSongNum, setPlaylist, setSongEnded, setSelectedSongId, setSongPaused, setIsShuffling}}>
+            <SidebarContext.Provider value={{playlist, playlistId, songNum, songPaused, setSongNum, setPlaylist, setSongEnded, setSelectedSongId, setSongPaused, setIsShuffling}}>
                 <SongDisplay selectedSongId={selectedSongId} nextVideoId={nextVideoId}/>
                 <PlayerControls/>
                 <SidebarPlaylist/>

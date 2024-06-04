@@ -3,7 +3,7 @@ import { Song } from "@/app/lib/song"
 import SongSelectButton from "./SongSelectButton"
 import { Playlist } from "@/app/lib/playlist"
 
-export default function SidebarSubPlaylist({playlist}) {
+export default function SidebarSubPlaylist({playlist} : {playlist : Playlist}) {
     return (
         <li>
             <details>

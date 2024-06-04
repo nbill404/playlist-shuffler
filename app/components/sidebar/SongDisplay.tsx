@@ -1,8 +1,9 @@
 'use client'
 import { useContext, useEffect, useState } from "react";
 import YouTubeEmbed from "../embedPlayers/YoutubeEmbed";
-import { SidebarContext } from "./Sidebar";
+
 import Image from "next/image";
+import { SidebarContext } from "@/app/contexts/sidebarContext";
 
 interface Props {
     selectedSongId: string | null;

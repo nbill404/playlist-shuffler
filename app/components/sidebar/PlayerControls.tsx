@@ -1,8 +1,8 @@
 'use client'
+import { SidebarContext } from "@/app/contexts/sidebarContext";
 import Image from "next/image";
 import { useContext } from "react";
-import { SidebarContext } from "./Sidebar";
-import { shuffle } from "@/app/lib/shuffle";
+
 
 export default function PlayerControls() {
     const { songNum } = useContext(SidebarContext);
@@ -23,8 +23,10 @@ export default function PlayerControls() {
     }
 
     const handleForward = () => {
-        if (songNum < playlist.idList.length - 1) {
-            setSongNum(songNum + 1);
+        if (playlist) { 
+            if (playlist.idList && songNum < playlist.idList.length - 1) {
+                setSongNum(songNum + 1);
+            }
         }
     }
 

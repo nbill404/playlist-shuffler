@@ -18,7 +18,7 @@ export default function AddNestedPlaylistButton({userId, playlist, setPlaylist} 
 
             const name = formData.get("name");
 
-            if (name == "") {
+            if (name != "") {
                 const user = {id: userId}
                 const newElement = new Playlist();
                 newElement.name = name.toString();
