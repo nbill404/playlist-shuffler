@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { Playlist } from "../lib/playlist";
 
-const emptyFunction = (e) => {
+const emptyFunction = (e : any) => {
 }
 
 const defaultValues = {

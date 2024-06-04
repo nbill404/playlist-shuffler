@@ -16,9 +16,9 @@ export default function AddNestedPlaylistButton({userId, playlist, setPlaylist} 
                 throw Error("User is not logged in");
             }
 
-            const name = formData.get("name");
+            const name = formData.get("name")?.toString();
 
-            if (name != "") {
+            if (name) {
                 const user = {id: userId}
                 const newElement = new Playlist();
                 newElement.name = name.toString();

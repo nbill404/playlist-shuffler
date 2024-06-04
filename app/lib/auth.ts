@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
             username: { label: "username", type: "text"},
             password: { label: "password", type: "password" }
           },
-          async authorize(credentials, req) {
+          async authorize(credentials, req) : Promise<any> {
             // Check if both fields have inputs
             if (!credentials?.username || !credentials?.password) {
                 return null
