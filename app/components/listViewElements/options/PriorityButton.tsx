@@ -15,31 +15,33 @@ export default function PriorityButton({userId, element, playlistId} : Props) {
     const [isPressed, setIsPressed] = useState(element.starred);
 
     useEffect(() => {
-        let url = "";
-        const data = {
-            userId: userId,
-            values : {
-                starred: isPressed
+        if (element) {
+            let url = "";
+            const data = {
+                userId: userId,
+                values : {
+                    starred: isPressed
+                }
             }
+
+            if (element instanceof Song) {
+                url = "/api/song/update";
+                Object.assign(data, {
+                    songId: element.id,
+                    playlistId: playlistId
+                });
+            } else if (element instanceof Playlist) {
+                url = "/api/playlist/update";
+                Object.assign(data, {playlistId: element.id});
+            }
+
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(data)
+            }).catch((error) => console.log(error))
+
+            element.starred = isPressed;
         }
-
-        if (element instanceof Song) {
-            url = "/api/song/update";
-            Object.assign(data, {
-                songId: element.id,
-                playlistId: playlistId
-            });
-        } else if (element instanceof Playlist) {
-            url = "/api/playlist/update";
-            Object.assign(data, {playlistId: element.id});
-        }
-
-        fetch(url, {
-            method: "POST",
-            body: JSON.stringify(data)
-        }).catch((error) => console.log(error))
-
-        element.starred = isPressed;
     }, [isPressed, element, userId, playlistId])
 
 
