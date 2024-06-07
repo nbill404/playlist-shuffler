@@ -1,6 +1,8 @@
 import { db } from "@/app/lib/db";
 import { NextResponse } from "next/server";
 
+export const maxDuration = 60; // Vercel max duration of api call
+
 // Retrieves get details of sub playlists given parent
 export async function POST(req: Request) {
     try {
