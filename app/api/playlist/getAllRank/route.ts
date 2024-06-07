@@ -1,6 +1,9 @@
 import { db } from "@/app/lib/db";
 import { NextResponse } from "next/server";
 
+export const maxDuration = 60;
+
+
 // Gets the songs and subplaylists of all playlists in the array
 const getElements = async (array : any, userId: number) => {
     let playlistRankList = [];

@@ -1,6 +1,8 @@
 import { db } from "@/app/lib/db";
 import { NextResponse } from "next/server";
 
+export const maxDuration = 60;
+
 export async function POST(req: Request) {
     try {
         // user id, playlist id
