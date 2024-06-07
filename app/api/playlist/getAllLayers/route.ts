@@ -47,13 +47,13 @@ const getPlaylists = async (userId: number , playlistId: number) => {
 
 export async function POST(req: Request) {
     try {
-        const {userId, playlistId, rank} = await req.json();
+        const {userId, playlistId} = await req.json();
         
         // Details of root playlist
         const details = await db.playlist.findUnique({
             where : {
                 userId: Number(userId),
-                id: playlistId
+                id: Number(playlistId)
             }
         })
 
