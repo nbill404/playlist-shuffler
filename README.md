@@ -1,6 +1,8 @@
 ## Playlist Shuffler
 This website is a allows you to create playlists and use advanced shuffling options.
 
+Link: playlist-shuffler-lime.vercel.app
+
 The site is a NextJs project using TailwindCSS and DaisyUI components. It uses a PostgreSQL backend with Prisma as the database model.
 
 #### Features
